@@ -1,0 +1,69 @@
+Apr 08 *{1,1} asp-5c *{3,18}
+Support: 5755
+
+Apr 08 *{1,1} asp-5c l1nrt_application[1803]: *{4,14}
+Support: 4782
+
+Apr 08 *{1,1} asp-5c l1nrt_application[1803]: L1SW-NRT: *{3,8}
+Support: 4703
+
+Apr 08 *{1,1} asp-5c l1nrt_application[1803]: L1SW-NRT: Fpga read : *{1,1} address: *{1,1}
+Support: 2364
+
+Apr 08 *{1,1} asp-5c l1nrt_application[1803]: L1SW-NRT: Fpga write: *{1,1} address: *{1,1}
+Support: 2295
+
+Apr 08 *{1,1} asp-5c l1nrt_application[1803]: L1SW-NRT: Fpga write: 0x00012800 address: (0x00228010|0x00208010|0x00238010|0x00218010) 
+Support: 2137
+
+Apr 08 *{1,1} asp-5c l1nrt_application[1803]: L1SW-NRT: Fpga read : 0x00012800 address: (0x00238010|0x00218010|0x00228010|0x00208010) 
+Support: 2133
+
+Mar 18 *{1,1} asp-5c *{2,17}
+Support: 1146
+
+Apr 08 (16:10:50|16:10:49) asp-5c l1_application[1812]: L1SW-RT: em_core: 0, *{1,8}
+Support: 521
+
+Mar 18 (10:08:19|10:07:10) asp-5c *{3,31}
+Support: 328
+
+Apr 08 (16:10:52|16:10:54) asp-5c l1nrt_application[1803]: L1SW-NRT: *{3,12}
+Support: 311
+
+Apr 08 16:10:49 asp-5c *{3,11}
+Support: 290
+
+Mar 18 10:08:19 asp-5c l1nrt_application[1803]: L1SW-NRT: *{2,10}
+Support: 262
+
+Apr 08 16:10:49 asp-5c taskset[1812]: *{1,13}
+Support: 249
+
+Mar 18 10:07:01 stratix10-abil kernel: *{1,18}
+Support: 233
+
+Apr 08 16:10:50 asp-5c l1_application[1812]: L1SW-RT: em_core: *{2,7}
+Support: 207
+
+Apr 08 16:10:49 asp-5c l1_application[1812]: L1SW-RT: em_core: 0, Fpga write: *{1,1} address: *{1,1}
+Support: 201
+
+Mar 18 10:07:04 asp-5c kernel[229]: [ *{2,15}
+Support: 180
+
+Apr 08 16:10:50 asp-5c l1_application[1812]: L1SW-RT: em_core: 0, Fpga write: *{1,1} address: *{1,1}
+Support: 162
+
+Mar 18 10:08:19 asp-5c l1nrt_application[1803]: L1SW-NRT: Fpga write: *{1,1} address: *{1,1}
+Support: 131
+
+Apr 08 *{1,1} asp-5c l1nrt_application[1803]: L1SW-NRT: Fpga read : 0x00000000 address: *{1,1}
+Support: 126
+
+Mar 18 10:07:10 asp-5c named[553]: *{1,57}
+Support: 122
+
+Mar 18 *{1,1} asp-5c systemd[1]: *{3,12}
+Support: 104
+
