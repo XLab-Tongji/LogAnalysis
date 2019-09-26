@@ -1,0 +1,24 @@
+May 13 23:49:40.479: %SNMP-3-AUTHFAIL: Authentication failure for SNMP req from host 1.1.1.1
+May 13 23:50:47.563: %SNMP-3-AUTHFAIL: Authentication failure for SNMP req from host 1.1.1.1
+May 13 23:51:51.379: %SNMP-3-AUTHFAIL: Authentication failure for SNMP req from host 1.1.1.1
+May 14 07:20:41.177: %SNMP-3-AUTHFAIL: Authentication failure for SNMP req from host 1.1.1.1
+May 14 15:47:08.467: %SNMP-3-AUTHFAIL: Authentication failure for SNMP req from host 1.1.1.1
+May 16 14:11:59.747: %SNMP-3-AUTHFAIL: Authentication failure for SNMP req from host 1.1.1.1
+May 16 14:13:06.847: %SNMP-3-AUTHFAIL: Authentication failure for SNMP req from host 1.1.1.1
+May 16 14:14:10.651: %SNMP-3-AUTHFAIL: Authentication failure for SNMP req from host 1.1.1.1
+May 16 20:03:13.994: %SNMP-3-AUTHFAIL: Authentication failure for SNMP req from host 1.1.1.1
+May 16 20:24:05.938: %SNMP-3-AUTHFAIL: Authentication failure for SNMP req from host 1.1.1.1
+May 18 02:06:32.043: %ENVM-4-ENVWARN: NPE Inlet measured at 44C/111F
+May 18 02:09:35.043: %ENVM-4-ENVWARN: NPE Outlet measured at 49C/120F
+May 18 03:07:32.814: %ENVM-4-ENVWARN: NPE Inlet measured at 49C/120F
+May 18 03:10:35.814: %ENVM-4-ENVWARN: NPE Outlet measured at 54C/129F
+May 18 04:07:33.030: %ENVM-4-ENVWARN: NPE Inlet measured at 44C/111F
+May 18 04:10:36.266: %ENVM-4-ENVWARN: NPE Outlet measured at 49C/120F
+May 19 04:29:28.760: %SNMP-3-AUTHFAIL: Authentication failure for SNMP req from host 1.1.1.1
+May 19 04:30:35.844: %SNMP-3-AUTHFAIL: Authentication failure for SNMP req from host 1.1.1.1
+May 19 04:31:39.648: %SNMP-3-AUTHFAIL: Authentication failure for SNMP req from host 1.1.1.1
+May 20 08:18:30.241: %SNMP-3-AUTHFAIL: Authentication failure for SNMP req from host 1.1.1.1
+May 21 07:15:26.207: %SNMP-3-AUTHFAIL: Authentication failure for SNMP req from host 1.1.1.1
+May 21 18:46:50.737: %SNMP-3-AUTHFAIL: Authentication failure for SNMP req from host 1.1.1.1
+May 21 18:47:57.833: %SNMP-3-AUTHFAIL: Authentication failure for SNMP req from host 1.1.1.1
+May 21 18:49:01.625: %SNMP-3-AUTHFAIL: Authentication failure for SNMP req from host 1.1.1.1

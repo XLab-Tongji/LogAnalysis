@@ -1,0 +1,48 @@
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/5, changed state to up
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/4, changed state to down
+2y20w: %LINK-3-UPDOWN: Interface FastEthernet0/4, changed state to down
+2y20w: %LINK-3-UPDOWN: Interface FastEthernet0/4, changed state to up
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/4, changed state to up
+2y20w: %LINK-3-UPDOWN: Interface FastEthernet0/22, changed state to up
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/22, changed state to up
+2y20w: %LINK-3-UPDOWN: Interface FastEthernet0/24, changed state to up
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/24, changed state to up
+2y20w: %LINK-3-UPDOWN: Interface FastEthernet0/18, changed state to up
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/18, changed state to up
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/18, changed state to down
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/18, changed state to up
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/24, changed state to down
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/24, changed state to up
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/6, changed state to down
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/6, changed state to up
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/17, changed state to down
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/17, changed state to up
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/17, changed state to down
+2y20w: %LINK-3-UPDOWN: Interface FastEthernet0/17, changed state to down
+2y20w: %LINK-3-UPDOWN: Interface FastEthernet0/17, changed state to up
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/17, changed state to up
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/17, changed state to down
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/17, changed state to up
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/17, changed state to down
+2y20w: %LINK-3-UPDOWN: Interface FastEthernet0/17, changed state to down
+2y20w: %LINK-3-UPDOWN: Interface FastEthernet0/17, changed state to up
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/17, changed state to up
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/17, changed state to down
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/17, changed state to up
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/18, changed state to down
+2y20w: %LINK-3-UPDOWN: Interface FastEthernet0/18, changed state to down
+2y20w: %LINK-3-UPDOWN: Interface FastEthernet0/18, changed state to up
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/18, changed state to up
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/18, changed state to down
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/18, changed state to up
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/17, changed state to down
+2y20w: %LINK-3-UPDOWN: Interface FastEthernet0/17, changed state to down
+2y20w: %LINK-3-UPDOWN: Interface FastEthernet0/17, changed state to up
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/17, changed state to up
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/17, changed state to down
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/17, changed state to up
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/17, changed state to down
+2y20w: %LINK-3-UPDOWN: Interface FastEthernet0/17, changed state to down
+2y20w: %LINK-3-UPDOWN: Interface FastEthernet0/17, changed state to up
+2y20w: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/17, changed state to up
+
