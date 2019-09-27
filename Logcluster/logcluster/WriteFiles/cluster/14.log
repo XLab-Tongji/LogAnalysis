@@ -1,0 +1,464 @@
+*{1,1} 02.06 *{1,1} [192.168.255.129] *{1,1} FCT-E002-2-syslog- *{1,1} 67-syslog-proxy *{3,12}
+Support: 460
+
+2020 2021 2022 2023 2028 2135 2142 2240 2242 2243 2247 2249 2250 2349 2355 2440 2513 2600 2601 2670 2671 2740 2742 2744 2748 2820 2822 2823 2824 2893 2894 2895 2896 2898 2899 2900 2901 2902 2903 2922 2923 2926 2927 2929 2991 2995 2998 3069 3075 3077 3153 3156 3236 3237 3292 3293 3294 3296 3299 3302 3312 3318 3319 3323 3324 3326 3327 3328 3329 3340 3342 3349 3361 3368 3369 3977 3978 6234 6235 6932 6933 6934 6935 6989 6990 6991 6992 6993 7027 7028 7034 7060 7070 7098 7099 7100 7121 7768 7769 7770 7771 7773 7775 7777 7832 7833 7834 7835 7836 7838 7840 7843 7927 7928 7932 7933 7936 7939 8015 8024 8080 8085 8086 8142 8145 8148 8151 8154 8236 8239 8242 8245 8346 8349 8352 8354 8357 8428 8431 8434 8437 8534 8535 8539 8540 8541 8542 8620 8621 8623 8624 8626 8627 8629 8630 8633 8700 8701 8703 8704 8705 8707 8708 8709 8789 8790 8791 8792 8793 8794 8869 8870 8871 8872 8873 8946 8948 8949 8950 8951 8953 8954 8955 9021 9022 9023 9024 9025 9027 9028 9031 9032 9033 9106 9107 9108 9109 9110 9111 9204 12268 12269 12270 12380 12381 12382 12383 12384 12385 12386 12489 14072 14073 14074 14075 14078 14079 14081 14204 14207 14208 14210 14212 14215 14341 14342 14346 14347 14350 14352 14353 14436 14438 14443 14447 14550 14555 14556 14620 14623 14626 14629 14632 14706 14709 14712 14715 14794 14797 14800 14802 14805 14879 14882 14885 14888 14964 14965 14969 14970 14971 14972 15042 15043 15045 15046 15048 15049 15051 15052 15055 15150 15151 15153 15154 15155 15157 15158 15159 15237 15238 15239 15240 15241 15242 15314 15315 15316 15317 15318 15393 15395 15396 15397 15398 15400 15401 15402 15479 15480 15482 15483 15485 15486 15491 15533 15535 15536 15537 15538 15539 15541 16692 16693 16694 16695 16696 16697 16698 16800 18185 18186 18187 18188 18192 18194 18318 18321 18322 18324 18326 18329 18447 18448 18452 18453 18459 18542 18551 18653 18658 18659 18728 18731 18734 18737 18740 18814 18817 18820 18823 18902 18905 18908 18910 18913 18984 18987 18990 18993 19069 19074 19075 19154 19157 19160 19163 19265 19343 19344 19345 19346 19347 19348 19416 19417 19418 19419 19420 19498 19500 19501 19502 19503 19505 19506 19507 19587 19588 19591 19593 19594 19598 19599 19661 19662 19663 19664 20653 20654 20655 20656 20662 20713 20719 20720 20775 20776 20779 20811 20812 20846 20847 20849 20850 20851 20852 20853 20889 20890 20891 20933 20934 20982 20983 20984 20985 20986 20987 21023 21028 21029 21030 21065 21066 21071 21099 21106 21130 21136 21137 21140 21188 21191 21193 21197 21202 21210 21220 21228 21229 21230 21244 21245 21246 21247 21257 21260 21268 21269 
+002020 02.06 14:23:12.586 [192.168.255.129] a5 FCT-E002-2-syslog- <2019-06-02T06:23:15.310191Z> 67-syslog-proxy INF/[09:23:15.309664][cp_cl][106][000106][info] CplaneCellReceiver.cpp#85: Processing CellRequest:
+002021 02.06 14:23:12.586 [192.168.255.129] a6 FCT-E002-2-syslog- <2019-06-02T06:23:15.310196Z> 67-syslog-proxy INF/[09:23:15.309677][cp_cl][106][000106][info] ProtoMessageTypePrinter.cpp#8: common_messages.ReceiveFromDu
+002022 02.06 14:23:12.586 [192.168.255.129] a7 FCT-E002-2-syslog- <2019-06-02T06:23:15.310197Z> 67-syslog-proxy DBG/[09:23:15.309688][cp_cl][106][000106][debug] DistributedUnitsService.cpp#334: Received F1Envelope from GnbDuId: 0
+002023 02.06 14:23:12.586 [192.168.255.129] a8 FCT-E002-2-syslog- <2019-06-02T06:23:15.312352Z> 67-syslog-proxy DBG/[09:23:15.310369][cp_cl][106][000106][trace] DistributedUnitsService.cpp#337: Received F1AP Message from CP-IF
+002028 02.06 14:23:12.586 [192.168.255.129] ad FCT-E002-2-syslog- <2019-06-02T06:23:15.312360Z> 67-syslog-proxy DBG/ "cellsToAdd": [
+002135 02.06 14:23:12.596 [192.168.255.129] b2 FCT-E002-2-syslog- <2019-06-02T06:23:15.312365Z> 67-syslog-proxy DBG/ "value": [
+002142 02.06 14:23:12.596 [192.168.255.129] b9 FCT-E002-2-syslog- <2019-06-02T06:23:15.312376Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>882573315</LOG_SCRAM_11>"
+002240 02.06 14:23:12.606 [192.168.255.129] bd FCT-E002-2-syslog- <2019-06-02T06:23:15.312380Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>104</LOG_SCRAM_11>"
+002242 02.06 14:23:12.606 [192.168.255.129] bf FCT-E002-2-syslog- <2019-06-02T06:23:15.312382Z> 67-syslog-proxy DBG/ "extendedTac": "--",
+002243 02.06 14:23:12.606 [192.168.255.129] c0 FCT-E002-2-syslog- <2019-06-02T06:23:15.312383Z> 67-syslog-proxy DBG/ "configEpsTac": [
+002247 02.06 14:23:12.606 [192.168.255.129] c4 FCT-E002-2-syslog- <2019-06-02T06:23:15.312387Z> 67-syslog-proxy DBG/ "servedPLMNs": [
+002249 02.06 14:23:12.606 [192.168.255.129] c6 FCT-E002-2-syslog- <2019-06-02T06:23:15.312389Z> 67-syslog-proxy DBG/ "pLMNIdentity": {
+002250 02.06 14:23:12.606 [192.168.255.129] c7 FCT-E002-2-syslog- <2019-06-02T06:23:15.312390Z> 67-syslog-proxy DBG/ "value": [
+002349 02.06 14:23:12.619 [192.168.255.129] cd FCT-E002-2-syslog- <2019-06-02T06:23:15.312397Z> 67-syslog-proxy DBG/ "tAISliceSupportList": "--"
+002355 02.06 14:23:12.619 [192.168.255.129] d3 FCT-E002-2-syslog- <2019-06-02T06:23:15.312402Z> 67-syslog-proxy DBG/ "value": "503172"
+002440 02.06 14:23:12.629 [192.168.255.129] d5 FCT-E002-2-syslog- <2019-06-02T06:23:15.312404Z> 67-syslog-proxy DBG/ "freqBandListNr": [
+002513 02.06 14:23:12.629 [192.168.255.129] e1 FCT-E002-2-syslog- <2019-06-02T06:23:15.312417Z> 67-syslog-proxy DBG/ "measurementTimingConfiguration": [
+002600 02.06 14:23:12.644 [192.168.255.129] f4 FCT-E002-2-syslog- <2019-06-02T06:23:15.312434Z> 67-syslog-proxy DBG/[09:23:15.310380][cp_cl][106][000106][trace] ConcreteF1InterfaceEvents.cpp#25: [NrBtsId: 53868, NrDuId: 1]: incrementing sum counter(id: 3612148232)
+002601 02.06 14:23:12.644 [192.168.255.129] f5 FCT-E002-2-syslog- <2019-06-02T06:23:15.312435Z> 67-syslog-proxy DBG/[09:23:15.310414][cp_cl][106][000106][trace] ConcreteF1InterfaceEvents.cpp#25: [NrBtsId: 53868, NrDuId: 1]: incrementing sum counter(id: 3612148233)
+002670 02.06 14:23:12.660 [192.168.255.129] f9 FCT-E002-2-syslog- <2019-06-02T06:23:15.312442Z> 67-syslog-proxy INF/[09:23:15.310465][cp_cl][106][000106][info] SdlServedCellsStorage.cpp#27: GnbDuId: 0 storing served cells: [NRCellIdentity: <LOG_SCRAM_11>882573313</LOG_SCRAM_11>, NRCellIdentity: <LOG_SCRAM_11>882573315</LOG_SCRAM_11>].
+002671 02.06 14:23:12.660 [192.168.255.129] fa FCT-E002-2-syslog- <2019-06-02T06:23:15.312443Z> 67-syslog-proxy INF/[09:23:15.310511][cp_cl][106][000106][info] SdlServedCellsStorage.cpp#27: GnbDuId: 0 storing served cells: [NRCellIdentity: <LOG_SCRAM_11>882573313</LOG_SCRAM_11>, NRCellIdentity: <LOG_SCRAM_11>882573315</LOG_SCRAM_11>].
+002740 02.06 14:23:12.660 [192.168.255.129] fc FCT-E002-2-syslog- <2019-06-02T06:23:15.312447Z> 67-syslog-proxy DBG/[09:23:15.310575][cp_cl][106][000106][trace] ConcreteF1apSender.cpp#74: CP-Cell sending DuConfigurationUpdateAck to CP-IF F1AP
+002742 02.06 14:23:12.660 [192.168.255.129] fe FCT-E002-2-syslog- <2019-06-02T06:23:15.312449Z> 67-syslog-proxy DBG/ "DuConfigurationUpdateAck": {
+002744 02.06 14:23:12.660 [192.168.255.129] 01 FCT-E002-2-syslog- <2019-06-02T06:23:15.312451Z> 67-syslog-proxy DBG/ "transactionId": "TransactionId: 0"
+002748 02.06 14:23:12.660 [192.168.255.129] 05 FCT-E002-2-syslog- <2019-06-02T06:23:15.312454Z> 67-syslog-proxy DBG/[09:23:15.310580][cp_cl][106][000106][trace] ConcreteF1InterfaceEvents.cpp#25: [NrBtsId: 53868, NrDuId: 1]: incrementing sum counter(id: 3612148236)
+002820 02.06 14:23:12.675 [192.168.255.129] 06 FCT-E002-2-syslog- <2019-06-02T06:23:15.312454Z> 67-syslog-proxy DBG/[09:23:15.310630][cp_cl][106][000106][trace] DuCellDynamicConfigurationProcedure.cpp#94: DistributedUnit[GnbDuId: 0]: DuCellDynamicConfigurationProcedure[TransactionId: 0]: sent DuConfigurationUpdateAck
+002822 02.06 14:23:12.675 [192.168.255.129] 08 FCT-E002-2-syslog- <2019-06-02T06:23:15.312457Z> 67-syslog-proxy DBG/[09:23:15.310641][cp_cl][106][000106][debug] EndcConfigurationUpdateProcedure.cpp#98: DistributedUnit[GnbDuId: 0]: ENDCConfigurationUpdateProcedure[TransactionId: 0]: scheduling timer guarding CpIfEndcUpdateResponse (nsaCellEndcUpdateTimer: 352s)
+002823 02.06 14:23:12.675 [192.168.255.129] 09 FCT-E002-2-syslog- <2019-06-02T06:23:15.312458Z> 67-syslog-proxy DBG/[09:23:15.310650][cp_cl][106][000106][debug] X2LinkEstablishmentMonitor.cpp#68: Add NsaCellActivationTimer Guard for NRCellIdentity: <LOG_SCRAM_11>882573315</LOG_SCRAM_11>
+002824 02.06 14:23:12.675 [192.168.255.129] 0a FCT-E002-2-syslog- <2019-06-02T06:23:15.312459Z> 67-syslog-proxy DBG/[09:23:15.311114][cp_cl][106][000106][trace] ConcreteMenbSender.cpp#36: CP-Cell Sending CpIfEndcUpdateRequest to CP-IF X2ap
+002893 02.06 14:23:12.691 [192.168.255.129] 0c FCT-E002-2-syslog- <2019-06-02T06:23:15.312460Z> 67-syslog-proxy DBG/ "CpIfEndcUpdateRequest": {
+002894 02.06 14:23:12.691 [192.168.255.129] 0d FCT-E002-2-syslog- <2019-06-02T06:23:15.312462Z> 67-syslog-proxy DBG/ "transactionId": "TransactionId: 0",
+002895 02.06 14:23:12.691 [192.168.255.129] 0e FCT-E002-2-syslog- <2019-06-02T06:23:15.312462Z> 67-syslog-proxy DBG/ "gnbDuId": "GnbDuId: 0",
+002896 02.06 14:23:12.691 [192.168.255.129] 0f FCT-E002-2-syslog- <2019-06-02T06:23:15.312463Z> 67-syslog-proxy DBG/ "endcNrCellsInDu": [
+002898 02.06 14:23:12.691 [192.168.255.129] 11 FCT-E002-2-syslog- <2019-06-02T06:23:15.312465Z> 67-syslog-proxy DBG/ "cellOperationType": "0",
+002899 02.06 14:23:12.691 [192.168.255.129] 12 FCT-E002-2-syslog- <2019-06-02T06:23:15.312466Z> 67-syslog-proxy DBG/ "ncgi": "--",
+002900 02.06 14:23:12.691 [192.168.255.129] 13 FCT-E002-2-syslog- <2019-06-02T06:23:15.312467Z> 67-syslog-proxy DBG/ "servedCellInformation": {
+002901 02.06 14:23:12.691 [192.168.255.129] 14 FCT-E002-2-syslog- <2019-06-02T06:23:15.312468Z> 67-syslog-proxy DBG/ "nRCGI": {
+002902 02.06 14:23:12.691 [192.168.255.129] 15 FCT-E002-2-syslog- <2019-06-02T06:23:15.312469Z> 67-syslog-proxy DBG/ "plmnIdentity": {
+002903 02.06 14:23:12.691 [192.168.255.129] 16 FCT-E002-2-syslog- <2019-06-02T06:23:15.312470Z> 67-syslog-proxy DBG/ "value": [
+002922 02.06 14:23:12.691 [192.168.255.129] 1c FCT-E002-2-syslog- <2019-06-02T06:23:15.312478Z> 67-syslog-proxy DBG/ "nrCellIdentifier": {
+002923 02.06 14:23:12.691 [192.168.255.129] 1d FCT-E002-2-syslog- <2019-06-02T06:23:15.312479Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>882573315</LOG_SCRAM_11>"
+002926 02.06 14:23:12.691 [192.168.255.129] 20 FCT-E002-2-syslog- <2019-06-02T06:23:15.312482Z> 67-syslog-proxy DBG/ "pci": {
+002927 02.06 14:23:12.691 [192.168.255.129] 21 FCT-E002-2-syslog- <2019-06-02T06:23:15.312483Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>104</LOG_SCRAM_11>"
+002929 02.06 14:23:12.691 [192.168.255.129] 23 FCT-E002-2-syslog- <2019-06-02T06:23:15.312484Z> 67-syslog-proxy DBG/ "extendedTac": "--",
+002991 02.06 14:23:12.707 [192.168.255.129] 24 FCT-E002-2-syslog- <2019-06-02T06:23:15.312485Z> 67-syslog-proxy DBG/ "configEpsTac": [
+002995 02.06 14:23:12.707 [192.168.255.129] 28 FCT-E002-2-syslog- <2019-06-02T06:23:15.312489Z> 67-syslog-proxy DBG/ "servedPLMNs": [
+002998 02.06 14:23:12.707 [192.168.255.129] 2b FCT-E002-2-syslog- <2019-06-02T06:23:15.312492Z> 67-syslog-proxy DBG/ "value": [
+003069 02.06 14:23:12.707 [192.168.255.129] 31 FCT-E002-2-syslog- <2019-06-02T06:23:15.312498Z> 67-syslog-proxy DBG/ "tAISliceSupportList": "--"
+003075 02.06 14:23:12.707 [192.168.255.129] 37 FCT-E002-2-syslog- <2019-06-02T06:23:15.312504Z> 67-syslog-proxy DBG/ "value": "503172"
+003077 02.06 14:23:12.707 [192.168.255.129] 39 FCT-E002-2-syslog- <2019-06-02T06:23:15.312506Z> 67-syslog-proxy DBG/ "freqBandListNr": [
+003153 02.06 14:23:12.722 [192.168.255.129] 42 FCT-E002-2-syslog- <2019-06-02T06:23:15.312519Z> 67-syslog-proxy DBG/ "nrNrb": "273"
+003156 02.06 14:23:12.722 [192.168.255.129] 45 FCT-E002-2-syslog- <2019-06-02T06:23:15.312521Z> 67-syslog-proxy DBG/ "measurementTimingConfiguration": [
+003236 02.06 14:23:12.738 [192.168.255.129] 53 FCT-E002-2-syslog- <2019-06-02T06:23:15.312533Z> 67-syslog-proxy DBG/[09:23:15.311167][cp_cl][106][000106][debug] ProtoSender.hpp#32: Socket connected to <LOG_SCRAM_65>tcp://cpif:30532</LOG_SCRAM_65>
+003237 02.06 14:23:12.738 [192.168.255.129] 54 FCT-E002-2-syslog- <2019-06-02T06:23:15.312534Z> 67-syslog-proxy DBG/[09:23:15.311202][cp_cl][106][000106][trace] EndcConfigurationUpdateProcedure.cpp#163: DistributedUnit[GnbDuId: 0]: ENDCConfigurationUpdateProcedure[TransactionId: 0]: sent CpIfEndcUpdateRequest
+003292 02.06 14:23:12.738 [192.168.255.129] 55 FCT-E002-2-syslog- <2019-06-02T06:23:15.323560Z> 67-syslog-proxy INF/[09:23:15.323039][cp_cl][106][000106][info] CplaneCellReceiver.cpp#85: Processing CellRequest:
+003293 02.06 14:23:12.738 [192.168.255.129] 56 FCT-E002-2-syslog- <2019-06-02T06:23:15.323565Z> 67-syslog-proxy INF/[09:23:15.323110][cp_cl][106][000106][info] ProtoMessageTypePrinter.cpp#8: cell_request.CpIfEndcUpdateResponse
+003294 02.06 14:23:12.738 [192.168.255.129] 57 FCT-E002-2-syslog- <2019-06-02T06:23:15.323566Z> 67-syslog-proxy DBG/[09:23:15.323200][cp_cl][106][000106][trace] DistributedUnitsService.cpp#455: Received CpIfEndcUpdateResponse from X2
+003296 02.06 14:23:12.738 [192.168.255.129] 59 FCT-E002-2-syslog- <2019-06-02T06:23:15.323568Z> 67-syslog-proxy DBG/ "CpIfEndcUpdateResponse": {
+003299 02.06 14:23:12.738 [192.168.255.129] 5c FCT-E002-2-syslog- <2019-06-02T06:23:15.323571Z> 67-syslog-proxy DBG/ "nrCellsInDu": [
+003302 02.06 14:23:12.738 [192.168.255.129] 5f FCT-E002-2-syslog- <2019-06-02T06:23:15.323574Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>882573315</LOG_SCRAM_11>"
+003312 02.06 14:23:12.753 [192.168.255.129] 61 FCT-E002-2-syslog- <2019-06-02T06:23:15.323576Z> 67-syslog-proxy DBG/ "status": "Status: ok"
+003318 02.06 14:23:12.753 [192.168.255.129] 67 FCT-E002-2-syslog- <2019-06-02T06:23:15.323586Z> 67-syslog-proxy DBG/[09:23:15.323211][cp_cl][106][000106][debug] FunctorResponseMatcherHandler.hpp#25: Received response of type messages::cplane_cell::CpIfEndcUpdateResponse
+003319 02.06 14:23:12.753 [192.168.255.129] 68 FCT-E002-2-syslog- <2019-06-02T06:23:15.323587Z> 67-syslog-proxy DBG/[09:23:15.323223][cp_cl][106][000106][debug] X2LinkEstablishmentMonitor.cpp#28: Cancelling timer for cell activation for NRCellIdentity: <LOG_SCRAM_11>882573315</LOG_SCRAM_11>
+003323 02.06 14:23:12.769 [192.168.255.129] 6a FCT-E002-2-syslog- <2019-06-02T06:23:15.323590Z> 67-syslog-proxy DBG/[09:23:15.323238][cp_cl][106][000106][debug] ConcreteCuConfigurationUpdateProcedure.cpp#83: DistributedUnit[GnbDuId: 0]: CuConfigurationUpdateProcedure[TransactionId: 1]: scheduling timer guarding CuConfigurationUpdateAck (timerf1NonUeProcGuard: 600s)
+003324 02.06 14:23:12.769 [192.168.255.129] 6b FCT-E002-2-syslog- <2019-06-02T06:23:15.323591Z> 67-syslog-proxy DBG/[09:23:15.323378][cp_cl][106][000106][trace] ConcreteF1apSender.cpp#68: CP-Cell sending CuConfigurationUpdate to CP-IF F1AP
+003326 02.06 14:23:12.769 [192.168.255.129] 6d FCT-E002-2-syslog- <2019-06-02T06:23:15.323593Z> 67-syslog-proxy DBG/ "CuConfigurationUpdate": {
+003327 02.06 14:23:12.769 [192.168.255.129] 6e FCT-E002-2-syslog- <2019-06-02T06:23:15.323594Z> 67-syslog-proxy DBG/ "transactionId": "TransactionId: 1",
+003328 02.06 14:23:12.769 [192.168.255.129] 6f FCT-E002-2-syslog- <2019-06-02T06:23:15.323595Z> 67-syslog-proxy DBG/ "gnbDuId": "GnbDuId: 0",
+003329 02.06 14:23:12.769 [192.168.255.129] 70 FCT-E002-2-syslog- <2019-06-02T06:23:15.323596Z> 67-syslog-proxy DBG/ "cellsToBeActivatedList": [
+003340 02.06 14:23:12.769 [192.168.255.129] 72 FCT-E002-2-syslog- <2019-06-02T06:23:15.323597Z> 67-syslog-proxy DBG/ "ncgi": {
+003342 02.06 14:23:12.769 [192.168.255.129] 74 FCT-E002-2-syslog- <2019-06-02T06:23:15.323599Z> 67-syslog-proxy DBG/ "value": [
+003349 02.06 14:23:12.769 [192.168.255.129] 7b FCT-E002-2-syslog- <2019-06-02T06:23:15.323607Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>882573315</LOG_SCRAM_11>"
+003361 02.06 14:23:12.785 [192.168.255.129] 7e FCT-E002-2-syslog- <2019-06-02T06:23:15.323610Z> 67-syslog-proxy DBG/ "pci": "--"
+003368 02.06 14:23:12.785 [192.168.255.129] 85 FCT-E002-2-syslog- <2019-06-02T06:23:15.323617Z> 67-syslog-proxy DBG/[09:23:15.323385][cp_cl][106][000106][trace] ConcreteF1InterfaceEvents.cpp#25: [NrBtsId: 53868, NrDuId: 1]: incrementing sum counter(id: 3612148213)
+003369 02.06 14:23:12.785 [192.168.255.129] 86 FCT-E002-2-syslog- <2019-06-02T06:23:15.323618Z> 67-syslog-proxy DBG/[09:23:15.323416][cp_cl][106][000106][trace] ConcreteF1InterfaceEvents.cpp#25: [NrBtsId: 53868, NrDuId: 1]: incrementing sum counter(id: 3612148214)
+003977 02.06 14:23:13.962 [192.168.255.129] 87 FCT-E002-2-syslog- <2019-06-02T06:23:16.691894Z> 67-syslog-proxy DBG/[09:23:16.691714][cp_cl][106][000106][debug] PeriodicNsaUserCounterUpdater.cpp#33: active cells: [NRCellIdentity: <LOG_SCRAM_11>882573313</LOG_SCRAM_11>]
+003978 02.06 14:23:13.962 [192.168.255.129] 88 FCT-E002-2-syslog- <2019-06-02T06:23:16.691899Z> 67-syslog-proxy DBG/[09:23:16.691721][cp_cl][106][000106][debug] PeriodicNsaUserCounterUpdater.cpp#45: Periodic counter updates: cell: 882573313, 5G_AVE_NUMBER_OF_NSA_USERS: 0
+006234 02.06 14:23:33.959 [192.168.255.129] 89 FCT-E002-2-syslog- <2019-06-02T06:23:36.692284Z> 67-syslog-proxy DBG/[09:23:36.692027][cp_cl][106][000106][debug] PeriodicNsaUserCounterUpdater.cpp#33: active cells: [NRCellIdentity: <LOG_SCRAM_11>882573313</LOG_SCRAM_11>]
+006235 02.06 14:23:33.959 [192.168.255.129] 8a FCT-E002-2-syslog- <2019-06-02T06:23:36.692290Z> 67-syslog-proxy DBG/[09:23:36.692033][cp_cl][106][000106][debug] PeriodicNsaUserCounterUpdater.cpp#45: Periodic counter updates: cell: 882573313, 5G_AVE_NUMBER_OF_NSA_USERS: 0
+006932 02.06 14:23:41.717 [192.168.255.129] 8b FCT-E002-2-syslog- <2019-06-02T06:23:44.446505Z> 67-syslog-proxy INF/[09:23:44.446227][cp_cl][106][000106][info] CplaneCellReceiver.cpp#85: Processing CellRequest:
+006933 02.06 14:23:41.717 [192.168.255.129] 8c FCT-E002-2-syslog- <2019-06-02T06:23:44.446510Z> 67-syslog-proxy INF/[09:23:44.446241][cp_cl][106][000106][info] ProtoMessageTypePrinter.cpp#8: common_messages.ReceiveFromDu
+006934 02.06 14:23:41.717 [192.168.255.129] 8d FCT-E002-2-syslog- <2019-06-02T06:23:44.446511Z> 67-syslog-proxy DBG/[09:23:44.446251][cp_cl][106][000106][debug] DistributedUnitsService.cpp#334: Received F1Envelope from GnbDuId: 0
+006935 02.06 14:23:41.717 [192.168.255.129] 8e FCT-E002-2-syslog- <2019-06-02T06:23:44.446512Z> 67-syslog-proxy DBG/[09:23:44.446320][cp_cl][106][000106][trace] DistributedUnitsService.cpp#337: Received F1AP Message from CP-IF
+006989 02.06 14:23:41.733 [192.168.255.129] 96 FCT-E002-2-syslog- <2019-06-02T06:23:44.446520Z> 67-syslog-proxy DBG/[09:23:44.446327][cp_cl][106][000106][trace] ConcreteF1InterfaceEvents.cpp#25: [NrBtsId: 53868, NrDuId: 1]: incrementing sum counter(id: 3612148217)
+006990 02.06 14:23:41.733 [192.168.255.129] 97 FCT-E002-2-syslog- <2019-06-02T06:23:44.446521Z> 67-syslog-proxy DBG/[09:23:44.446356][cp_cl][106][000106][trace] ConcreteF1InterfaceEvents.cpp#25: [NrBtsId: 53868, NrDuId: 1]: incrementing sum counter(id: 3612148218)
+006991 02.06 14:23:41.733 [192.168.255.129] 98 FCT-E002-2-syslog- <2019-06-02T06:23:44.446522Z> 67-syslog-proxy DBG/[09:23:44.446374][cp_cl][106][000106][debug] FunctorResponseMatcherHandler.hpp#25: Received response of type messages::f1ap::CuConfigurationUpdateAck
+006992 02.06 14:23:41.733 [192.168.255.129] 99 FCT-E002-2-syslog- <2019-06-02T06:23:44.446523Z> 67-syslog-proxy INF/[09:23:44.446381][cp_cl][106][000106][info] ConcreteCuConfigurationUpdateProcedure.cpp#97: DistributedUnit[GnbDuId: 0]: CuConfigurationUpdateProcedure[TransactionId: 1]: finished successfully
+006993 02.06 14:23:41.733 [192.168.255.129] 9a FCT-E002-2-syslog- <2019-06-02T06:23:44.446524Z> 67-syslog-proxy DBG/[09:23:44.446389][cp_cl][106][000106][trace] ConcreteCuConfigurationUpdateProcedure.cpp#104: DistributedUnit[GnbDuId: 0]: CuConfigurationUpdateProcedure[TransactionId: 1]: successfully activated cells: [NRCellIdentity: <LOG_SCRAM_11>882573315</LOG_SCRAM_11>]
+007027 02.06 14:23:41.733 [192.168.255.129] 9b FCT-E002-2-syslog- <2019-06-02T06:23:44.446528Z> 67-syslog-proxy WRN/[09:23:44.446393][cp_cl][106][000106][warning] ConcreteCuConfigurationUpdateProcedure.cpp#108: DistributedUnit[GnbDuId: 0]: CuConfigurationUpdateProcedure[TransactionId: 1]: failed to activate cells: []
+007028 02.06 14:23:41.733 [192.168.255.129] 9c FCT-E002-2-syslog- <2019-06-02T06:23:44.446529Z> 67-syslog-proxy DBG/[09:23:44.446409][cp_cl][106][000106][debug] SdlF1APCellsStorage.cpp#159: Storing 1 cells in SDL
+007034 02.06 14:23:41.733 [192.168.255.129] a2 FCT-E002-2-syslog- <2019-06-02T06:23:44.447015Z> 67-syslog-proxy DBG/ "cellToAddList": [
+007060 02.06 14:23:41.748 [192.168.255.129] a5 FCT-E002-2-syslog- <2019-06-02T06:23:44.447018Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>882573315</LOG_SCRAM_11>"
+007070 02.06 14:23:41.748 [192.168.255.129] af FCT-E002-2-syslog- <2019-06-02T06:23:44.447027Z> 67-syslog-proxy INF/[09:23:44.446907][cp_cl][106][000106][info] SdlServedCellsStorage.cpp#27: GnbDuId: 0 storing served cells: [NRCellIdentity: <LOG_SCRAM_11>882573313</LOG_SCRAM_11>, NRCellIdentity: <LOG_SCRAM_11>882573315</LOG_SCRAM_11>].
+007098 02.06 14:23:41.764 [192.168.255.129] b2 FCT-E002-2-syslog- <2019-06-02T06:23:44.447787Z> 67-syslog-proxy INF/[09:23:44.447696][cp_cl][106][000106][info] CplaneCellReceiver.cpp#85: Processing CellRequest:
+007099 02.06 14:23:41.764 [192.168.255.129] b3 FCT-E002-2-syslog- <2019-06-02T06:23:44.447791Z> 67-syslog-proxy INF/[09:23:44.447702][cp_cl][106][000106][info] ProtoMessageTypePrinter.cpp#8: cell_request.CpCellCellStatusUpdateConfirm
+007100 02.06 14:23:41.764 [192.168.255.129] b4 FCT-E002-2-syslog- <2019-06-02T06:23:44.447792Z> 67-syslog-proxy DBG/[09:23:44.447741][cp_cl][106][000106][trace] CplaneCell.cpp#225: Received CpCellCellStatusUpdateConfirm:
+007121 02.06 14:23:41.764 [192.168.255.129] bb FCT-E002-2-syslog- <2019-06-02T06:23:44.447802Z> 67-syslog-proxy DBG/[09:23:44.447747][cp_cl][106][000106][debug] ConcreteCpNbNotificator.cpp#75: Received CpCellCellStatusUpdateConfirm with transaction id 1
+007768 02.06 14:23:42.824 [192.168.255.129] bc FCT-E002-2-syslog- <2019-06-02T06:23:45.560248Z> 67-syslog-proxy INF/[09:23:45.558707][cp_cl][106][000106][info] CplaneCellReceiver.cpp#85: Processing CellRequest:
+007769 02.06 14:23:42.824 [192.168.255.129] bd FCT-E002-2-syslog- <2019-06-02T06:23:45.560253Z> 67-syslog-proxy INF/[09:23:45.558988][cp_cl][106][000106][info] ProtoMessageTypePrinter.cpp#8: cell_request.CpCellAdmissionReq
+007770 02.06 14:23:42.824 [192.168.255.129] be FCT-E002-2-syslog- <2019-06-02T06:23:45.560254Z> 67-syslog-proxy DBG/[09:23:45.559005][cp_cl][106][000106][debug] RadioAdmissionControlService.cpp#225: Received AdmissionReq (cuUeId:0)
+007771 02.06 14:23:42.824 [192.168.255.129] bf FCT-E002-2-syslog- <2019-06-02T06:23:45.560254Z> 67-syslog-proxy DBG/[09:23:45.559643][cp_cl][106][000106][trace] RadioAdmissionControlService.cpp#226: Received AdmissionReq message:{}
+007773 02.06 14:23:42.824 [192.168.255.129] c1 FCT-E002-2-syslog- <2019-06-02T06:23:45.560256Z> 67-syslog-proxy DBG/ "AdmissionReq": {
+007775 02.06 14:23:42.824 [192.168.255.129] c3 FCT-E002-2-syslog- <2019-06-02T06:23:45.560258Z> 67-syslog-proxy DBG/ "cellList": [
+007777 02.06 14:23:42.824 [192.168.255.129] c5 FCT-E002-2-syslog- <2019-06-02T06:23:45.560260Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>882573315</LOG_SCRAM_11>"
+007832 02.06 14:23:42.840 [192.168.255.129] c8 FCT-E002-2-syslog- <2019-06-02T06:23:45.560263Z> 67-syslog-proxy DBG/ "reason": "2",
+007833 02.06 14:23:42.840 [192.168.255.129] c9 FCT-E002-2-syslog- <2019-06-02T06:23:45.560264Z> 67-syslog-proxy DBG/ "ueContextInformation": {
+007834 02.06 14:23:42.840 [192.168.255.129] ca FCT-E002-2-syslog- <2019-06-02T06:23:45.560265Z> 67-syslog-proxy DBG/ "sCellIndexRange": {
+007835 02.06 14:23:42.840 [192.168.255.129] cb FCT-E002-2-syslog- <2019-06-02T06:23:45.560266Z> 67-syslog-proxy DBG/ "lowBound": "1",
+007836 02.06 14:23:42.840 [192.168.255.129] cc FCT-E002-2-syslog- <2019-06-02T06:23:45.560267Z> 67-syslog-proxy DBG/ "upBound": "31"
+007838 02.06 14:23:42.840 [192.168.255.129] ce FCT-E002-2-syslog- <2019-06-02T06:23:45.560269Z> 67-syslog-proxy DBG/ "bandList": [
+007840 02.06 14:23:42.840 [192.168.255.129] d0 FCT-E002-2-syslog- <2019-06-02T06:23:45.560271Z> 67-syslog-proxy DBG/ "bandList": [
+007843 02.06 14:23:42.840 [192.168.255.129] d3 FCT-E002-2-syslog- <2019-06-02T06:23:45.560274Z> 67-syslog-proxy DBG/ "bandNR": "FreqBandIndicatorNR: 41",
+007927 02.06 14:23:42.840 [192.168.255.129] d4 FCT-E002-2-syslog- <2019-06-02T06:23:45.560275Z> 67-syslog-proxy DBG/ "caBandWidthClassDlNR": "0",
+007928 02.06 14:23:42.840 [192.168.255.129] d5 FCT-E002-2-syslog- <2019-06-02T06:23:45.560276Z> 67-syslog-proxy DBG/ "caBandWidthClassUlNR": "0"
+007932 02.06 14:23:42.840 [192.168.255.129] d9 FCT-E002-2-syslog- <2019-06-02T06:23:45.560280Z> 67-syslog-proxy DBG/ "mrdcParameters": "--",
+007933 02.06 14:23:42.840 [192.168.255.129] da FCT-E002-2-syslog- <2019-06-02T06:23:45.560281Z> 67-syslog-proxy DBG/ "featureSetCombinationId": "0"
+007936 02.06 14:23:42.840 [192.168.255.129] dd FCT-E002-2-syslog- <2019-06-02T06:23:45.560284Z> 67-syslog-proxy DBG/ "allowedBandCombinationInfoList": [
+007939 02.06 14:23:42.840 [192.168.255.129] e0 FCT-E002-2-syslog- <2019-06-02T06:23:45.560297Z> 67-syslog-proxy DBG/ "value": "1"
+008015 02.06 14:23:42.856 [192.168.255.129] e4 FCT-E002-2-syslog- <2019-06-02T06:23:45.560300Z> 67-syslog-proxy DBG/ "value": "1"
+008024 02.06 14:23:42.856 [192.168.255.129] ed FCT-E002-2-syslog- <2019-06-02T06:23:45.560308Z> 67-syslog-proxy DBG/ "downlinkSetNR": "0",
+008080 02.06 14:23:42.871 [192.168.255.129] ee FCT-E002-2-syslog- <2019-06-02T06:23:45.560309Z> 67-syslog-proxy DBG/ "uplinkSetNR": "0"
+008085 02.06 14:23:42.871 [192.168.255.129] f3 FCT-E002-2-syslog- <2019-06-02T06:23:45.560314Z> 67-syslog-proxy DBG/ "downlinkSetNR": "1",
+008086 02.06 14:23:42.871 [192.168.255.129] f4 FCT-E002-2-syslog- <2019-06-02T06:23:45.560315Z> 67-syslog-proxy DBG/ "uplinkSetNR": "1"
+008142 02.06 14:23:42.871 [192.168.255.129] fc FCT-E002-2-syslog- <2019-06-02T06:23:45.560322Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+008145 02.06 14:23:42.871 [192.168.255.129] ff FCT-E002-2-syslog- <2019-06-02T06:23:45.560324Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+008148 02.06 14:23:42.871 [192.168.255.129] 03 FCT-E002-2-syslog- <2019-06-02T06:23:45.560327Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+008151 02.06 14:23:42.871 [192.168.255.129] 06 FCT-E002-2-syslog- <2019-06-02T06:23:45.560330Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+008154 02.06 14:23:42.871 [192.168.255.129] 09 FCT-E002-2-syslog- <2019-06-02T06:23:45.560334Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+008236 02.06 14:23:42.887 [192.168.255.129] 0c FCT-E002-2-syslog- <2019-06-02T06:23:45.560337Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+008239 02.06 14:23:42.887 [192.168.255.129] 0f FCT-E002-2-syslog- <2019-06-02T06:23:45.560340Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+008242 02.06 14:23:42.887 [192.168.255.129] 12 FCT-E002-2-syslog- <2019-06-02T06:23:45.560342Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+008245 02.06 14:23:42.887 [192.168.255.129] 15 FCT-E002-2-syslog- <2019-06-02T06:23:45.560345Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+008346 02.06 14:23:42.902 [192.168.255.129] 18 FCT-E002-2-syslog- <2019-06-02T06:23:45.560348Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+008349 02.06 14:23:42.902 [192.168.255.129] 1b FCT-E002-2-syslog- <2019-06-02T06:23:45.560350Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+008352 02.06 14:23:42.902 [192.168.255.129] 1e FCT-E002-2-syslog- <2019-06-02T06:23:45.560353Z> 67-syslog-proxy DBG/ "featureSetsUplink": [
+008354 02.06 14:23:42.902 [192.168.255.129] 20 FCT-E002-2-syslog- <2019-06-02T06:23:45.560355Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationUL": "--"
+008357 02.06 14:23:42.902 [192.168.255.129] 23 FCT-E002-2-syslog- <2019-06-02T06:23:45.560357Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationUL": "--"
+008428 02.06 14:23:42.902 [192.168.255.129] 26 FCT-E002-2-syslog- <2019-06-02T06:23:45.560360Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationUL": "--"
+008431 02.06 14:23:42.902 [192.168.255.129] 29 FCT-E002-2-syslog- <2019-06-02T06:23:45.560363Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationUL": "--"
+008434 02.06 14:23:42.902 [192.168.255.129] 2c FCT-E002-2-syslog- <2019-06-02T06:23:45.560365Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationUL": "--"
+008437 02.06 14:23:42.902 [192.168.255.129] 2f FCT-E002-2-syslog- <2019-06-02T06:23:45.560368Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationUL": "--"
+008534 02.06 14:23:42.918 [192.168.255.129] 34 FCT-E002-2-syslog- <2019-06-02T06:23:45.560374Z> 67-syslog-proxy DBG/ "numberOfNonGbrDRBsToBeAdded": "1",
+008535 02.06 14:23:42.918 [192.168.255.129] 35 FCT-E002-2-syslog- <2019-06-02T06:23:45.560375Z> 67-syslog-proxy DBG/ "pduSessionResourcesToBeSetup": ""
+008539 02.06 14:23:42.918 [192.168.255.129] 39 FCT-E002-2-syslog- <2019-06-02T06:23:45.560378Z> 67-syslog-proxy DBG/[09:23:45.559653][cp_cl][106][000106][debug] PSCellSelectionAlgorithmImpl.cpp#31: For Addition: maxNumOfUsersPerCellGroup: 500, maxNumOfNonGbrBearersPerCellGroup: 500
+008540 02.06 14:23:42.918 [192.168.255.129] 3a FCT-E002-2-syslog- <2019-06-02T06:23:45.560379Z> 67-syslog-proxy DBG/[09:23:45.559808][cp_cl][106][000106][debug] PSCellSelectionAlgorithmImpl.cpp#453: checkCapacity succeeded: GnbDuId: 0 nrCellGroupId=2 {
+008541 02.06 14:23:42.918 [192.168.255.129] 3b FCT-E002-2-syslog- <2019-06-02T06:23:45.560380Z> 67-syslog-proxy DBG/ "NrCellData": {
+008542 02.06 14:23:42.918 [192.168.255.129] 3c FCT-E002-2-syslog- <2019-06-02T06:23:45.560381Z> 67-syslog-proxy DBG/ "ids": {
+008620 02.06 14:23:42.934 [192.168.255.129] 3d FCT-E002-2-syslog- <2019-06-02T06:23:45.560382Z> 67-syslog-proxy DBG/ "nrCellIdentity": {
+008621 02.06 14:23:42.934 [192.168.255.129] 3e FCT-E002-2-syslog- <2019-06-02T06:23:45.560383Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>882573315</LOG_SCRAM_11>"
+008623 02.06 14:23:42.934 [192.168.255.129] 40 FCT-E002-2-syslog- <2019-06-02T06:23:45.560385Z> 67-syslog-proxy DBG/ "physicalCellId": {
+008624 02.06 14:23:42.934 [192.168.255.129] 41 FCT-E002-2-syslog- <2019-06-02T06:23:45.560386Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>104</LOG_SCRAM_11>"
+008626 02.06 14:23:42.934 [192.168.255.129] 43 FCT-E002-2-syslog- <2019-06-02T06:23:45.560388Z> 67-syslog-proxy DBG/ "nrArfcn": {
+008627 02.06 14:23:42.934 [192.168.255.129] 44 FCT-E002-2-syslog- <2019-06-02T06:23:45.560389Z> 67-syslog-proxy DBG/ "value": "513000"
+008629 02.06 14:23:42.934 [192.168.255.129] 46 FCT-E002-2-syslog- <2019-06-02T06:23:45.560390Z> 67-syslog-proxy DBG/ "nrCellId": {
+008630 02.06 14:23:42.934 [192.168.255.129] 47 FCT-E002-2-syslog- <2019-06-02T06:23:45.560391Z> 67-syslog-proxy DBG/ "value": "3"
+008633 02.06 14:23:42.934 [192.168.255.129] 4a FCT-E002-2-syslog- <2019-06-02T06:23:45.560394Z> 67-syslog-proxy DBG/ "bandwidthCapabilities": {
+008700 02.06 14:23:42.934 [192.168.255.129] 4b FCT-E002-2-syslog- <2019-06-02T06:23:45.560395Z> 67-syslog-proxy DBG/ "freqBandIndicatorNR": "FreqBandIndicatorNR: 41",
+008701 02.06 14:23:42.934 [192.168.255.129] 4c FCT-E002-2-syslog- <2019-06-02T06:23:45.560396Z> 67-syslog-proxy DBG/ "channelBandwidth": "ChannelBandwidth: 100Mhz"
+008703 02.06 14:23:42.934 [192.168.255.129] 4e FCT-E002-2-syslog- <2019-06-02T06:23:45.560398Z> 67-syslog-proxy DBG/ "nsaConfiguration": {
+008704 02.06 14:23:42.934 [192.168.255.129] 4f FCT-E002-2-syslog- <2019-06-02T06:23:45.560399Z> 67-syslog-proxy DBG/ "maxNumOfUsersPerCell": "NumOfUsersPerCell: 250",
+008705 02.06 14:23:42.934 [192.168.255.129] 50 FCT-E002-2-syslog- <2019-06-02T06:23:45.560400Z> 67-syslog-proxy DBG/ "maxNumOfSCellAlloc": "NumOfSCellAlloc: 250"
+008707 02.06 14:23:42.934 [192.168.255.129] 52 FCT-E002-2-syslog- <2019-06-02T06:23:45.560402Z> 67-syslog-proxy DBG/ "saConfiguration": {
+008708 02.06 14:23:42.934 [192.168.255.129] 53 FCT-E002-2-syslog- <2019-06-02T06:23:45.560403Z> 67-syslog-proxy DBG/ "maxNumOfNonGBRBearersSA": "MaxNumOfNonGBRBearers: 500",
+008709 02.06 14:23:42.934 [192.168.255.129] 54 FCT-E002-2-syslog- <2019-06-02T06:23:45.560404Z> 67-syslog-proxy DBG/ "maxNumOfRrcSA": "NumOfUsersPerCell: 250"
+008789 02.06 14:23:42.949 [192.168.255.129] 59 FCT-E002-2-syslog- <2019-06-02T06:23:45.560409Z> 67-syslog-proxy DBG/[09:23:45.559812][cp_cl][106][000106][debug] PSCellSelectionAlgorithmImpl.cpp#99: SelectedBandCombinationIndex=1
+008790 02.06 14:23:42.949 [192.168.255.129] 5a FCT-E002-2-syslog- <2019-06-02T06:23:45.560411Z> 67-syslog-proxy DBG/[09:23:45.559819][cp_cl][106][000106][debug] NrCellGroupCounter.cpp#34: numOfNonGbrBearers in cellGroup for ueId 0: 1
+008791 02.06 14:23:42.949 [192.168.255.129] 5b FCT-E002-2-syslog- <2019-06-02T06:23:45.560412Z> 67-syslog-proxy DBG/[09:23:45.559821][cp_cl][106][000106][debug] ConcreteNrCellGroupCapacityControl.cpp#110: Decreased nonGbrBearers capacity for cellGroupId: 2, Number of NonGbrBearers: 1
+008792 02.06 14:23:42.949 [192.168.255.129] 5c FCT-E002-2-syslog- <2019-06-02T06:23:45.560413Z> 67-syslog-proxy DBG/[09:23:45.559822][cp_cl][106][000106][debug] PSCellSelectionAlgorithmImpl.cpp#587: PSCellSelection reduce free nonGbrBearers for cellGroupId2 for ueId=0 by numOfNonGbrBearers=1
+008793 02.06 14:23:42.949 [192.168.255.129] 5d FCT-E002-2-syslog- <2019-06-02T06:23:45.560414Z> 67-syslog-proxy DBG/[09:23:45.559824][cp_cl][106][000106][debug] NrCellGroupCounter.cpp#22: Increment number of user: 1
+008794 02.06 14:23:42.949 [192.168.255.129] 5e FCT-E002-2-syslog- <2019-06-02T06:23:45.560415Z> 67-syslog-proxy DBG/[09:23:45.559825][cp_cl][106][000106][debug] ConcreteNrCellGroupCapacityControl.cpp#97: Decreased users capacity for cellGroupId: 2, Number of Users: 1
+008869 02.06 14:23:42.965 [192.168.255.129] 5f FCT-E002-2-syslog- <2019-06-02T06:23:45.560416Z> 67-syslog-proxy DBG/[09:23:45.559828][cp_cl][106][000106][debug] SdlAdmittedUsersPerCellsStorage.cpp#48: Storing AdmittedUsersPerCell id: NRCellIdentity: <LOG_SCRAM_11>882573315</LOG_SCRAM_11> in SDL
+008870 02.06 14:23:42.965 [192.168.255.129] 60 FCT-E002-2-syslog- <2019-06-02T06:23:45.560417Z> 67-syslog-proxy DBG/[09:23:45.559893][cp_cl][106][000106][debug] PSCellSelectionAlgorithmImpl.cpp#573: PSCellSelection succeeded for the best candidate cell: nrCellGroupId=2, NRCellIdentity: <LOG_SCRAM_11>882573315</LOG_SCRAM_11>
+008871 02.06 14:23:42.965 [192.168.255.129] 61 FCT-E002-2-syslog- <2019-06-02T06:23:45.560418Z> 67-syslog-proxy DBG/[09:23:45.559897][cp_cl][106][000106][debug] PSCellSelectionAlgorithmImpl.cpp#208: Couldn't determine CandidateSpCellList, spCellChangeEnabled = false
+008872 02.06 14:23:42.965 [192.168.255.129] 62 FCT-E002-2-syslog- <2019-06-02T06:23:45.560418Z> 67-syslog-proxy DBG/[09:23:45.559900][cp_cl][106][000106][debug] ConcretePcmdService.cpp#427: PCMD acquireUeCookie: No cookie allocated, no cellConfig for NrCellId: 882573315
+008873 02.06 14:23:42.965 [192.168.255.129] 63 FCT-E002-2-syslog- <2019-06-02T06:23:45.560419Z> 67-syslog-proxy DBG/[09:23:45.559936][cp_cl][106][000106][debug] ConcretePcmdService.cpp#415: PCMD buildUeServiceParameters: Return empty parameters, no cellConfig for NrCellId: 882573315
+008946 02.06 14:23:42.965 [192.168.255.129] 65 FCT-E002-2-syslog- <2019-06-02T06:23:45.560421Z> 67-syslog-proxy DBG/[09:23:45.560103][cp_cl][106][000106][trace] ConcreteUeSender.cpp#72: sending to CP-UE from CP-CELL
+008948 02.06 14:23:42.965 [192.168.255.129] 67 FCT-E002-2-syslog- <2019-06-02T06:23:45.560423Z> 67-syslog-proxy DBG/ "AdmissionResp": {
+008949 02.06 14:23:42.965 [192.168.255.129] 68 FCT-E002-2-syslog- <2019-06-02T06:23:45.560424Z> 67-syslog-proxy DBG/ "result": {
+008950 02.06 14:23:42.965 [192.168.255.129] 69 FCT-E002-2-syslog- <2019-06-02T06:23:45.560425Z> 67-syslog-proxy DBG/ "status": "Status: ok",
+008951 02.06 14:23:42.965 [192.168.255.129] 6a FCT-E002-2-syslog- <2019-06-02T06:23:45.560426Z> 67-syslog-proxy DBG/ "cause": "--"
+008953 02.06 14:23:42.965 [192.168.255.129] 6c FCT-E002-2-syslog- <2019-06-02T06:23:45.560427Z> 67-syslog-proxy DBG/ "cuUeId": "0",
+008954 02.06 14:23:42.965 [192.168.255.129] 6d FCT-E002-2-syslog- <2019-06-02T06:23:45.560428Z> 67-syslog-proxy DBG/ "psCellId": {
+008955 02.06 14:23:42.965 [192.168.255.129] 6e FCT-E002-2-syslog- <2019-06-02T06:23:45.560429Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>882573315</LOG_SCRAM_11>"
+009021 02.06 14:23:42.980 [192.168.255.129] 70 FCT-E002-2-syslog- <2019-06-02T06:23:45.560431Z> 67-syslog-proxy DBG/ "firstActiveCellId": "--",
+009022 02.06 14:23:42.980 [192.168.255.129] 71 FCT-E002-2-syslog- <2019-06-02T06:23:45.560433Z> 67-syslog-proxy DBG/ "candidateSpCellList": "--",
+009023 02.06 14:23:42.980 [192.168.255.129] 72 FCT-E002-2-syslog- <2019-06-02T06:23:45.560434Z> 67-syslog-proxy DBG/ "bandCombinationInfoSN": {
+009024 02.06 14:23:42.980 [192.168.255.129] 73 FCT-E002-2-syslog- <2019-06-02T06:23:45.560435Z> 67-syslog-proxy DBG/ "bandCombinationIndex": {
+009025 02.06 14:23:42.980 [192.168.255.129] 74 FCT-E002-2-syslog- <2019-06-02T06:23:45.560436Z> 67-syslog-proxy DBG/ "value": "1"
+009027 02.06 14:23:42.980 [192.168.255.129] 76 FCT-E002-2-syslog- <2019-06-02T06:23:45.560438Z> 67-syslog-proxy DBG/ "requestedFeatureSets": {
+009028 02.06 14:23:42.980 [192.168.255.129] 77 FCT-E002-2-syslog- <2019-06-02T06:23:45.560439Z> 67-syslog-proxy DBG/ "value": "1"
+009031 02.06 14:23:42.980 [192.168.255.129] 7a FCT-E002-2-syslog- <2019-06-02T06:23:45.560441Z> 67-syslog-proxy DBG/ "psCellFrequencyInfo": {
+009032 02.06 14:23:42.980 [192.168.255.129] 7b FCT-E002-2-syslog- <2019-06-02T06:23:45.560442Z> 67-syslog-proxy DBG/ "frequency": {
+009033 02.06 14:23:42.980 [192.168.255.129] 7c FCT-E002-2-syslog- <2019-06-02T06:23:45.560443Z> 67-syslog-proxy DBG/ "value": "513000"
+009106 02.06 14:23:42.980 [192.168.255.129] 80 FCT-E002-2-syslog- <2019-06-02T06:23:45.560447Z> 67-syslog-proxy DBG/ "servingCellsToBeActivated": "",
+009107 02.06 14:23:42.980 [192.168.255.129] 81 FCT-E002-2-syslog- <2019-06-02T06:23:45.560448Z> 67-syslog-proxy DBG/ "pcmdServiceParameters": {
+009108 02.06 14:23:42.980 [192.168.255.129] 82 FCT-E002-2-syslog- <2019-06-02T06:23:45.560448Z> 67-syslog-proxy DBG/ "cookie": "--",
+009109 02.06 14:23:42.980 [192.168.255.129] 83 FCT-E002-2-syslog- <2019-06-02T06:23:45.560453Z> 67-syslog-proxy DBG/ "lomSicad": "--",
+009110 02.06 14:23:42.980 [192.168.255.129] 84 FCT-E002-2-syslog- <2019-06-02T06:23:45.560454Z> 67-syslog-proxy DBG/ "pcmdActivationFlag": "--",
+009111 02.06 14:23:42.980 [192.168.255.129] 85 FCT-E002-2-syslog- <2019-06-02T06:23:45.560454Z> 67-syslog-proxy DBG/ "traceConfig": "--"
+009204 02.06 14:23:42.996 [192.168.255.129] 8b FCT-E002-2-syslog- <2019-06-02T06:23:45.560459Z> 67-syslog-proxy DBG/[09:23:45.560131][cp_cl][106][000106][debug] ProtoSender.hpp#32: Socket connected to <LOG_SCRAM_65>tcp://192.168.253.231:30500</LOG_SCRAM_65>
+012268 02.06 14:23:53.965 [192.168.255.129] 8c FCT-E002-2-syslog- <2019-06-02T06:23:56.692461Z> 67-syslog-proxy DBG/[09:23:56.692274][cp_cl][106][000106][debug] PeriodicNsaUserCounterUpdater.cpp#33: active cells: [NRCellIdentity: <LOG_SCRAM_11>882573313</LOG_SCRAM_11>, NRCellIdentity: <LOG_SCRAM_11>882573315</LOG_SCRAM_11>]
+012269 02.06 14:23:53.965 [192.168.255.129] 8d FCT-E002-2-syslog- <2019-06-02T06:23:56.692467Z> 67-syslog-proxy DBG/[09:23:56.692282][cp_cl][106][000106][debug] PeriodicNsaUserCounterUpdater.cpp#45: Periodic counter updates: cell: 882573313, 5G_AVE_NUMBER_OF_NSA_USERS: 0
+012270 02.06 14:23:53.965 [192.168.255.129] 8e FCT-E002-2-syslog- <2019-06-02T06:23:56.692468Z> 67-syslog-proxy DBG/[09:23:56.692330][cp_cl][106][000106][debug] PeriodicNsaUserCounterUpdater.cpp#45: Periodic counter updates: cell: 882573315, 5G_AVE_NUMBER_OF_NSA_USERS: 1
+012380 02.06 14:23:54.119 [192.168.255.129] 8f FCT-E002-2-syslog- <2019-06-02T06:23:56.858213Z> 67-syslog-proxy INF/[09:23:56.857906][cp_cl][106][000106][info] CplaneCellReceiver.cpp#85: Processing CellRequest:
+012381 02.06 14:23:54.119 [192.168.255.129] 90 FCT-E002-2-syslog- <2019-06-02T06:23:56.858217Z> 67-syslog-proxy INF/[09:23:56.858022][cp_cl][106][000106][info] ProtoMessageTypePrinter.cpp#8: cell_request.CpCellResourceReleaseReq
+012382 02.06 14:23:54.119 [192.168.255.129] 91 FCT-E002-2-syslog- <2019-06-02T06:23:56.858219Z> 67-syslog-proxy DBG/[09:23:56.858037][cp_cl][106][000106][debug] RadioAdmissionControlService.cpp#302: Received ResourceReleaseReq msg (cuUeId:0, NRCellIdentity: <LOG_SCRAM_11>882573315</LOG_SCRAM_11>)
+012383 02.06 14:23:54.119 [192.168.255.129] 92 FCT-E002-2-syslog- <2019-06-02T06:23:56.858225Z> 67-syslog-proxy DBG/[09:23:56.858043][cp_cl][106][000106][debug] ConcreteNrCellGroupCapacityControl.cpp#121: Increased nonGbrBearers capacity for cellGroupId: 2, Number of NonGbrBearers: 0
+012384 02.06 14:23:54.119 [192.168.255.129] 93 FCT-E002-2-syslog- <2019-06-02T06:23:56.858226Z> 67-syslog-proxy DBG/[09:23:56.858044][cp_cl][106][000106][debug] NrCellGroupCounter.cpp#28: Decrement number of user: 0
+012385 02.06 14:23:54.119 [192.168.255.129] 94 FCT-E002-2-syslog- <2019-06-02T06:23:56.858226Z> 67-syslog-proxy DBG/[09:23:56.858046][cp_cl][106][000106][debug] ConcreteNrCellGroupCapacityControl.cpp#127: Increased users capacity for cellGroupId: 2, Number of Users: 0
+012386 02.06 14:23:54.119 [192.168.255.129] 95 FCT-E002-2-syslog- <2019-06-02T06:23:56.858227Z> 67-syslog-proxy DBG/[09:23:56.858141][cp_cl][106][000106][trace] ConcreteUeSender.cpp#85: sending to CP-UE from CP-CELL
+012489 02.06 14:23:54.137 [192.168.255.129] 98 FCT-E002-2-syslog- <2019-06-02T06:23:56.858230Z> 67-syslog-proxy DBG/ "cuUeId": "0"
+014072 02.06 14:23:57.585 [192.168.255.129] 9c FCT-E002-2-syslog- <2019-06-02T06:24:00.317158Z> 67-syslog-proxy INF/[09:24:00.315873][cp_cl][106][000106][info] CplaneCellReceiver.cpp#85: Processing CellRequest:
+014073 02.06 14:23:57.585 [192.168.255.129] 9d FCT-E002-2-syslog- <2019-06-02T06:24:00.317163Z> 67-syslog-proxy INF/[09:24:00.315899][cp_cl][106][000106][info] ProtoMessageTypePrinter.cpp#8: cell_request.CpCellAdmissionReq
+014074 02.06 14:23:57.585 [192.168.255.129] 9e FCT-E002-2-syslog- <2019-06-02T06:24:00.317164Z> 67-syslog-proxy DBG/[09:24:00.315916][cp_cl][106][000106][debug] RadioAdmissionControlService.cpp#225: Received AdmissionReq (cuUeId:1)
+014075 02.06 14:23:57.585 [192.168.255.129] 9f FCT-E002-2-syslog- <2019-06-02T06:24:00.317165Z> 67-syslog-proxy DBG/[09:24:00.316557][cp_cl][106][000106][trace] RadioAdmissionControlService.cpp#226: Received AdmissionReq message:{}
+014078 02.06 14:23:57.585 [192.168.255.129] a2 FCT-E002-2-syslog- <2019-06-02T06:24:00.317168Z> 67-syslog-proxy DBG/ "cuUeId": "1",
+014079 02.06 14:23:57.585 [192.168.255.129] a3 FCT-E002-2-syslog- <2019-06-02T06:24:00.317169Z> 67-syslog-proxy DBG/ "cellList": [
+014081 02.06 14:23:57.585 [192.168.255.129] a5 FCT-E002-2-syslog- <2019-06-02T06:24:00.317171Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>882573315</LOG_SCRAM_11>"
+014204 02.06 14:23:57.590 [192.168.255.129] a8 FCT-E002-2-syslog- <2019-06-02T06:24:00.317174Z> 67-syslog-proxy DBG/ "reason": "2",
+014207 02.06 14:23:57.590 [192.168.255.129] ab FCT-E002-2-syslog- <2019-06-02T06:24:00.317177Z> 67-syslog-proxy DBG/ "lowBound": "1",
+014208 02.06 14:23:57.590 [192.168.255.129] ac FCT-E002-2-syslog- <2019-06-02T06:24:00.317177Z> 67-syslog-proxy DBG/ "upBound": "31"
+014210 02.06 14:23:57.590 [192.168.255.129] ae FCT-E002-2-syslog- <2019-06-02T06:24:00.317179Z> 67-syslog-proxy DBG/ "bandList": [
+014212 02.06 14:23:57.590 [192.168.255.129] b0 FCT-E002-2-syslog- <2019-06-02T06:24:00.317181Z> 67-syslog-proxy DBG/ "bandList": [
+014215 02.06 14:23:57.590 [192.168.255.129] b3 FCT-E002-2-syslog- <2019-06-02T06:24:00.317184Z> 67-syslog-proxy DBG/ "bandNR": "FreqBandIndicatorNR: 41",
+014341 02.06 14:23:57.605 [192.168.255.129] b4 FCT-E002-2-syslog- <2019-06-02T06:24:00.317186Z> 67-syslog-proxy DBG/ "caBandWidthClassDlNR": "0",
+014342 02.06 14:23:57.605 [192.168.255.129] b5 FCT-E002-2-syslog- <2019-06-02T06:24:00.317187Z> 67-syslog-proxy DBG/ "caBandWidthClassUlNR": "0"
+014346 02.06 14:23:57.605 [192.168.255.129] b9 FCT-E002-2-syslog- <2019-06-02T06:24:00.317200Z> 67-syslog-proxy DBG/ "mrdcParameters": "--",
+014347 02.06 14:23:57.605 [192.168.255.129] ba FCT-E002-2-syslog- <2019-06-02T06:24:00.317201Z> 67-syslog-proxy DBG/ "featureSetCombinationId": "0"
+014350 02.06 14:23:57.605 [192.168.255.129] bd FCT-E002-2-syslog- <2019-06-02T06:24:00.317204Z> 67-syslog-proxy DBG/ "allowedBandCombinationInfoList": [
+014352 02.06 14:23:57.605 [192.168.255.129] bf FCT-E002-2-syslog- <2019-06-02T06:24:00.317205Z> 67-syslog-proxy DBG/ "bandCombinationIndex": {
+014353 02.06 14:23:57.605 [192.168.255.129] c0 FCT-E002-2-syslog- <2019-06-02T06:24:00.317206Z> 67-syslog-proxy DBG/ "value": "1"
+014436 02.06 14:23:57.605 [192.168.255.129] c2 FCT-E002-2-syslog- <2019-06-02T06:24:00.317208Z> 67-syslog-proxy DBG/ "featureSetEntryIndexList": [
+014438 02.06 14:23:57.605 [192.168.255.129] c4 FCT-E002-2-syslog- <2019-06-02T06:24:00.317210Z> 67-syslog-proxy DBG/ "value": "1"
+014443 02.06 14:23:57.605 [192.168.255.129] c9 FCT-E002-2-syslog- <2019-06-02T06:24:00.317215Z> 67-syslog-proxy DBG/ "featureSetCombinations": [
+014447 02.06 14:23:57.605 [192.168.255.129] cd FCT-E002-2-syslog- <2019-06-02T06:24:00.317218Z> 67-syslog-proxy DBG/ "downlinkSetNR": "0",
+014550 02.06 14:23:57.621 [192.168.255.129] ce FCT-E002-2-syslog- <2019-06-02T06:24:00.317219Z> 67-syslog-proxy DBG/ "uplinkSetNR": "0"
+014555 02.06 14:23:57.621 [192.168.255.129] d3 FCT-E002-2-syslog- <2019-06-02T06:24:00.317224Z> 67-syslog-proxy DBG/ "downlinkSetNR": "1",
+014556 02.06 14:23:57.621 [192.168.255.129] d4 FCT-E002-2-syslog- <2019-06-02T06:24:00.317225Z> 67-syslog-proxy DBG/ "uplinkSetNR": "1"
+014620 02.06 14:23:57.639 [192.168.255.129] dc FCT-E002-2-syslog- <2019-06-02T06:24:00.317232Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+014623 02.06 14:23:57.639 [192.168.255.129] df FCT-E002-2-syslog- <2019-06-02T06:24:00.317236Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+014626 02.06 14:23:57.639 [192.168.255.129] e2 FCT-E002-2-syslog- <2019-06-02T06:24:00.317238Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+014629 02.06 14:23:57.639 [192.168.255.129] e5 FCT-E002-2-syslog- <2019-06-02T06:24:00.317241Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+014632 02.06 14:23:57.639 [192.168.255.129] e8 FCT-E002-2-syslog- <2019-06-02T06:24:00.317244Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+014706 02.06 14:23:57.647 [192.168.255.129] eb FCT-E002-2-syslog- <2019-06-02T06:24:00.317247Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+014709 02.06 14:23:57.647 [192.168.255.129] ee FCT-E002-2-syslog- <2019-06-02T06:24:00.317249Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+014712 02.06 14:23:57.647 [192.168.255.129] f1 FCT-E002-2-syslog- <2019-06-02T06:24:00.317252Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+014715 02.06 14:23:57.647 [192.168.255.129] f4 FCT-E002-2-syslog- <2019-06-02T06:24:00.317255Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+014794 02.06 14:23:57.657 [192.168.255.129] f7 FCT-E002-2-syslog- <2019-06-02T06:24:00.317257Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+014797 02.06 14:23:57.657 [192.168.255.129] fa FCT-E002-2-syslog- <2019-06-02T06:24:00.317260Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+014800 02.06 14:23:57.657 [192.168.255.129] fd FCT-E002-2-syslog- <2019-06-02T06:24:00.317263Z> 67-syslog-proxy DBG/ "featureSetsUplink": [
+014802 02.06 14:23:57.657 [192.168.255.129] ff FCT-E002-2-syslog- <2019-06-02T06:24:00.317264Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationUL": "--"
+014805 02.06 14:23:57.657 [192.168.255.129] 03 FCT-E002-2-syslog- <2019-06-02T06:24:00.317267Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationUL": "--"
+014879 02.06 14:23:57.657 [192.168.255.129] 06 FCT-E002-2-syslog- <2019-06-02T06:24:00.317270Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationUL": "--"
+014882 02.06 14:23:57.657 [192.168.255.129] 09 FCT-E002-2-syslog- <2019-06-02T06:24:00.317274Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationUL": "--"
+014885 02.06 14:23:57.657 [192.168.255.129] 0c FCT-E002-2-syslog- <2019-06-02T06:24:00.317276Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationUL": "--"
+014888 02.06 14:23:57.657 [192.168.255.129] 0f FCT-E002-2-syslog- <2019-06-02T06:24:00.317279Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationUL": "--"
+014964 02.06 14:23:57.672 [192.168.255.129] 14 FCT-E002-2-syslog- <2019-06-02T06:24:00.317283Z> 67-syslog-proxy DBG/ "numberOfNonGbrDRBsToBeAdded": "1",
+014965 02.06 14:23:57.672 [192.168.255.129] 15 FCT-E002-2-syslog- <2019-06-02T06:24:00.317284Z> 67-syslog-proxy DBG/ "pduSessionResourcesToBeSetup": ""
+014969 02.06 14:23:57.672 [192.168.255.129] 19 FCT-E002-2-syslog- <2019-06-02T06:24:00.317288Z> 67-syslog-proxy DBG/[09:24:00.316568][cp_cl][106][000106][debug] PSCellSelectionAlgorithmImpl.cpp#31: For Addition: maxNumOfUsersPerCellGroup: 500, maxNumOfNonGbrBearersPerCellGroup: 500
+014970 02.06 14:23:57.672 [192.168.255.129] 1a FCT-E002-2-syslog- <2019-06-02T06:24:00.317289Z> 67-syslog-proxy DBG/[09:24:00.316718][cp_cl][106][000106][debug] PSCellSelectionAlgorithmImpl.cpp#453: checkCapacity succeeded: GnbDuId: 0 nrCellGroupId=2 {
+014971 02.06 14:23:57.672 [192.168.255.129] 1b FCT-E002-2-syslog- <2019-06-02T06:24:00.317290Z> 67-syslog-proxy DBG/ "NrCellData": {
+014972 02.06 14:23:57.672 [192.168.255.129] 1c FCT-E002-2-syslog- <2019-06-02T06:24:00.317291Z> 67-syslog-proxy DBG/ "ids": {
+015042 02.06 14:23:57.688 [192.168.255.129] 1d FCT-E002-2-syslog- <2019-06-02T06:24:00.317292Z> 67-syslog-proxy DBG/ "nrCellIdentity": {
+015043 02.06 14:23:57.688 [192.168.255.129] 1e FCT-E002-2-syslog- <2019-06-02T06:24:00.317293Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>882573315</LOG_SCRAM_11>"
+015045 02.06 14:23:57.688 [192.168.255.129] 20 FCT-E002-2-syslog- <2019-06-02T06:24:00.317294Z> 67-syslog-proxy DBG/ "physicalCellId": {
+015046 02.06 14:23:57.688 [192.168.255.129] 21 FCT-E002-2-syslog- <2019-06-02T06:24:00.317296Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>104</LOG_SCRAM_11>"
+015048 02.06 14:23:57.688 [192.168.255.129] 23 FCT-E002-2-syslog- <2019-06-02T06:24:00.317297Z> 67-syslog-proxy DBG/ "nrArfcn": {
+015049 02.06 14:23:57.688 [192.168.255.129] 24 FCT-E002-2-syslog- <2019-06-02T06:24:00.317298Z> 67-syslog-proxy DBG/ "value": "513000"
+015051 02.06 14:23:57.688 [192.168.255.129] 26 FCT-E002-2-syslog- <2019-06-02T06:24:00.317300Z> 67-syslog-proxy DBG/ "nrCellId": {
+015052 02.06 14:23:57.688 [192.168.255.129] 27 FCT-E002-2-syslog- <2019-06-02T06:24:00.317301Z> 67-syslog-proxy DBG/ "value": "3"
+015055 02.06 14:23:57.688 [192.168.255.129] 2a FCT-E002-2-syslog- <2019-06-02T06:24:00.317303Z> 67-syslog-proxy DBG/ "bandwidthCapabilities": {
+015150 02.06 14:23:57.688 [192.168.255.129] 2b FCT-E002-2-syslog- <2019-06-02T06:24:00.317304Z> 67-syslog-proxy DBG/ "freqBandIndicatorNR": "FreqBandIndicatorNR: 41",
+015151 02.06 14:23:57.688 [192.168.255.129] 2c FCT-E002-2-syslog- <2019-06-02T06:24:00.317306Z> 67-syslog-proxy DBG/ "channelBandwidth": "ChannelBandwidth: 100Mhz"
+015153 02.06 14:23:57.688 [192.168.255.129] 2e FCT-E002-2-syslog- <2019-06-02T06:24:00.317307Z> 67-syslog-proxy DBG/ "nsaConfiguration": {
+015154 02.06 14:23:57.688 [192.168.255.129] 2f FCT-E002-2-syslog- <2019-06-02T06:24:00.317310Z> 67-syslog-proxy DBG/ "maxNumOfUsersPerCell": "NumOfUsersPerCell: 250",
+015155 02.06 14:23:57.688 [192.168.255.129] 30 FCT-E002-2-syslog- <2019-06-02T06:24:00.317311Z> 67-syslog-proxy DBG/ "maxNumOfSCellAlloc": "NumOfSCellAlloc: 250"
+015157 02.06 14:23:57.688 [192.168.255.129] 32 FCT-E002-2-syslog- <2019-06-02T06:24:00.317312Z> 67-syslog-proxy DBG/ "saConfiguration": {
+015158 02.06 14:23:57.688 [192.168.255.129] 33 FCT-E002-2-syslog- <2019-06-02T06:24:00.317314Z> 67-syslog-proxy DBG/ "maxNumOfNonGBRBearersSA": "MaxNumOfNonGBRBearers: 500",
+015159 02.06 14:23:57.688 [192.168.255.129] 34 FCT-E002-2-syslog- <2019-06-02T06:24:00.317315Z> 67-syslog-proxy DBG/ "maxNumOfRrcSA": "NumOfUsersPerCell: 250"
+015237 02.06 14:23:57.703 [192.168.255.129] 39 FCT-E002-2-syslog- <2019-06-02T06:24:00.317319Z> 67-syslog-proxy DBG/[09:24:00.316722][cp_cl][106][000106][debug] PSCellSelectionAlgorithmImpl.cpp#99: SelectedBandCombinationIndex=1
+015238 02.06 14:23:57.703 [192.168.255.129] 3a FCT-E002-2-syslog- <2019-06-02T06:24:00.317320Z> 67-syslog-proxy DBG/[09:24:00.316729][cp_cl][106][000106][debug] NrCellGroupCounter.cpp#34: numOfNonGbrBearers in cellGroup for ueId 1: 1
+015239 02.06 14:23:57.703 [192.168.255.129] 3b FCT-E002-2-syslog- <2019-06-02T06:24:00.317321Z> 67-syslog-proxy DBG/[09:24:00.316731][cp_cl][106][000106][debug] ConcreteNrCellGroupCapacityControl.cpp#110: Decreased nonGbrBearers capacity for cellGroupId: 2, Number of NonGbrBearers: 1
+015240 02.06 14:23:57.703 [192.168.255.129] 3c FCT-E002-2-syslog- <2019-06-02T06:24:00.317322Z> 67-syslog-proxy DBG/[09:24:00.316733][cp_cl][106][000106][debug] PSCellSelectionAlgorithmImpl.cpp#587: PSCellSelection reduce free nonGbrBearers for cellGroupId2 for ueId=1 by numOfNonGbrBearers=1
+015241 02.06 14:23:57.703 [192.168.255.129] 3d FCT-E002-2-syslog- <2019-06-02T06:24:00.317323Z> 67-syslog-proxy DBG/[09:24:00.316734][cp_cl][106][000106][debug] NrCellGroupCounter.cpp#22: Increment number of user: 1
+015242 02.06 14:23:57.703 [192.168.255.129] 3e FCT-E002-2-syslog- <2019-06-02T06:24:00.317324Z> 67-syslog-proxy DBG/[09:24:00.316735][cp_cl][106][000106][debug] ConcreteNrCellGroupCapacityControl.cpp#97: Decreased users capacity for cellGroupId: 2, Number of Users: 1
+015314 02.06 14:23:57.719 [192.168.255.129] 3f FCT-E002-2-syslog- <2019-06-02T06:24:00.317325Z> 67-syslog-proxy DBG/[09:24:00.316738][cp_cl][106][000106][debug] SdlAdmittedUsersPerCellsStorage.cpp#48: Storing AdmittedUsersPerCell id: NRCellIdentity: <LOG_SCRAM_11>882573315</LOG_SCRAM_11> in SDL
+015315 02.06 14:23:57.719 [192.168.255.129] 40 FCT-E002-2-syslog- <2019-06-02T06:24:00.317326Z> 67-syslog-proxy DBG/[09:24:00.316805][cp_cl][106][000106][debug] PSCellSelectionAlgorithmImpl.cpp#573: PSCellSelection succeeded for the best candidate cell: nrCellGroupId=2, NRCellIdentity: <LOG_SCRAM_11>882573315</LOG_SCRAM_11>
+015316 02.06 14:23:57.719 [192.168.255.129] 41 FCT-E002-2-syslog- <2019-06-02T06:24:00.317327Z> 67-syslog-proxy DBG/[09:24:00.316808][cp_cl][106][000106][debug] PSCellSelectionAlgorithmImpl.cpp#208: Couldn't determine CandidateSpCellList, spCellChangeEnabled = false
+015317 02.06 14:23:57.719 [192.168.255.129] 42 FCT-E002-2-syslog- <2019-06-02T06:24:00.317328Z> 67-syslog-proxy DBG/[09:24:00.316812][cp_cl][106][000106][debug] ConcretePcmdService.cpp#427: PCMD acquireUeCookie: No cookie allocated, no cellConfig for NrCellId: 882573315
+015318 02.06 14:23:57.719 [192.168.255.129] 43 FCT-E002-2-syslog- <2019-06-02T06:24:00.317329Z> 67-syslog-proxy DBG/[09:24:00.316843][cp_cl][106][000106][debug] ConcretePcmdService.cpp#415: PCMD buildUeServiceParameters: Return empty parameters, no cellConfig for NrCellId: 882573315
+015393 02.06 14:23:57.719 [192.168.255.129] 45 FCT-E002-2-syslog- <2019-06-02T06:24:00.317331Z> 67-syslog-proxy DBG/[09:24:00.317005][cp_cl][106][000106][trace] ConcreteUeSender.cpp#72: sending to CP-UE from CP-CELL
+015395 02.06 14:23:57.719 [192.168.255.129] 47 FCT-E002-2-syslog- <2019-06-02T06:24:00.317332Z> 67-syslog-proxy DBG/ "AdmissionResp": {
+015396 02.06 14:23:57.719 [192.168.255.129] 48 FCT-E002-2-syslog- <2019-06-02T06:24:00.317333Z> 67-syslog-proxy DBG/ "result": {
+015397 02.06 14:23:57.719 [192.168.255.129] 49 FCT-E002-2-syslog- <2019-06-02T06:24:00.317336Z> 67-syslog-proxy DBG/ "status": "Status: ok",
+015398 02.06 14:23:57.719 [192.168.255.129] 4a FCT-E002-2-syslog- <2019-06-02T06:24:00.317337Z> 67-syslog-proxy DBG/ "cause": "--"
+015400 02.06 14:23:57.719 [192.168.255.129] 4c FCT-E002-2-syslog- <2019-06-02T06:24:00.317338Z> 67-syslog-proxy DBG/ "cuUeId": "1",
+015401 02.06 14:23:57.719 [192.168.255.129] 4d FCT-E002-2-syslog- <2019-06-02T06:24:00.317339Z> 67-syslog-proxy DBG/ "psCellId": {
+015402 02.06 14:23:57.719 [192.168.255.129] 4e FCT-E002-2-syslog- <2019-06-02T06:24:00.317340Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>882573315</LOG_SCRAM_11>"
+015479 02.06 14:23:57.740 [192.168.255.129] 50 FCT-E002-2-syslog- <2019-06-02T06:24:00.317342Z> 67-syslog-proxy DBG/ "firstActiveCellId": "--",
+015480 02.06 14:23:57.740 [192.168.255.129] 51 FCT-E002-2-syslog- <2019-06-02T06:24:00.317343Z> 67-syslog-proxy DBG/ "candidateSpCellList": "--",
+015482 02.06 14:23:57.740 [192.168.255.129] 53 FCT-E002-2-syslog- <2019-06-02T06:24:00.317345Z> 67-syslog-proxy DBG/ "bandCombinationIndex": {
+015483 02.06 14:23:57.740 [192.168.255.129] 54 FCT-E002-2-syslog- <2019-06-02T06:24:00.317346Z> 67-syslog-proxy DBG/ "value": "1"
+015485 02.06 14:23:57.740 [192.168.255.129] 56 FCT-E002-2-syslog- <2019-06-02T06:24:00.317348Z> 67-syslog-proxy DBG/ "requestedFeatureSets": {
+015486 02.06 14:23:57.740 [192.168.255.129] 57 FCT-E002-2-syslog- <2019-06-02T06:24:00.317349Z> 67-syslog-proxy DBG/ "value": "1"
+015491 02.06 14:23:57.740 [192.168.255.129] 5c FCT-E002-2-syslog- <2019-06-02T06:24:00.317353Z> 67-syslog-proxy DBG/ "value": "513000"
+015533 02.06 14:23:57.747 [192.168.255.129] 5f FCT-E002-2-syslog- <2019-06-02T06:24:00.317355Z> 67-syslog-proxy DBG/ "gnbDuId": "GnbDuId: 0",
+015535 02.06 14:23:57.747 [192.168.255.129] 61 FCT-E002-2-syslog- <2019-06-02T06:24:00.317357Z> 67-syslog-proxy DBG/ "pcmdServiceParameters": {
+015536 02.06 14:23:57.747 [192.168.255.129] 62 FCT-E002-2-syslog- <2019-06-02T06:24:00.317358Z> 67-syslog-proxy DBG/ "cookie": "--",
+015537 02.06 14:23:57.747 [192.168.255.129] 63 FCT-E002-2-syslog- <2019-06-02T06:24:00.317362Z> 67-syslog-proxy DBG/ "lomSicad": "--",
+015538 02.06 14:23:57.747 [192.168.255.129] 64 FCT-E002-2-syslog- <2019-06-02T06:24:00.317363Z> 67-syslog-proxy DBG/ "pcmdActivationFlag": "--",
+015539 02.06 14:23:57.747 [192.168.255.129] 65 FCT-E002-2-syslog- <2019-06-02T06:24:00.317364Z> 67-syslog-proxy DBG/ "traceConfig": "--"
+015541 02.06 14:23:57.747 [192.168.255.129] 67 FCT-E002-2-syslog- <2019-06-02T06:24:00.317365Z> 67-syslog-proxy DBG/ "pduSessionsResources": ""
+016692 02.06 14:23:58.244 [192.168.255.129] 6b FCT-E002-2-syslog- <2019-06-02T06:24:00.965369Z> 67-syslog-proxy INF/[09:24:00.965101][cp_cl][106][000106][info] CplaneCellReceiver.cpp#85: Processing CellRequest:
+016693 02.06 14:23:58.244 [192.168.255.129] 6c FCT-E002-2-syslog- <2019-06-02T06:24:00.965374Z> 67-syslog-proxy INF/[09:24:00.965115][cp_cl][106][000106][info] ProtoMessageTypePrinter.cpp#8: cell_request.CpCellResourceReleaseReq
+016694 02.06 14:23:58.244 [192.168.255.129] 6d FCT-E002-2-syslog- <2019-06-02T06:24:00.965376Z> 67-syslog-proxy DBG/[09:24:00.965134][cp_cl][106][000106][debug] RadioAdmissionControlService.cpp#302: Received ResourceReleaseReq msg (cuUeId:1, NRCellIdentity: <LOG_SCRAM_11>882573315</LOG_SCRAM_11>)
+016695 02.06 14:23:58.244 [192.168.255.129] 6e FCT-E002-2-syslog- <2019-06-02T06:24:00.965377Z> 67-syslog-proxy DBG/[09:24:00.965140][cp_cl][106][000106][debug] ConcreteNrCellGroupCapacityControl.cpp#121: Increased nonGbrBearers capacity for cellGroupId: 2, Number of NonGbrBearers: 0
+016696 02.06 14:23:58.244 [192.168.255.129] 6f FCT-E002-2-syslog- <2019-06-02T06:24:00.965379Z> 67-syslog-proxy DBG/[09:24:00.965141][cp_cl][106][000106][debug] NrCellGroupCounter.cpp#28: Decrement number of user: 0
+016697 02.06 14:23:58.244 [192.168.255.129] 70 FCT-E002-2-syslog- <2019-06-02T06:24:00.965380Z> 67-syslog-proxy DBG/[09:24:00.965144][cp_cl][106][000106][debug] ConcreteNrCellGroupCapacityControl.cpp#127: Increased users capacity for cellGroupId: 2, Number of Users: 0
+016698 02.06 14:23:58.244 [192.168.255.129] 71 FCT-E002-2-syslog- <2019-06-02T06:24:00.965381Z> 67-syslog-proxy DBG/[09:24:00.965278][cp_cl][106][000106][trace] ConcreteUeSender.cpp#85: sending to CP-UE from CP-CELL
+016800 02.06 14:23:58.244 [192.168.255.129] 73 FCT-E002-2-syslog- <2019-06-02T06:24:00.965383Z> 67-syslog-proxy DBG/ "ResourceReleaseResp": {
+018185 02.06 14:23:59.469 [192.168.255.129] 78 FCT-E002-2-syslog- <2019-06-02T06:24:02.196141Z> 67-syslog-proxy INF/[09:24:02.195247][cp_cl][106][000106][info] CplaneCellReceiver.cpp#85: Processing CellRequest:
+018186 02.06 14:23:59.469 [192.168.255.129] 79 FCT-E002-2-syslog- <2019-06-02T06:24:02.196146Z> 67-syslog-proxy INF/[09:24:02.195274][cp_cl][106][000106][info] ProtoMessageTypePrinter.cpp#8: cell_request.CpCellAdmissionReq
+018187 02.06 14:23:59.469 [192.168.255.129] 7a FCT-E002-2-syslog- <2019-06-02T06:24:02.196148Z> 67-syslog-proxy DBG/[09:24:02.195291][cp_cl][106][000106][debug] RadioAdmissionControlService.cpp#225: Received AdmissionReq (cuUeId:2)
+018188 02.06 14:23:59.469 [192.168.255.129] 7b FCT-E002-2-syslog- <2019-06-02T06:24:02.196148Z> 67-syslog-proxy DBG/[09:24:02.195924][cp_cl][106][000106][trace] RadioAdmissionControlService.cpp#226: Received AdmissionReq message:{}
+018192 02.06 14:23:59.469 [192.168.255.129] 7f FCT-E002-2-syslog- <2019-06-02T06:24:02.196152Z> 67-syslog-proxy DBG/ "cellList": [
+018194 02.06 14:23:59.469 [192.168.255.129] 81 FCT-E002-2-syslog- <2019-06-02T06:24:02.196154Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>882573315</LOG_SCRAM_11>"
+018318 02.06 14:23:59.482 [192.168.255.129] 84 FCT-E002-2-syslog- <2019-06-02T06:24:02.196157Z> 67-syslog-proxy DBG/ "reason": "2",
+018321 02.06 14:23:59.482 [192.168.255.129] 87 FCT-E002-2-syslog- <2019-06-02T06:24:02.196160Z> 67-syslog-proxy DBG/ "lowBound": "1",
+018322 02.06 14:23:59.482 [192.168.255.129] 88 FCT-E002-2-syslog- <2019-06-02T06:24:02.196161Z> 67-syslog-proxy DBG/ "upBound": "31"
+018324 02.06 14:23:59.482 [192.168.255.129] 8a FCT-E002-2-syslog- <2019-06-02T06:24:02.196163Z> 67-syslog-proxy DBG/ "bandList": [
+018326 02.06 14:23:59.482 [192.168.255.129] 8c FCT-E002-2-syslog- <2019-06-02T06:24:02.196164Z> 67-syslog-proxy DBG/ "bandList": [
+018329 02.06 14:23:59.482 [192.168.255.129] 8f FCT-E002-2-syslog- <2019-06-02T06:24:02.196168Z> 67-syslog-proxy DBG/ "bandNR": "FreqBandIndicatorNR: 41",
+018447 02.06 14:23:59.489 [192.168.255.129] 90 FCT-E002-2-syslog- <2019-06-02T06:24:02.196169Z> 67-syslog-proxy DBG/ "caBandWidthClassDlNR": "0",
+018448 02.06 14:23:59.489 [192.168.255.129] 91 FCT-E002-2-syslog- <2019-06-02T06:24:02.196170Z> 67-syslog-proxy DBG/ "caBandWidthClassUlNR": "0"
+018452 02.06 14:23:59.489 [192.168.255.129] 95 FCT-E002-2-syslog- <2019-06-02T06:24:02.196182Z> 67-syslog-proxy DBG/ "mrdcParameters": "--",
+018453 02.06 14:23:59.489 [192.168.255.129] 96 FCT-E002-2-syslog- <2019-06-02T06:24:02.196183Z> 67-syslog-proxy DBG/ "featureSetCombinationId": "0"
+018459 02.06 14:23:59.489 [192.168.255.129] 9c FCT-E002-2-syslog- <2019-06-02T06:24:02.196189Z> 67-syslog-proxy DBG/ "value": "1"
+018542 02.06 14:23:59.489 [192.168.255.129] a0 FCT-E002-2-syslog- <2019-06-02T06:24:02.196193Z> 67-syslog-proxy DBG/ "value": "1"
+018551 02.06 14:23:59.489 [192.168.255.129] a9 FCT-E002-2-syslog- <2019-06-02T06:24:02.196200Z> 67-syslog-proxy DBG/ "downlinkSetNR": "0",
+018653 02.06 14:23:59.505 [192.168.255.129] aa FCT-E002-2-syslog- <2019-06-02T06:24:02.196201Z> 67-syslog-proxy DBG/ "uplinkSetNR": "0"
+018658 02.06 14:23:59.505 [192.168.255.129] af FCT-E002-2-syslog- <2019-06-02T06:24:02.196206Z> 67-syslog-proxy DBG/ "downlinkSetNR": "1",
+018659 02.06 14:23:59.505 [192.168.255.129] b0 FCT-E002-2-syslog- <2019-06-02T06:24:02.196207Z> 67-syslog-proxy DBG/ "uplinkSetNR": "1"
+018728 02.06 14:23:59.520 [192.168.255.129] b8 FCT-E002-2-syslog- <2019-06-02T06:24:02.196214Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+018731 02.06 14:23:59.520 [192.168.255.129] bb FCT-E002-2-syslog- <2019-06-02T06:24:02.196217Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+018734 02.06 14:23:59.520 [192.168.255.129] be FCT-E002-2-syslog- <2019-06-02T06:24:02.196221Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+018737 02.06 14:23:59.520 [192.168.255.129] c1 FCT-E002-2-syslog- <2019-06-02T06:24:02.196223Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+018740 02.06 14:23:59.520 [192.168.255.129] c4 FCT-E002-2-syslog- <2019-06-02T06:24:02.196226Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+018814 02.06 14:23:59.520 [192.168.255.129] c7 FCT-E002-2-syslog- <2019-06-02T06:24:02.196229Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+018817 02.06 14:23:59.520 [192.168.255.129] ca FCT-E002-2-syslog- <2019-06-02T06:24:02.196231Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+018820 02.06 14:23:59.520 [192.168.255.129] cd FCT-E002-2-syslog- <2019-06-02T06:24:02.196234Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+018823 02.06 14:23:59.520 [192.168.255.129] d0 FCT-E002-2-syslog- <2019-06-02T06:24:02.196237Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+018902 02.06 14:23:59.536 [192.168.255.129] d3 FCT-E002-2-syslog- <2019-06-02T06:24:02.196239Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+018905 02.06 14:23:59.536 [192.168.255.129] d6 FCT-E002-2-syslog- <2019-06-02T06:24:02.196242Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationDL": "--"
+018908 02.06 14:23:59.536 [192.168.255.129] d9 FCT-E002-2-syslog- <2019-06-02T06:24:02.196245Z> 67-syslog-proxy DBG/ "featureSetsUplink": [
+018910 02.06 14:23:59.536 [192.168.255.129] db FCT-E002-2-syslog- <2019-06-02T06:24:02.196247Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationUL": "--"
+018913 02.06 14:23:59.536 [192.168.255.129] de FCT-E002-2-syslog- <2019-06-02T06:24:02.196249Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationUL": "--"
+018984 02.06 14:23:59.552 [192.168.255.129] e1 FCT-E002-2-syslog- <2019-06-02T06:24:02.196252Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationUL": "--"
+018987 02.06 14:23:59.552 [192.168.255.129] e4 FCT-E002-2-syslog- <2019-06-02T06:24:02.196256Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationUL": "--"
+018990 02.06 14:23:59.552 [192.168.255.129] e7 FCT-E002-2-syslog- <2019-06-02T06:24:02.196259Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationUL": "--"
+018993 02.06 14:23:59.552 [192.168.255.129] ea FCT-E002-2-syslog- <2019-06-02T06:24:02.196262Z> 67-syslog-proxy DBG/ "intraBandFreqSeparationUL": "--"
+019069 02.06 14:23:59.562 [192.168.255.129] ef FCT-E002-2-syslog- <2019-06-02T06:24:02.196266Z> 67-syslog-proxy DBG/ "numberOfNonGbrDRBsToBeAdded": "1",
+019074 02.06 14:23:59.562 [192.168.255.129] f4 FCT-E002-2-syslog- <2019-06-02T06:24:02.196270Z> 67-syslog-proxy DBG/[09:24:02.195934][cp_cl][106][000106][debug] PSCellSelectionAlgorithmImpl.cpp#31: For Addition: maxNumOfUsersPerCellGroup: 500, maxNumOfNonGbrBearersPerCellGroup: 500
+019075 02.06 14:23:59.562 [192.168.255.129] f5 FCT-E002-2-syslog- <2019-06-02T06:24:02.196971Z> 67-syslog-proxy DBG/[09:24:02.196282][cp_cl][106][000106][debug] PSCellSelectionAlgorithmImpl.cpp#453: checkCapacity succeeded: GnbDuId: 0 nrCellGroupId=2 {
+019154 02.06 14:23:59.572 [192.168.255.129] f9 FCT-E002-2-syslog- <2019-06-02T06:24:02.196978Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>882573315</LOG_SCRAM_11>"
+019157 02.06 14:23:59.572 [192.168.255.129] fc FCT-E002-2-syslog- <2019-06-02T06:24:02.196981Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>104</LOG_SCRAM_11>"
+019160 02.06 14:23:59.572 [192.168.255.129] ff FCT-E002-2-syslog- <2019-06-02T06:24:02.196984Z> 67-syslog-proxy DBG/ "value": "513000"
+019163 02.06 14:23:59.572 [192.168.255.129] 03 FCT-E002-2-syslog- <2019-06-02T06:24:02.196986Z> 67-syslog-proxy DBG/ "value": "3"
+019265 02.06 14:23:59.582 [192.168.255.129] 10 FCT-E002-2-syslog- <2019-06-02T06:24:02.197003Z> 67-syslog-proxy DBG/ "maxNumOfRrcSA": "NumOfUsersPerCell: 250"
+019343 02.06 14:23:59.589 [192.168.255.129] 15 FCT-E002-2-syslog- <2019-06-02T06:24:02.197007Z> 67-syslog-proxy DBG/[09:24:02.196289][cp_cl][106][000106][debug] PSCellSelectionAlgorithmImpl.cpp#99: SelectedBandCombinationIndex=1
+019344 02.06 14:23:59.589 [192.168.255.129] 16 FCT-E002-2-syslog- <2019-06-02T06:24:02.197008Z> 67-syslog-proxy DBG/[09:24:02.196297][cp_cl][106][000106][debug] NrCellGroupCounter.cpp#34: numOfNonGbrBearers in cellGroup for ueId 2: 1
+019345 02.06 14:23:59.589 [192.168.255.129] 17 FCT-E002-2-syslog- <2019-06-02T06:24:02.197009Z> 67-syslog-proxy DBG/[09:24:02.196299][cp_cl][106][000106][debug] ConcreteNrCellGroupCapacityControl.cpp#110: Decreased nonGbrBearers capacity for cellGroupId: 2, Number of NonGbrBearers: 1
+019346 02.06 14:23:59.589 [192.168.255.129] 18 FCT-E002-2-syslog- <2019-06-02T06:24:02.197010Z> 67-syslog-proxy DBG/[09:24:02.196301][cp_cl][106][000106][debug] PSCellSelectionAlgorithmImpl.cpp#587: PSCellSelection reduce free nonGbrBearers for cellGroupId2 for ueId=2 by numOfNonGbrBearers=1
+019347 02.06 14:23:59.589 [192.168.255.129] 19 FCT-E002-2-syslog- <2019-06-02T06:24:02.197011Z> 67-syslog-proxy DBG/[09:24:02.196302][cp_cl][106][000106][debug] NrCellGroupCounter.cpp#22: Increment number of user: 1
+019348 02.06 14:23:59.589 [192.168.255.129] 1a FCT-E002-2-syslog- <2019-06-02T06:24:02.197012Z> 67-syslog-proxy DBG/[09:24:02.196303][cp_cl][106][000106][debug] ConcreteNrCellGroupCapacityControl.cpp#97: Decreased users capacity for cellGroupId: 2, Number of Users: 1
+019416 02.06 14:23:59.589 [192.168.255.129] 1b FCT-E002-2-syslog- <2019-06-02T06:24:02.197013Z> 67-syslog-proxy DBG/[09:24:02.196306][cp_cl][106][000106][debug] SdlAdmittedUsersPerCellsStorage.cpp#48: Storing AdmittedUsersPerCell id: NRCellIdentity: <LOG_SCRAM_11>882573315</LOG_SCRAM_11> in SDL
+019417 02.06 14:23:59.589 [192.168.255.129] 1c FCT-E002-2-syslog- <2019-06-02T06:24:02.197014Z> 67-syslog-proxy DBG/[09:24:02.196371][cp_cl][106][000106][debug] PSCellSelectionAlgorithmImpl.cpp#573: PSCellSelection succeeded for the best candidate cell: nrCellGroupId=2, NRCellIdentity: <LOG_SCRAM_11>882573315</LOG_SCRAM_11>
+019418 02.06 14:23:59.589 [192.168.255.129] 1d FCT-E002-2-syslog- <2019-06-02T06:24:02.197015Z> 67-syslog-proxy DBG/[09:24:02.196375][cp_cl][106][000106][debug] PSCellSelectionAlgorithmImpl.cpp#208: Couldn't determine CandidateSpCellList, spCellChangeEnabled = false
+019419 02.06 14:23:59.589 [192.168.255.129] 1e FCT-E002-2-syslog- <2019-06-02T06:24:02.197016Z> 67-syslog-proxy DBG/[09:24:02.196379][cp_cl][106][000106][debug] ConcretePcmdService.cpp#427: PCMD acquireUeCookie: No cookie allocated, no cellConfig for NrCellId: 882573315
+019420 02.06 14:23:59.589 [192.168.255.129] 1f FCT-E002-2-syslog- <2019-06-02T06:24:02.197017Z> 67-syslog-proxy DBG/[09:24:02.196407][cp_cl][106][000106][debug] ConcretePcmdService.cpp#415: PCMD buildUeServiceParameters: Return empty parameters, no cellConfig for NrCellId: 882573315
+019498 02.06 14:23:59.605 [192.168.255.129] 21 FCT-E002-2-syslog- <2019-06-02T06:24:02.197019Z> 67-syslog-proxy DBG/[09:24:02.196577][cp_cl][106][000106][trace] ConcreteUeSender.cpp#72: sending to CP-UE from CP-CELL
+019500 02.06 14:23:59.605 [192.168.255.129] 23 FCT-E002-2-syslog- <2019-06-02T06:24:02.197021Z> 67-syslog-proxy DBG/ "AdmissionResp": {
+019501 02.06 14:23:59.605 [192.168.255.129] 24 FCT-E002-2-syslog- <2019-06-02T06:24:02.197022Z> 67-syslog-proxy DBG/ "result": {
+019502 02.06 14:23:59.605 [192.168.255.129] 25 FCT-E002-2-syslog- <2019-06-02T06:24:02.197023Z> 67-syslog-proxy DBG/ "status": "Status: ok",
+019503 02.06 14:23:59.605 [192.168.255.129] 26 FCT-E002-2-syslog- <2019-06-02T06:24:02.197024Z> 67-syslog-proxy DBG/ "cause": "--"
+019505 02.06 14:23:59.605 [192.168.255.129] 28 FCT-E002-2-syslog- <2019-06-02T06:24:02.197027Z> 67-syslog-proxy DBG/ "cuUeId": "2",
+019506 02.06 14:23:59.605 [192.168.255.129] 29 FCT-E002-2-syslog- <2019-06-02T06:24:02.197028Z> 67-syslog-proxy DBG/ "psCellId": {
+019507 02.06 14:23:59.605 [192.168.255.129] 2a FCT-E002-2-syslog- <2019-06-02T06:24:02.197029Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>882573315</LOG_SCRAM_11>"
+019587 02.06 14:23:59.620 [192.168.255.129] 2c FCT-E002-2-syslog- <2019-06-02T06:24:02.197031Z> 67-syslog-proxy DBG/ "firstActiveCellId": "--",
+019588 02.06 14:23:59.620 [192.168.255.129] 2d FCT-E002-2-syslog- <2019-06-02T06:24:02.197032Z> 67-syslog-proxy DBG/ "candidateSpCellList": "--",
+019591 02.06 14:23:59.620 [192.168.255.129] 30 FCT-E002-2-syslog- <2019-06-02T06:24:02.197034Z> 67-syslog-proxy DBG/ "value": "1"
+019593 02.06 14:23:59.620 [192.168.255.129] 32 FCT-E002-2-syslog- <2019-06-02T06:24:02.197036Z> 67-syslog-proxy DBG/ "requestedFeatureSets": {
+019594 02.06 14:23:59.620 [192.168.255.129] 33 FCT-E002-2-syslog- <2019-06-02T06:24:02.197037Z> 67-syslog-proxy DBG/ "value": "1"
+019598 02.06 14:23:59.620 [192.168.255.129] 37 FCT-E002-2-syslog- <2019-06-02T06:24:02.197040Z> 67-syslog-proxy DBG/ "frequency": {
+019599 02.06 14:23:59.620 [192.168.255.129] 38 FCT-E002-2-syslog- <2019-06-02T06:24:02.197041Z> 67-syslog-proxy DBG/ "value": "513000"
+019661 02.06 14:23:59.620 [192.168.255.129] 3e FCT-E002-2-syslog- <2019-06-02T06:24:02.197047Z> 67-syslog-proxy DBG/ "cookie": "--",
+019662 02.06 14:23:59.620 [192.168.255.129] 3f FCT-E002-2-syslog- <2019-06-02T06:24:02.197048Z> 67-syslog-proxy DBG/ "lomSicad": "--",
+019663 02.06 14:23:59.620 [192.168.255.129] 40 FCT-E002-2-syslog- <2019-06-02T06:24:02.197049Z> 67-syslog-proxy DBG/ "pcmdActivationFlag": "--",
+019664 02.06 14:23:59.620 [192.168.255.129] 41 FCT-E002-2-syslog- <2019-06-02T06:24:02.197049Z> 67-syslog-proxy DBG/ "traceConfig": "--"
+020653 02.06 14:24:00.337 [192.168.255.129] 47 FCT-E002-2-syslog- <2019-06-02T06:24:03.070206Z> 67-syslog-proxy INF/[09:24:03.068681][cp_cl][106][000106][info] CplaneCellReceiver.cpp#85: Processing CellRequest:
+020654 02.06 14:24:00.337 [192.168.255.129] 48 FCT-E002-2-syslog- <2019-06-02T06:24:03.070212Z> 67-syslog-proxy INF/[09:24:03.068694][cp_cl][106][000106][info] ProtoMessageTypePrinter.cpp#8: common_messages.ReceiveFromDu
+020655 02.06 14:24:00.337 [192.168.255.129] 49 FCT-E002-2-syslog- <2019-06-02T06:24:03.070213Z> 67-syslog-proxy DBG/[09:24:03.068705][cp_cl][106][000106][debug] DistributedUnitsService.cpp#334: Received F1Envelope from GnbDuId: 0
+020656 02.06 14:24:00.337 [192.168.255.129] 4a FCT-E002-2-syslog- <2019-06-02T06:24:03.070214Z> 67-syslog-proxy DBG/[09:24:03.068871][cp_cl][106][000106][trace] DistributedUnitsService.cpp#337: Received F1AP Message from CP-IF
+020662 02.06 14:24:00.337 [192.168.255.129] 50 FCT-E002-2-syslog- <2019-06-02T06:24:03.070221Z> 67-syslog-proxy DBG/ "cellsToDelete": [
+020713 02.06 14:24:00.358 [192.168.255.129] 53 FCT-E002-2-syslog- <2019-06-02T06:24:03.070224Z> 67-syslog-proxy DBG/ "value": [
+020719 02.06 14:24:00.358 [192.168.255.129] 59 FCT-E002-2-syslog- <2019-06-02T06:24:03.070230Z> 67-syslog-proxy DBG/ "nrCellIdentifier": {
+020720 02.06 14:24:00.358 [192.168.255.129] 5a FCT-E002-2-syslog- <2019-06-02T06:24:03.070232Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>882573313</LOG_SCRAM_11>"
+020775 02.06 14:24:00.368 [192.168.255.129] 61 FCT-E002-2-syslog- <2019-06-02T06:24:03.070237Z> 67-syslog-proxy DBG/[09:24:03.068878][cp_cl][106][000106][trace] ConcreteF1InterfaceEvents.cpp#25: [NrBtsId: 53868, NrDuId: 1]: incrementing sum counter(id: 3612148232)
+020776 02.06 14:24:00.368 [192.168.255.129] 62 FCT-E002-2-syslog- <2019-06-02T06:24:03.070238Z> 67-syslog-proxy DBG/[09:24:03.068912][cp_cl][106][000106][trace] ConcreteF1InterfaceEvents.cpp#25: [NrBtsId: 53868, NrDuId: 1]: incrementing sum counter(id: 3612148235)
+020779 02.06 14:24:00.368 [192.168.255.129] 65 FCT-E002-2-syslog- <2019-06-02T06:24:03.072064Z> 67-syslog-proxy DBG/[09:24:03.068965][cp_cl][106][000106][debug] SdlF1APCellsStorage.cpp#159: Storing 1 cells in SDL
+020811 02.06 14:24:00.378 [192.168.255.129] 67 FCT-E002-2-syslog- <2019-06-02T06:24:03.072070Z> 67-syslog-proxy INF/[09:24:03.068982][cp_cl][106][000106][info] SdlServedCellsStorage.cpp#27: GnbDuId: 0 storing served cells: [NRCellIdentity: <LOG_SCRAM_11>882573313</LOG_SCRAM_11>, NRCellIdentity: <LOG_SCRAM_11>882573315</LOG_SCRAM_11>].
+020812 02.06 14:24:00.378 [192.168.255.129] 68 FCT-E002-2-syslog- <2019-06-02T06:24:03.072072Z> 67-syslog-proxy INF/[09:24:03.069020][cp_cl][106][000106][info] SdlServedCellsStorage.cpp#27: GnbDuId: 0 storing served cells: [NRCellIdentity: <LOG_SCRAM_11>882573313</LOG_SCRAM_11>, NRCellIdentity: <LOG_SCRAM_11>882573315</LOG_SCRAM_11>].
+020846 02.06 14:24:00.388 [192.168.255.129] 6a FCT-E002-2-syslog- <2019-06-02T06:24:03.072079Z> 67-syslog-proxy INF/[09:24:03.069049][cp_cl][106][000106][info] NsaCpIfPartialResetProcedure.cpp#51: DistributedUnit[GnbDuId: 0]: NsaCpIfPartialResetProcedure[TransactionId: 1]: X2 partial reset started
+020847 02.06 14:24:00.388 [192.168.255.129] 6b FCT-E002-2-syslog- <2019-06-02T06:24:03.072080Z> 67-syslog-proxy DBG/[09:24:03.071978][cp_cl][106][000106][trace] ConcreteMenbSender.cpp#42: Sending cplane_x2_service::CpIfX2PartialResetReq
+020849 02.06 14:24:00.388 [192.168.255.129] 6d FCT-E002-2-syslog- <2019-06-02T06:24:03.072082Z> 67-syslog-proxy DBG/ "CpIfX2PartialResetReq": {
+020850 02.06 14:24:00.388 [192.168.255.129] 6e FCT-E002-2-syslog- <2019-06-02T06:24:03.072083Z> 67-syslog-proxy DBG/ "transactionId": "TransactionId: 1",
+020851 02.06 14:24:00.388 [192.168.255.129] 6f FCT-E002-2-syslog- <2019-06-02T06:24:03.072084Z> 67-syslog-proxy DBG/ "gnbDuId": "GnbDuId: 0",
+020852 02.06 14:24:00.388 [192.168.255.129] 70 FCT-E002-2-syslog- <2019-06-02T06:24:03.072085Z> 67-syslog-proxy DBG/ "cause": "11",
+020853 02.06 14:24:00.388 [192.168.255.129] 71 FCT-E002-2-syslog- <2019-06-02T06:24:03.072086Z> 67-syslog-proxy DBG/ "cellsUeIds": [
+020889 02.06 14:24:00.398 [192.168.255.129] 77 FCT-E002-2-syslog- <2019-06-02T06:24:03.075481Z> 67-syslog-proxy INF/[09:24:03.074034][cp_cl][106][000106][info] CplaneCellReceiver.cpp#85: Processing CellRequest:
+020890 02.06 14:24:00.398 [192.168.255.129] 78 FCT-E002-2-syslog- <2019-06-02T06:24:03.075485Z> 67-syslog-proxy INF/[09:24:03.074090][cp_cl][106][000106][info] ProtoMessageTypePrinter.cpp#8: cell_request.CpIfX2PartialResetResponse
+020891 02.06 14:24:00.398 [192.168.255.129] 79 FCT-E002-2-syslog- <2019-06-02T06:24:03.075486Z> 67-syslog-proxy DBG/[09:24:03.074145][cp_cl][106][000106][trace] DistributedUnitsService.cpp#461: Received CpIfX2PartialResetResp from X2
+020933 02.06 14:24:00.408 [192.168.255.129] 82 FCT-E002-2-syslog- <2019-06-02T06:24:03.075495Z> 67-syslog-proxy DBG/[09:24:03.074155][cp_cl][106][000106][debug] FunctorResponseMatcherHandler.hpp#25: Received response of type messages::cplane_cell::CpIfX2PartialResetResp
+020934 02.06 14:24:00.408 [192.168.255.129] 83 FCT-E002-2-syslog- <2019-06-02T06:24:03.075496Z> 67-syslog-proxy INF/[09:24:03.074160][cp_cl][106][000106][info] NsaCpIfPartialResetProcedure.cpp#32: DistributedUnit[GnbDuId: 0]: NsaCpIfPartialResetProcedure[TransactionId: 1]: X2 partial reset finished successfully
+020982 02.06 14:24:00.418 [192.168.255.129] 8c FCT-E002-2-syslog- <2019-06-02T06:24:03.075509Z> 67-syslog-proxy DBG/[09:24:03.074197][cp_cl][106][000106][trace] ConcreteF1InterfaceEvents.cpp#25: [NrBtsId: 53868, NrDuId: 1]: incrementing sum counter(id: 3612148236)
+020983 02.06 14:24:00.418 [192.168.255.129] 8d FCT-E002-2-syslog- <2019-06-02T06:24:03.075509Z> 67-syslog-proxy DBG/[09:24:03.074249][cp_cl][106][000106][trace] DuCellDynamicConfigurationProcedure.cpp#94: DistributedUnit[GnbDuId: 0]: DuCellDynamicConfigurationProcedure[TransactionId: 1]: sent DuConfigurationUpdateAck
+020984 02.06 14:24:00.418 [192.168.255.129] 8e FCT-E002-2-syslog- <2019-06-02T06:24:03.075511Z> 67-syslog-proxy DBG/[09:24:03.074262][cp_cl][106][000106][debug] SdlF1APCellsStorage.cpp#159: Storing 1 cells in SDL
+020985 02.06 14:24:00.418 [192.168.255.129] 8f FCT-E002-2-syslog- <2019-06-02T06:24:03.075512Z> 67-syslog-proxy DBG/[09:24:03.074271][cp_cl][106][000106][debug] NrCellUnregisterResourceProcedure.cpp#45: Starting PCMD Unregister Resource Procedure
+020986 02.06 14:24:00.418 [192.168.255.129] 90 FCT-E002-2-syslog- <2019-06-02T06:24:03.075512Z> 67-syslog-proxy DBG/[09:24:03.074272][cp_cl][106][000106][debug] NrCellUnregisterResourceProcedure.cpp#57: Sending PCMD UnregisterResourceReq for cellId: 882573313
+020987 02.06 14:24:00.418 [192.168.255.129] 91 FCT-E002-2-syslog- <2019-06-02T06:24:03.075513Z> 67-syslog-proxy DBG/[09:24:03.074312][cp_cl][106][000106][debug] ConcretePcmdEndpoint.cpp#235: PcmdEndpoint sending message: {
+021023 02.06 14:24:00.425 [192.168.255.129] 94 FCT-E002-2-syslog- <2019-06-02T06:24:03.075517Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>882573313</LOG_SCRAM_11>"
+021028 02.06 14:24:00.425 [192.168.255.129] 99 FCT-E002-2-syslog- <2019-06-02T06:24:03.075521Z> 67-syslog-proxy DBG/[09:24:03.074338][cp_cl][106][000106][debug] SyscomEndpoint.cpp#73: Sent message (41 bytes)
+021029 02.06 14:24:00.425 [192.168.255.129] 9a FCT-E002-2-syslog- <2019-06-02T06:24:03.075522Z> 67-syslog-proxy INF/[09:24:03.074353][cp_cl][106][000106][info] SdlServedCellsStorage.cpp#27: GnbDuId: 0 storing served cells: [NRCellIdentity: <LOG_SCRAM_11>882573315</LOG_SCRAM_11>].
+021030 02.06 14:24:00.425 [192.168.255.129] 9b FCT-E002-2-syslog- <2019-06-02T06:24:03.076923Z> 67-syslog-proxy INF/[09:24:03.076849][cp_cl][106][000106][info] ConcreteDistributedUnit.cpp#310: DistributedUnit[GnbDuId: 0] finished cell configuration. Deactivated cells: [NRCellIdentity: <LOG_SCRAM_11>882573313</LOG_SCRAM_11>].
+021065 02.06 14:24:00.425 [192.168.255.129] 9d FCT-E002-2-syslog- <2019-06-02T06:24:03.076998Z> 67-syslog-proxy DBG/[09:24:03.076864][cp_cl][106][000106][debug] EndcConfigurationUpdateProcedure.cpp#98: DistributedUnit[GnbDuId: 0]: ENDCConfigurationUpdateProcedure[TransactionId: 2]: scheduling timer guarding CpIfEndcUpdateResponse (nsaCellEndcUpdateTimer: 352s)
+021066 02.06 14:24:00.425 [192.168.255.129] 9e FCT-E002-2-syslog- <2019-06-02T06:24:03.077724Z> 67-syslog-proxy DBG/[09:24:03.077128][cp_cl][106][000106][trace] ConcreteMenbSender.cpp#36: CP-Cell Sending CpIfEndcUpdateRequest to CP-IF X2ap
+021071 02.06 14:24:00.425 [192.168.255.129] a3 FCT-E002-2-syslog- <2019-06-02T06:24:03.077732Z> 67-syslog-proxy DBG/ "endcNrCellsInDu": [
+021099 02.06 14:24:00.441 [192.168.255.129] a8 FCT-E002-2-syslog- <2019-06-02T06:24:03.077742Z> 67-syslog-proxy DBG/ "value": [
+021106 02.06 14:24:00.441 [192.168.255.129] af FCT-E002-2-syslog- <2019-06-02T06:24:03.077749Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>882573313</LOG_SCRAM_11>"
+021130 02.06 14:24:00.456 [192.168.255.129] b2 FCT-E002-2-syslog- <2019-06-02T06:24:03.077752Z> 67-syslog-proxy DBG/ "servedCellInformation": "--"
+021136 02.06 14:24:00.456 [192.168.255.129] b8 FCT-E002-2-syslog- <2019-06-02T06:24:03.077757Z> 67-syslog-proxy DBG/[09:24:03.077175][cp_cl][106][000106][trace] EndcConfigurationUpdateProcedure.cpp#163: DistributedUnit[GnbDuId: 0]: ENDCConfigurationUpdateProcedure[TransactionId: 2]: sent CpIfEndcUpdateRequest
+021137 02.06 14:24:00.456 [192.168.255.129] b9 FCT-E002-2-syslog- <2019-06-02T06:24:03.078838Z> 67-syslog-proxy DBG/[09:24:03.078373][cp_cl][106][000106][debug] ConcretePcmdEndpoint.cpp#121: PcmdEndpoint received message: {
+021140 02.06 14:24:00.456 [192.168.255.129] bc FCT-E002-2-syslog- <2019-06-02T06:24:03.078843Z> 67-syslog-proxy DBG/ "payload": [
+021188 02.06 14:24:00.488 [192.168.255.129] dd FCT-E002-2-syslog- <2019-06-02T06:24:03.078873Z> 67-syslog-proxy DBG/[09:24:03.078428][cp_cl][106][000106][debug] ConcretePcmdEndpoint.cpp#171: PcmdEndpoint received TraceControllerNrAppUnregisterResourceResp message: {
+021191 02.06 14:24:00.488 [192.168.255.129] e0 FCT-E002-2-syslog- <2019-06-02T06:24:03.078877Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>882573313</LOG_SCRAM_11>"
+021193 02.06 14:24:00.488 [192.168.255.129] e2 FCT-E002-2-syslog- <2019-06-02T06:24:03.078879Z> 67-syslog-proxy DBG/ "status": "0"
+021197 02.06 14:24:00.488 [192.168.255.129] e6 FCT-E002-2-syslog- <2019-06-02T06:24:03.078882Z> 67-syslog-proxy DBG/[09:24:03.078431][cp_cl][106][000106][debug] NrCellUnregisterResourceProcedure.cpp#73: Received PCMD UnregisterResourceResp for cellId: 882573313 with status: types::trace_controller_nr::NrAppResourceUnregistrationStatus::success
+021202 02.06 14:24:00.488 [192.168.255.129] e7 FCT-E002-2-syslog- <2019-06-02T06:24:03.079808Z> 67-syslog-proxy DBG/[09:24:03.078434][cp_cl][106][000106][debug] NrCellUnregisterResourceProcedure.cpp#24: Removing cellId: 882573313 from PCMD cellConfigsMap
+021210 02.06 14:24:00.488 [192.168.255.129] ef FCT-E002-2-syslog- <2019-06-02T06:24:03.079818Z> 67-syslog-proxy DBG/ "cellToDeleteList": [
+021220 02.06 14:24:00.503 [192.168.255.129] f2 FCT-E002-2-syslog- <2019-06-02T06:24:03.079822Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>882573313</LOG_SCRAM_11>"
+021228 02.06 14:24:00.503 [192.168.255.129] fa FCT-E002-2-syslog- <2019-06-02T06:24:03.079974Z> 67-syslog-proxy INF/[09:24:03.079882][cp_cl][106][000106][info] CplaneCellReceiver.cpp#85: Processing CellRequest:
+021229 02.06 14:24:00.503 [192.168.255.129] fb FCT-E002-2-syslog- <2019-06-02T06:24:03.079977Z> 67-syslog-proxy INF/[09:24:03.079888][cp_cl][106][000106][info] ProtoMessageTypePrinter.cpp#8: cell_request.CpCellCellStatusUpdateConfirm
+021230 02.06 14:24:00.503 [192.168.255.129] fc FCT-E002-2-syslog- <2019-06-02T06:24:03.079978Z> 67-syslog-proxy DBG/[09:24:03.079927][cp_cl][106][000106][trace] CplaneCell.cpp#225: Received CpCellCellStatusUpdateConfirm:
+021244 02.06 14:24:00.519 [192.168.255.129] 04 FCT-E002-2-syslog- <2019-06-02T06:24:03.079984Z> 67-syslog-proxy DBG/[09:24:03.079933][cp_cl][106][000106][debug] ConcreteCpNbNotificator.cpp#75: Received CpCellCellStatusUpdateConfirm with transaction id 2
+021245 02.06 14:24:00.519 [192.168.255.129] 05 FCT-E002-2-syslog- <2019-06-02T06:24:03.082166Z> 67-syslog-proxy INF/[09:24:03.082024][cp_cl][106][000106][info] CplaneCellReceiver.cpp#85: Processing CellRequest:
+021246 02.06 14:24:00.519 [192.168.255.129] 06 FCT-E002-2-syslog- <2019-06-02T06:24:03.082169Z> 67-syslog-proxy INF/[09:24:03.082032][cp_cl][106][000106][info] ProtoMessageTypePrinter.cpp#8: cell_request.CpIfEndcUpdateResponse
+021247 02.06 14:24:00.519 [192.168.255.129] 07 FCT-E002-2-syslog- <2019-06-02T06:24:03.082293Z> 67-syslog-proxy DBG/[09:24:03.082227][cp_cl][106][000106][trace] DistributedUnitsService.cpp#455: Received CpIfEndcUpdateResponse from X2
+021257 02.06 14:24:00.519 [192.168.255.129] 0c FCT-E002-2-syslog- <2019-06-02T06:24:03.082300Z> 67-syslog-proxy DBG/ "nrCellsInDu": [
+021260 02.06 14:24:00.519 [192.168.255.129] 0f FCT-E002-2-syslog- <2019-06-02T06:24:03.082303Z> 67-syslog-proxy DBG/ "value": "<LOG_SCRAM_11>882573313</LOG_SCRAM_11>"
+021268 02.06 14:24:00.534 [192.168.255.129] 17 FCT-E002-2-syslog- <2019-06-02T06:24:03.082310Z> 67-syslog-proxy DBG/[09:24:03.082238][cp_cl][106][000106][debug] FunctorResponseMatcherHandler.hpp#25: Received response of type messages::cplane_cell::CpIfEndcUpdateResponse
+021269 02.06 14:24:00.534 [192.168.255.129] 18 FCT-E002-2-syslog- <2019-06-02T06:24:03.082317Z> 67-syslog-proxy ERR/[09:24:03.082246][cp_cl][106][000106][error] EndcConfigurationUpdateProcedure.cpp#141: DistributedUnit[GnbDuId: 0]: ENDCConfigurationUpdateProcedure[TransactionId: 2]: CpIfEndcUpdateResponse is empty
