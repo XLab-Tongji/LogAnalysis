@@ -544,21 +544,23 @@ sub print_candidate {
 sub find_candidates {
 
   my($ifile, $line, $word, $word2, $varnum, $candidate, $index, $total, $i);
-  my(@words, @words2, %words, @candidate, @vars, $linecount, $fh, $n);
+  my(@words, @words2, %words, @candidate, @vars, $linecount, $fh, $n,$filecount,$infile_linecount);
 
   $linecount = 0;
-
+  $filecount = 0;
   foreach $ifile (@inputfiles) {
 
     $fh = open_input_file($ifile);
-
+    ++$filecount;
+    $infile_linecount=0;
     while (<$fh>) {
 
       $line = process_line($_);
       if (!defined($line)) { next; }
 
       ++$linecount;
-
+      ++$infile_linecount;
+      
       @words = split(/$sepregexp/, $line);
       @candidate = ();
       @vars = ();
@@ -634,6 +636,8 @@ sub find_candidates {
             push @{$candidates{$candidate}->{"Vars"}}, [ $varnum, $varnum];
           }
           $candidates{$candidate}->{"Count"} = 1;
+          $candidates{$candidate}->{"Log"} = {};
+          $candidates{$candidate}->{"Log"}->{$linecount} = {"filecount"=>$filecount,"infile_linecount"=>$infile_linecount};
         } else {
           $total = scalar(@vars);
           for ($index = 0; $index < $total; ++$index) {
@@ -647,6 +651,7 @@ sub find_candidates {
             }
           }
           ++$candidates{$candidate}->{"Count"};
+          $candidates{$candidate}->{"Log"}->{$linecount} = {"filecount"=>$filecount,"infile_linecount"=>$infile_linecount};
         }
       }
     }
@@ -843,7 +848,7 @@ sub find_more_specific {
 
 sub aggregate_supports {
 
-  my(@keys, @keys2, $cand, $cand2);
+  my(@keys, @keys2, $cand, $cand2,$log);
 
   @keys = keys %candidates;
 
@@ -867,6 +872,12 @@ sub aggregate_supports {
     @keys2 = keys %{$candidates{$cand}->{"SubClusters"}};
 
     if (scalar(@keys2)) {
+
+      foreach $cand2 (@keys2)
+      {
+        foreach $log (keys %{$candidates{$cand2}->{"Log"}})
+        { $candidates{$cand}->{"Log"}->{$log}=$candidates{$cand2}->{"Log"}->{$log};} 
+      }
 
       if (defined($outlierfile) && $candidates{$cand}->{"Count"} >= $support) {
         foreach $cand2 (@keys2) { $outlierpat{$cand2} = 1; }
@@ -1101,7 +1112,7 @@ sub print_weights {
 sub join_candidate {
 
   my($candidate) = $_[0];
-  my($i, $n, $cluster, @words);
+  my($i, $n, $cluster, @words,$log);
   
   $n = $candidates{$candidate}->{"WordCount"};
 
@@ -1148,6 +1159,9 @@ sub join_candidate {
   }
 
   $clusters{$cluster}->{"Count"} += $candidates{$candidate}->{"Count"};
+  foreach $log (keys %{$candidates{$candidate}->{"Log"}}){
+    $clusters{$cluster}->{"Log"}->{$log}=$candidates{$candidate}->{"Log"}->{$log};
+  }
 } 
 
 # This function joins the cluster candidate parameter1 to a suitable cluster
@@ -1157,7 +1171,7 @@ sub join_candidate {
 sub join_candidate2 {
 
   my($candidate) = $_[0];
-  my($i, $n, $cluster, @words);
+  my($i, $n, $cluster,$log, @words);
   my($min, $max, @vars);
   
   $n = $candidates{$candidate}->{"WordCount"};
@@ -1204,6 +1218,9 @@ sub join_candidate2 {
 
     $clusters{$cluster}->{"Count"} += $candidates{$candidate}->{"Count"};
   }
+  foreach $log (keys %{$candidates{$candidate}->{"Log"}}){
+    $clusters{$cluster}->{"Log"}->{$log}=$candidates{$candidate}->{"Log"}->{$log};
+    }
 } 
 
 # This function joins frequent cluster candidates into final clusters
@@ -1332,6 +1349,113 @@ sub print_clusters {
   log_msg("info", "Total number of clusters:", scalar(keys %clusters));
 }
 
+#用于输出所有聚类的结果，路径为WriteFile/cluster（需要先创建相应文件夹）
+#输出文件命名为(1,2,3...n).log,按聚类下日志总数 降序排列, n为总聚类数
+sub write_clusters {
+
+  my($cluster,$clustercount);
+  $clustercount=0;
+  foreach $cluster (sort { $clusters{$b}->{"Count"} <=>
+                           $clusters{$a}->{"Count"} } keys %clusters) {
+    ++$clustercount;
+    write_cluster($clustercount,$cluster); 
+  }
+  log_msg("info", "Write number of clusters:", scalar(keys %clusters));
+}
+#输出聚类结果
+sub write_cluster {
+
+  my($clustercount) =$_[0];
+  my($cluster) = $_[1];
+  my($i, $n,$fh, $line,$ifile,$word, $writecluster,$filecount,$infile_linecount);
+  my(@logs,@lines,@logsID,@wordlist,$log);
+  $writecluster="./logcluster/WriteFiles/cluster/$clustercount.log";
+  if (!open(CLUSTERFILE, ">$writecluster")) {
+    log_msg("err", "Can't open word file $writecluster: $!");
+    exit(1);
+  }
+  if ($wfreq) { cluster_freq_words(); }
+
+  #输出log key
+  for ($i = 0; $i < $clusters{$cluster}->{"WordCount"}; ++$i) {
+    if ($clusters{$cluster}->{"Vars"}->[$i]->[1] > 0) {
+      print CLUSTERFILE "*{" . $clusters{$cluster}->{"Vars"}->[$i]->[0] . "," . 
+                   $clusters{$cluster}->{"Vars"}->[$i]->[1] . "}";
+      print CLUSTERFILE " ";
+    }
+    if (ref($clusters{$cluster}->{"Words"}->[$i]) eq "HASH") {
+      @wordlist = keys %{$clusters{$cluster}->{"Words"}->[$i]};
+      if (scalar(@wordlist) > 1) {
+        $word = "(" . join("|", @wordlist) . ")";
+        if (defined($color1)) {
+          print CLUSTERFILE Term::ANSIColor::color($color1);
+          print CLUSTERFILE $word, " ";
+          print CLUSTERFILE Term::ANSIColor::color("reset");
+        } else {
+          print CLUSTERFILE $word, " ";
+        }
+      } else {
+        $word = $wordlist[0];
+        if (defined($color1)) {
+          print CLUSTERFILE Term::ANSIColor::color($color1);
+          print CLUSTERFILE $word, " ";
+          print CLUSTERFILE Term::ANSIColor::color("reset");
+        } elsif (defined($color2) && exists($gwords{$word})) {
+          print CLUSTERFILE Term::ANSIColor::color($color2);
+          print CLUSTERFILE $word, " ";
+          print CLUSTERFILE Term::ANSIColor::color("reset");
+        } else {
+          print CLUSTERFILE $word, " ";
+        }
+      }
+    } else {
+      $word = $clusters{$cluster}->{"Words"}->[$i];
+      if (defined($color2) && exists($gwords{$word})) {
+        print CLUSTERFILE Term::ANSIColor::color($color2);
+        print CLUSTERFILE $word, " ";
+        print CLUSTERFILE Term::ANSIColor::color("reset");
+      } else {
+        print CLUSTERFILE $word, " ";
+      }
+    }
+  }
+
+  if ($clusters{$cluster}->{"Vars"}->[$i]->[1] > 0) {
+      print CLUSTERFILE "*{" . $clusters{$cluster}->{"Vars"}->[$i]->[0] . "," . 
+                   $clusters{$cluster}->{"Vars"}->[$i]->[1] . "}";
+  }
+  #输出聚类log总数
+  print CLUSTERFILE "\n";
+  print CLUSTERFILE "Support: ", $clusters{$cluster}->{"Count"};
+  print CLUSTERFILE "\n\n";
+  #输出所有的log 编号，以空格分隔
+  @logsID=(sort { $a <=> $b } keys %{$clusters{$cluster}->{"Log"}});
+  @logs=();
+  foreach $log (@logsID){
+      print CLUSTERFILE "$log ";
+      push @logs, $clusters{$cluster}->{"Log"}->{$log};
+  } 
+  print CLUSTERFILE "\n";
+  #输出所有的log，每行一条，与之前的log 编号对应
+  $filecount=0;
+  $i=-1;
+  $n=scalar(@logs);
+  foreach $ifile (@inputfiles) 
+  {
+    ++$filecount;
+    $fh = open_input_file($ifile);
+    @lines=<$fh>;
+    while(++$i<$n && $logs[$i]->{"filecount"}==$filecount)
+    {
+      $infile_linecount=$logs[$i]->{"infile_linecount"};
+      $line = process_line($lines[$infile_linecount-1]);
+      if (!defined($line)) { next; }
+      print CLUSTERFILE $line,"\n";
+    }
+    close($fh);
+  }
+  close(CLUSTERFILE);
+}
 ######################### Main program #########################
 
 $weightfunction[1] = \&find_weights;
@@ -2040,7 +2164,8 @@ if (defined($wweight)) {
 # report clusters
 
 print_clusters();
-
+#输出聚类结果
+write_clusters();
 # if --wweight option has been given, release word dependency hash table
 
 if (defined($wweight)) { %fword_deps = (); }
@@ -2048,4 +2173,3 @@ if (defined($wweight)) { %fword_deps = (); }
 # if --outliers option has been given, detect outliers
 
 if (defined($outlierfile)) { find_outliers(); }
-
