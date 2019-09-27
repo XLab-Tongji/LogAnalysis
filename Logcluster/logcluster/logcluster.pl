@@ -1437,23 +1437,23 @@ sub write_cluster {
   } 
   print CLUSTERFILE "\n";
   #输出所有的log，每行一条，与之前的log 编号对应
-  $filecount=0;
-  $i=-1;
-  $n=scalar(@logs);
-  foreach $ifile (@inputfiles) 
-  {
-    ++$filecount;
-    $fh = open_input_file($ifile);
-    @lines=<$fh>;
-    while(++$i<$n && $logs[$i]->{"filecount"}==$filecount)
-    {
-      $infile_linecount=$logs[$i]->{"infile_linecount"};
-      $line = process_line($lines[$infile_linecount-1]);
-      if (!defined($line)) { next; }
-      print CLUSTERFILE $line,"\n";
-    }
-    close($fh);
-  }
+#  $filecount=0;
+#  $i=-1;
+#  $n=scalar(@logs);
+#  foreach $ifile (@inputfiles)
+#  {
+#    ++$filecount;
+#    $fh = open_input_file($ifile);
+#    @lines=<$fh>;
+#    while(++$i<$n && $logs[$i]->{"filecount"}==$filecount)
+#    {
+#      $infile_linecount=$logs[$i]->{"infile_linecount"};
+#      $line = process_line($lines[$infile_linecount-1]);
+#      if (!defined($line)) { next; }
+#      print CLUSTERFILE $line,"\n";
+#    }
+#    close($fh);
+#  }
   close(CLUSTERFILE);
 }
 ######################### Main program #########################
