@@ -13,3 +13,4 @@ Jun 15 14:53:32, sshd, 23661, authentication, failure, 0, 0, NODEVssh, 061092085
 Jun 15 14:53:32, sshd, 23663, authentication, failure, 0, 0, NODEVssh, 061092085098.ctinets.com
 Jun 15 14:53:32, sshd, 23664, authentication, failure, 0, 0, NODEVssh, 061092085098.ctinets.com
 Jun 15 14:53:33, sshd, 23665, authentication, failure, 0, 0, NODEVssh, 061092085098.ctinets.com
+Jun 15 14:53:34, sshd, 23669, authentication, failure, 0, 0, NODEVssh, 061092085098.ctinets.com

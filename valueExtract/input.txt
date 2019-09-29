@@ -1,0 +1,17 @@
+%msgtime% combo %string% ( pam_unix ) [ %integer% ] : %action% %status% ; logname = uid = %srcuid% euid = %integer% tty = %string% ruser = rhost = %srcuser%
+Jun 10 17:16:34 combo sshd(pam_unix)[3353]: authentication failure; logname= uid=0 euid=0 tty=NODEVssh ruser= rhost=itsc.iasi.astral.ro 
+Jun 13 20:13:11 combo sshd(pam_unix)[17422]: authentication failure; logname= uid=0 euid=0 tty=NODEVssh ruser= rhost=under-eepc58.kaist.ac.kr 
+Jun 13 20:13:11 combo sshd(pam_unix)[17432]: authentication failure; logname= uid=0 euid=0 tty=NODEVssh ruser= rhost=under-eepc58.kaist.ac.kr 
+Jun 13 20:13:11 combo sshd(pam_unix)[17421]: authentication failure; logname= uid=0 euid=0 tty=NODEVssh ruser= rhost=under-eepc58.kaist.ac.kr 
+Jun 13 20:13:11 combo sshd(pam_unix)[17423]: authentication failure; logname= uid=0 euid=0 tty=NODEVssh ruser= rhost=under-eepc58.kaist.ac.kr 
+Jun 13 20:13:11 combo sshd(pam_unix)[17428]: authentication failure; logname= uid=0 euid=0 tty=NODEVssh ruser= rhost=under-eepc58.kaist.ac.kr 
+Jun 13 20:13:11 combo sshd(pam_unix)[17420]: authentication failure; logname= uid=0 euid=0 tty=NODEVssh ruser= rhost=under-eepc58.kaist.ac.kr 
+Jun 13 20:13:11 combo sshd(pam_unix)[17427]: authentication failure; logname= uid=0 euid=0 tty=NODEVssh ruser= rhost=under-eepc58.kaist.ac.kr 
+Jun 13 20:13:11 combo sshd(pam_unix)[17431]: authentication failure; logname= uid=0 euid=0 tty=NODEVssh ruser= rhost=under-eepc58.kaist.ac.kr 
+Jun 13 20:13:11 combo sshd(pam_unix)[17433]: authentication failure; logname= uid=0 euid=0 tty=NODEVssh ruser= rhost=under-eepc58.kaist.ac.kr 
+Jun 13 20:13:11 combo sshd(pam_unix)[17429]: authentication failure; logname= uid=0 euid=0 tty=NODEVssh ruser= rhost=under-eepc58.kaist.ac.kr 
+Jun 15 14:53:32 combo sshd(pam_unix)[23661]: authentication failure; logname= uid=0 euid=0 tty=NODEVssh ruser= rhost=061092085098.ctinets.com 
+Jun 15 14:53:32 combo sshd(pam_unix)[23663]: authentication failure; logname= uid=0 euid=0 tty=NODEVssh ruser= rhost=061092085098.ctinets.com 
+Jun 15 14:53:32 combo sshd(pam_unix)[23664]: authentication failure; logname= uid=0 euid=0 tty=NODEVssh ruser= rhost=061092085098.ctinets.com 
+Jun 15 14:53:33 combo sshd(pam_unix)[23665]: authentication failure; logname= uid=0 euid=0 tty=NODEVssh ruser= rhost=061092085098.ctinets.com 
+Jun 15 14:53:34 combo sshd(pam_unix)[23669]: authentication failure; logname= uid=0 euid=0 tty=NODEVssh ruser= rhost=061092085098.ctinets.com 
