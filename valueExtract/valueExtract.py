@@ -24,9 +24,18 @@ def valueExtract(pattern, logs, tool=0, ouput="result.txt"):
                     cur_log_str += (" " + log_arr[log_index+1] + " " + log_arr[log_index+2])
                     log_index += 2
                 elif pattern_str[1:-1] == "time":
-                    # To Do
-                    # time 情况太多 目前无法识别
-                    pass
+                    # time 共有4中情况 目前只能一一判断...
+                    if (cur_log_str.find("-") == -1 and cur_log_str.find(":") == -1):
+                        log_index_add = 0
+                        if (log_arr[log_index + 2].find(":") != -1):
+                            log_index_add = 2
+                        elif (log_arr[log_index + 4].lower() == "est"):
+                            log_index_add = 5
+                        else:
+                            log_index_add = 4
+                        for i in range(1, log_index_add + 1):
+                            cur_log_str += (" " + log_arr[log_index + i])
+                        log_index += log_index_add
                 log_value.append(cur_log_str)
                 log_index += 1
                 if (log_index < len(log_arr)):
@@ -80,6 +89,8 @@ def valueExtract(pattern, logs, tool=0, ouput="result.txt"):
 [tn-t(n-1), v1n', v2n']
 然后定一个时间步长，每个time step的输入是上面的一个向量（相当于有多个feature）
 也就是LSTM输入的x1...xt中每个x都是一个向量（拥有多个feature）
+
+string如何处理暂时不清楚
 '''
 
 if __name__ == "__main__":
