@@ -1,14 +1,21 @@
+# -*- coding:utf-8 -*-
+import numpy as np
+
 '''
 提取value函数
 参数tool表示使用的工具 0为sequence 1为logcluster
 参数output表示输出到的文件
 '''
-def valueExtract(pattern, logs, tool=0, ouput="result.txt"):
+def valueExtract(pattern, logs, tool=0, ouput="result_raw.txt"):
     start_char = "%"
     if tool == 1:
         start_char = "*"
     pattern_arr = pattern.split()
-    values = []
+    values = [[]]
+    # 第一行value名称
+    for pattern_str in pattern_arr:
+        if pattern_str[0] == start_char and pattern_str[-1] == start_char:
+            values[0].append(pattern_str)
     # 遍历所有日志
     for log in logs:
         log_value = []
@@ -71,27 +78,29 @@ def valueExtract(pattern, logs, tool=0, ouput="result.txt"):
         f.writelines(lines)
     return values
 
-'''
-向量化目前还没做，主要是不确定我的理解是否正确。
-先记录一下我的理解
-举例来说，如果得到的value数组如下
-[t1, v11, v21]
-[t2, v12, v22]
-[t3, v13, v23]
-......
-[tn, v1n, v2n]
-
-我的理解是，首先把时间变为t1-t0，t2-t1这种形式
-然后把每个value都进行标准化（即将每一列标准化）（应该只针对定量的数据）
-[t1-t0, v11', v21']
-[t2-t1, v12', v22']
-......
-[tn-t(n-1), v1n', v2n']
-然后定一个时间步长，每个time step的输入是上面的一个向量（相当于有多个feature）
-也就是LSTM输入的x1...xt中每个x都是一个向量（拥有多个feature）
-
-string如何处理暂时不清楚
-'''
+def toVector(values, ouput="result_vector.txt"):
+    names = values[0]
+    new_values = []
+    for i in range(1, len(values)):
+        value = values[i]
+        new_value = []
+        for j in range(len(names)):
+            if (names[j] == r"%integer%" or names[j] == r"%float%"):
+                new_value.append(value[j])
+        new_values.append(new_value)
+    # Normalize
+    new_values = np.array(new_values, dtype=float)
+    new_values -= np.mean(new_values, axis=0)
+    new_values /= np.std(new_values, axis=0)
+    lines = []
+    for val in new_values:
+        line = str(val[0])
+        for i in range(1, len(val)):
+            line += ", " + str(val[i]);
+        lines.append(line + "\n")
+    with open(ouput, "w") as f:
+        f.writelines(lines)
+    return new_values
 
 if __name__ == "__main__":
     logs = []
@@ -100,5 +109,6 @@ if __name__ == "__main__":
             logs.append(line)
     pattern = logs[0]
     logs = logs[1:]
-    valueExtract(pattern, logs)
+    values = valueExtract(pattern, logs)
+    toVector(values)
     print("=====done=====")

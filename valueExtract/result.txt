@@ -1,3 +1,0 @@
-Jun 9 06:06:20, combo, kernel, bhcompile@bugs.build.redhat.com, 20040412, 8, 09:04:50, 2004
-Jun 10 11:31:44, combo, kernel, bhcompile@bugs.build.redhat.com, 20040412, 8, 09:04:50, 2004
-Jul 27 14:41:57, combo, kernel, bhcompile@bugs.build.redhat.com, 20040412, 8, 09:04:50, 2004

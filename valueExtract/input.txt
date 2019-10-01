@@ -1,4 +1,15 @@
-%msgtime% %apphost% %appname% : linux version 2.6.5-1.358 ( %srcemail% ) ( gcc version 3.3.3 %integer% ( red hat linux 3.3.3-7 ) ) #1 sat may %integer% %time% edt %integer%
-Jun  9 06:06:20 combo kernel: Linux version 2.6.5-1.358 (bhcompile@bugs.build.redhat.com) (gcc version 3.3.3 20040412 (Red Hat Linux 3.3.3-7)) #1 Sat May 8 09:04:50 EDT 2004
-Jun 10 11:31:44 combo kernel: Linux version 2.6.5-1.358 (bhcompile@bugs.build.redhat.com) (gcc version 3.3.3 20040412 (Red Hat Linux 3.3.3-7)) #1 Sat May 8 09:04:50 EDT 2004
-Jul 27 14:41:57 combo kernel: Linux version 2.6.5-1.358 (bhcompile@bugs.build.redhat.com) (gcc version 3.3.3 20040412 (Red Hat Linux 3.3.3-7)) #1 Sat May 8 09:04:50 EDT 2004
+%msgtime% %apphost% %appname% : %action% ( %float% : %integer% ) : syscall = %integer% %string% = %integer% a0 = %integer% a1 = %string% a2 = %string% a3 = %string% items = %integer% pid = %integer% loginuid = %string% uid = %srcuid% gid = %srcgid% euid = %integer% suid = %integer% fsuid = %integer% egid = %integer% sgid = %integer% fsgid = %integer%
+Jan 26 12:22:13 combo kernel: audit(1138278093.540:118407): syscall=4 exit=11 a0=0 a1=81f6f20 a2=b a3=b items=0 pid=513 loginuid=-1 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0
+Jan 26 12:22:16 combo kernel: audit(1138278102.349:166029): syscall=102 exit=0 a0=3 a1=feea18b0 a2=68cffc a3=9bc9858 items=1 pid=596 loginuid=-1 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0
+Jan 26 12:22:17 combo kernel: audit(1138278102.405:167250): syscall=197 exit=0 a0=4 a1=fef0c808 a2=68cffc a3=87171c0 items=0 pid=598 loginuid=-1 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0
+Jan 26 12:22:22 combo kernel: audit(1138296102.679:186229): syscall=197 exit=0 a0=3 a1=805a2e4 a2=68cffc a3=88237c8 items=0 pid=658 loginuid=-1 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0
+Jan 26 12:22:23 combo kernel: audit(1138296104.780:225409): syscall=4 exit=28 a0=4 a1=95a8180 a2=1c a3=95a9188 items=0 pid=720 loginuid=-1 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0
+Jan 26 12:22:27 combo kernel: audit(1138296107.872:267385): syscall=197 exit=0 a0=3 a1=fee9c408 a2=68cffc a3=89c4050 items=0 pid=739 loginuid=-1 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0
+Jan 26 12:22:43 combo kernel: audit(1138296129.057:468261): syscall=54 exit=0 a0=4 a1=800448d2 a2=88f8298 a3=88f8298 items=0 pid=1687 loginuid=-1 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0
+Jan 26 12:22:44 combo kernel: audit(1138296142.670:537277): syscall=197 exit=0 a0=0 a1=fef15090 a2=227ffc a3=a043008 items=0 pid=1966 loginuid=-1 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0
+Jan 26 12:22:44 combo kernel: audit(1138296147.476:547632): syscall=102 exit=0 a0=2 a1=feeb3730 a2=84251c a3=91c7330 items=0 pid=1803 loginuid=-1 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0
+Jan 26 12:22:44 combo kernel: audit(1138296147.477:547636): syscall=102 exit=0 a0=2 a1=feeb3710 a2=84251c a3=842bb8 items=0 pid=1803 loginuid=-1 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0
+Jan 26 12:22:44 combo kernel: audit(1138296150.551:567947): syscall=102 exit=0 a0=2 a1=feecd9b0 a2=25f104 a3=2668e0 items=0 pid=2032 loginuid=-1 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=51 sgid=51 fsgid=51
+Jan 26 12:22:44 combo kernel: audit(1138296164.920:606586): syscall=4 exit=58 a0=3 a1=8629f78 a2=3a a3=ffffffff items=0 pid=2089 loginuid=-1 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0
+Jan 26 12:22:45 combo kernel: audit(1138296165.146:606873): syscall=4 exit=4294967274 a0=3 a1=862d3c0 a2=1e a3=862785d items=0 pid=2089 loginuid=-1 uid=0 gid=0 euid=0 suid=0 fsuid=100 egid=0 sgid=0 fsgid=101
+Jan 26 12:23:04 combo kernel: audit(1138296184.714:671733): syscall=102 exit=0 a0=2 a1=fef1dec0 a2=1fa990 a3=891ed18 items=0 pid=2261 loginuid=-1 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0
