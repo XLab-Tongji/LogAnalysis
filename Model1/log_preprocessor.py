@@ -1,27 +1,40 @@
 #--coding:utf-8--
 
-# columns of line
 import os
+from enum import Enum
 
+# columns of line
 windowSize = 10
-# logcluster:1 or sequencer:0
+# log cluster:1 or sequencer:0
 pattern_source = 0
 
-# relation between logpattern logkey logline
+# relation between log_pattern log_key log_line
 pattern2log = []
 pattern_dic = {}
 
+# log input/output address
+log_address = '../sequence/Linux.log'
+log_pattern_address_sequencer = '../sequence/linux2.pat'
+log_pattern_folder_cluster = '../Logcluster/logcluster/WriteFiles/cluster/'
+out_file = '../sequence/Linux_log_vector'
+
+
+# 继承枚举类
+class LineNumber(Enum):
+    PATTERN_LINE = 0
+    NUMBERS_LINE = 3
+
 
 def parse_sequencer():
-    ifFirst = True
-    with open('../sequence/linux2.pat', 'rb') as in_text:
+    if_first = True
+    with open(log_pattern_address_sequencer, 'rb') as in_text:
         log_set = set()
         pattern_key = 0
         last_pattern = ''
         for line in in_text.readlines():
             if (not line.startswith('#'.encode(encoding='utf-8'))) and len(line.strip()):
                 if line.startswith('%msgtime%'.encode(encoding='utf-8')):
-                    if ifFirst:
+                    if if_first:
                         last_pattern = line
                         ifFirst = False
                         continue
@@ -41,18 +54,18 @@ def parse_sequencer():
 
 
 def parse_log_cluster():
-    file_names = os.listdir('../Logcluster/logcluster/WriteFiles/cluster')
+    file_names = os.listdir(log_pattern_folder_cluster)
     pattern_key = 0
     for i in range(len(file_names)):
-        with open('../Logcluster/logcluster/WriteFiles/cluster/' + file_names[i], 'r') as in_text:
-            num = 0
+        with open(log_pattern_folder_cluster + file_names[i], 'r') as in_text:
+            num_of_line = 0
             pattern = ''
             log_set = set()
             for line in in_text.readlines():
-                if num == 0:
+                if num_of_line == LineNumber.PATTERN_LINE:
                     pattern = line
-                    num = num + 1
-                elif num == 3:
+                    num_of_line = num_of_line + 1
+                elif num_of_line == LineNumber.NUMBERS_LINE:
                     lineNumbers = line.strip().split(' ')
                     lineNumbers = [int(x) for x in lineNumbers]
                     for x in lineNumbers:
@@ -61,8 +74,7 @@ def parse_log_cluster():
                     pattern_dic[pattern_key] = pattern
                     pattern_key = pattern_key + 1
                 else:
-                    num = num + 1
-
+                    num_of_line = num_of_line + 1
 
 
 if __name__ == '__main__':
@@ -70,8 +82,8 @@ if __name__ == '__main__':
         parse_sequencer()
     else:
         parse_log_cluster()
-    with open('../sequence/Linux_log_vector', 'x') as out_text:
-        with open('../sequence/Linux.log', 'rb') as in_log:
+    with open(out_file, 'x') as out_text:
+        with open(log_address, 'rb') as in_log:
             j = 0
             lineNum = 1
             for line in in_log.readlines():
