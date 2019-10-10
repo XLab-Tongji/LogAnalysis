@@ -219,32 +219,32 @@ def toVector(pattern, tool=0):
     return new_values
 
 if __name__ == '__main__':
-    # if pattern_source == 0:
-    #     parse_sequencer()
-    # else:
-    #     parse_log_cluster()
-    # with open(out_file, 'x') as out_text:
-    #     with open(log_address, 'rb') as in_log:
-    #         j = 0
-    #         lineNum = 1
-    #         for line in in_log.readlines():
-    #             for i in range(len(pattern2log)):
-    #                 if lineNum in pattern2log[i]:
-    #                     print(i, file=out_text, end='')
-    #                     print(' ', file=out_text, end='')
-    #                     j = j + 1
-    #                     if j == windowSize:
-    #                         print('', file=out_text)
-    #                         j = 0
-    #                     # call method to get value (line, patten_dic[i])
-    #             lineNum = lineNum + 1
+    if pattern_source == 0:
+        parse_sequencer()
+    else:
+        parse_log_cluster()
+    with open(out_file, 'x') as out_text:
+        with open(log_address, 'rb') as in_log:
+            j = 0
+            lineNum = 1
+            for line in in_log.readlines():
+                for i in range(len(pattern2log)):
+                    if lineNum in pattern2log[i]:
+                        print(i, file=out_text, end='')
+                        print(' ', file=out_text, end='')
+                        j = j + 1
+                        if j == windowSize:
+                            print('', file=out_text)
+                            j = 0
+                        # call method to get value (line, patten_dic[i])
+                lineNum = lineNum + 1
     # value extract test
-    logs = []
-    with open("input.txt") as f:
-        for line in f:
-            logs.append(line)
-    pattern = logs[0]
-    logs = logs[1:]
-    for log in logs:
-        valueExtract(pattern, log)
-    toVector(pattern)
+    # logs = []
+    # with open("input.txt") as f:
+    #     for line in f:
+    #         logs.append(line)
+    # pattern = logs[0]
+    # logs = logs[1:]
+    # for log in logs:
+    #     valueExtract(pattern, log)
+    # toVector(pattern)
