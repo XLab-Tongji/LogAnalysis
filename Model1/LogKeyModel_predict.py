@@ -8,12 +8,14 @@ device = torch.device("cpu")
 # Hyperparameters
 window_size = 10
 input_size = 1
-hidden_size = 64
+hidden_size = 20
 num_layers = 2
-num_classes = 28
+num_classes = 50
 num_candidates = 9
 # model_path = 'model/Adam with batch_size=2048;epoch=300.pt'
-model_path = 'model/Adam_batch_size=2048;epoch=10.pt'
+model_path = 'model/Adam_batch_size=200;epoch=10.pt'
+
+
 
 
 def generate(name):
@@ -50,9 +52,9 @@ class Model(nn.Module):
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-num_layers', default=2, type=int)
-    parser.add_argument('-hidden_size', default=64, type=int)
-    parser.add_argument('-window_size', default=10, type=int)
+    parser.add_argument('-num_layers', default=3, type=int)
+    parser.add_argument('-hidden_size', default=20, type=int)
+    parser.add_argument('-window_size', default=6, type=int)
     parser.add_argument('-num_candidates', default=9, type=int)
     args = parser.parse_args()
     num_layers = args.num_layers
