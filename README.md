@@ -1,5 +1,7 @@
 # LogAnalysis
 
+python版本：3.6
+
 ## LogCluster
 
 **说明：**
