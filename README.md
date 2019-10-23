@@ -28,3 +28,7 @@
 ## Model1
 
 This is for training a model by using all the keys.
+
+## 输出
+
+输出文件放在根目录下所有文件夹的`output`文件夹下，例如`Model1/output/`文件夹下

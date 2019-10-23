@@ -102,7 +102,7 @@ def valueExtract(pattern, log, tool=0):
         for pattern_str in pattern_arr:
             if pattern_str[0] == start_char and pattern_str[-1] == start_char:
                 temp.append(pattern_str)
-        with open(md5(pattern.encode("utf-8")).hexdigest()+".txt", "a") as f:
+        with open("output/"+md5(pattern.encode("utf-8")).hexdigest()+".txt", "a") as f:
             f.write(", ".join(temp) + "\n")
     # 对于单个日志
     log_value = [last_timestamp]
@@ -159,7 +159,7 @@ def valueExtract(pattern, log, tool=0):
             else:
                 cur_log_str = cur_log_str[index+len(pattern_str):]
     lines = [", ".join(log_value) + "\n"]
-    with open(md5(pattern.encode("utf-8")).hexdigest()+".txt", "a") as f:
+    with open("output/"+md5(pattern.encode("utf-8")).hexdigest()+".txt", "a") as f:
         f.writelines(lines)
     return log_value
 
@@ -185,7 +185,7 @@ def timeDiff(t1, t2):
 def toVector(pattern, tool=0):
     # 读取文件内容
     values = []
-    with open(md5(pattern.encode("utf-8")).hexdigest()+".txt") as f:
+    with open("output/"+md5(pattern.encode("utf-8")).hexdigest()+".txt") as f:
         for line in f:
             line = line.strip('\n')
             values.append(line.split(", "))
@@ -219,7 +219,7 @@ def toVector(pattern, tool=0):
         for i in range(1, len(val)):
             line += ", " + str(val[i]);
         lines.append(line + "\n")
-    with open(md5(pattern.encode("utf-8")).hexdigest()+"_vector.txt", "w") as f:
+    with open("output/"+md5(pattern.encode("utf-8")).hexdigest()+"_vector.txt", "w") as f:
         f.writelines(lines)
     return new_values
 

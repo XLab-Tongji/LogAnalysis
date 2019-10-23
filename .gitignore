@@ -1,0 +1,4 @@
+*/output/
+# ignore .idea
+.idea/
+*/.idea/
