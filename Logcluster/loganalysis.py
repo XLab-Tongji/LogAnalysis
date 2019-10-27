@@ -1,5 +1,5 @@
-# coding:utf-8
 #!/usr/bin/python
+# coding:utf-8
 
 import os
 import threading
@@ -7,19 +7,24 @@ import re
 
 
 logclusterTool = os.getcwd() + '/logcluster/logcluster.pl'
-inputFileName = raw_input('请输入日志文件名（请将文件放至LogFiles文件夹中）:')
-inputFile = os.getcwd() + '/logcluster/LogFiles/' + inputFileName
+# 文件放至在 ../Data/LogFiles文件夹中
+LogFileRootDir = '../Data/LogFiles/'
+# 输出文档根目录
+OutputFileDir = '../Data/LogClusterResult/'
+inputFileName = input('请输入日志文件名:')
+inputFile = LogFileRootDir + inputFileName
 if '.log' not in inputFile and '.LOG' not in inputFile:
     inputFile = inputFile + '.log'
 print("请设置以下几个参数的值：（敲回车直接使用默认值）")
-support = raw_input("--support(正整数，默认值为100): ")
-wweight = raw_input("--wweight(0～1的小数，默认值为0.5): ")
-weightf = raw_input("--weightf(1或者2，默认值为1): ")
-wfreq = raw_input("--wfreq(0~1的小数，默认值为0.5): ")
-separator = raw_input("--separator(日志信息分隔符，默认为空格，可输入自定义正则表达式)：")
+support = input("--support(正整数，默认值为100): ")
+wweight = input("--wweight(0～1的小数，默认值为0.5): ")
+weightf = input("--weightf(1或者2，默认值为1): ")
+wfreq = input("--wfreq(0~1的小数，默认值为0.5): ")
+separator = input("--separator(日志信息分隔符，默认为空格，可输入自定义正则表达式)：")
 # color = raw_input("--color(低频词高亮颜色，默认为黑色，可输入颜色名，如red、blue)：")
-writedump = os.getcwd() + '/logcluster/WriteFiles/dump.txt'
-writewords = os.getcwd() + '/logcluster/WriteFiles/words.txt'
+writedump = OutputFileDir + 'dump.txt'
+writewords = OutputFileDir + 'words.txt'
+writeresult = OutputFileDir + 'result.txt'
 
 if re.match(r'[1-9]+\d*', support) is None:
     support = str(100)
@@ -48,7 +53,7 @@ with os.popen(analyzeCommand, 'r') as f:
     text = f.read()
     f.close()
 # print(text)
-with open(r'result.txt', 'w') as resultf:
+with open(writeresult, 'w', encoding='utf8') as resultf:
     resultf.writelines(text)
     resultf.close()
 

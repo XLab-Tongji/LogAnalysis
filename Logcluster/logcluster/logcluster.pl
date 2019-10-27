@@ -1369,7 +1369,8 @@ sub write_cluster {
   my($cluster) = $_[1];
   my($i, $n,$fh, $line,$ifile,$word, $writecluster,$filecount,$infile_linecount);
   my(@logs,@lines,@logsID,@wordlist,$log);
-  $writecluster="./logcluster/WriteFiles/cluster/$clustercount.log";
+#  $writecluster="./output/clusters/$clustercount.log";
+  $writecluster="./../Data/LogClusterResult/clusters/$clustercount.log";
   if (!open(CLUSTERFILE, ">$writecluster")) {
     log_msg("err", "Can't open word file $writecluster: $!");
     exit(1);
