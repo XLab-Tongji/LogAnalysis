@@ -5,12 +5,12 @@ from enum import Enum
 import numpy as np
 from hashlib import md5
 import re
-from GlobalVariables import *
+# from GlobalVariables import *
 
 # columns of line
 windowSize = 10
 # log cluster:1 or sequencer:0
-pattern_source = ParsePattern
+pattern_source = 1
 
 # relation between log_pattern log_key log_line
 pattern2log = []
@@ -18,11 +18,12 @@ pattern_dic = {}
 
 # log input/output address
 log_file_dir = './Data/LogFiles/'
-log_address = log_file_dir + LogFileName
+log_file_name = 'SYSLOG_293.LOG'
+log_address = log_file_dir + log_file_name
 log_pattern_address_sequencer = './sequence/linux.pat'
 log_pattern_folder_cluster = './Data/LogClusterResult/clusters/'
-sequencer_out_file = './Data/SequencerResult/'+LogFileName.split('.')[0]+'_LogKeys'
-log_cluster_out_file = './Data/LogClusterResult/'+LogFileName.split('.')[0]+'_LogKeys'
+sequencer_out_file = './Data/Vectors'+log_file_name.split('.')[0]+'_LogKeys_sequencer'
+log_cluster_out_file = './Data/Vectors/'+log_file_name.split('.')[0]+'_LogKeys_logcluster'
 if pattern_source == 0:
     out_file = sequencer_out_file
 else:
@@ -187,7 +188,7 @@ def timeDiff(t1, t2):
 def toVector(pattern, tool=0):
     # 读取文件内容
     values = []
-    with open("output/"+md5(pattern.encode("utf-8")).hexdigest()+".txt") as f:
+    with open("Data/Vectors/"+md5(pattern.encode("utf-8")).hexdigest()+".txt") as f:
         for line in f:
             line = line.strip('\n')
             values.append(line.split(", "))
@@ -221,7 +222,7 @@ def toVector(pattern, tool=0):
         for i in range(1, len(val)):
             line += ", " + str(val[i]);
         lines.append(line + "\n")
-    with open("output/"+md5(pattern.encode("utf-8")).hexdigest()+"_vector.txt", "w") as f:
+    with open("Data/vectors/"+md5(pattern.encode("utf-8")).hexdigest()+"_vector.txt", "w") as f:
         f.writelines(lines)
     return new_values
 
