@@ -22,7 +22,7 @@ num_epochs = 3  # 300
 batch_size = 200  # 2048
 log = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs)
 train_file_name = 'SYSLOG_293_LogKeys_logcluster'
-data_file = '../Data/Vectors/' + train_file_name
+data_file = '../Data/Vectors1/' + train_file_name
 
 
 def generate(name):

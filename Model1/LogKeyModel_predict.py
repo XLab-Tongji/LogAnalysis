@@ -69,7 +69,7 @@ if __name__ == '__main__':
     model.load_state_dict(torch.load(model_path))
     model.eval()
     print('model_path: {}'.format(model_path))
-    test_file_name = '../Data/Vectors/SYSLOG_293_LogKeys_test'
+    test_file_name = '../Data/Vectors1/SYSLOG_293_LogKeys_test'
     # test_loader = generate(test_file_name)
     test_normal_loader = generate(test_file_name)
     # test_abnormal_loader = generate('hdfs_test_abnormal')

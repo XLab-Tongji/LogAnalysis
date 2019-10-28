@@ -22,8 +22,8 @@ log_file_name = 'SYSLOG_293.LOG'
 log_address = log_file_dir + log_file_name
 log_pattern_address_sequencer = './sequence/linux.pat'
 log_pattern_folder_cluster = './Data/LogClusterResult/clusters/'
-sequencer_out_file = './Data/Vectors'+log_file_name.split('.')[0]+'_LogKeys_sequencer'
-log_cluster_out_file = './Data/Vectors/'+log_file_name.split('.')[0]+'_LogKeys_logcluster'
+sequencer_out_file = './Data/Vectors1'+log_file_name.split('.')[0]+'_LogKeys_sequencer'
+log_cluster_out_file = './Data/Vectors1/'+log_file_name.split('.')[0]+'_LogKeys_logcluster'
 if pattern_source == 0:
     out_file = sequencer_out_file
 else:
@@ -105,7 +105,7 @@ def valueExtract(pattern, log, tool=0):
         for pattern_str in pattern_arr:
             if pattern_str[0] == start_char and pattern_str[-1] == start_char:
                 temp.append(pattern_str)
-        with open("output/"+md5(pattern.encode("utf-8")).hexdigest()+".txt", "a") as f:
+        with open("Data/Vectors2/"+md5(pattern.encode("utf-8")).hexdigest()+".txt", "a") as f:
             f.write(", ".join(temp) + "\n")
     # 对于单个日志
     log_value = [last_timestamp]
@@ -188,7 +188,7 @@ def timeDiff(t1, t2):
 def toVector(pattern, tool=0):
     # 读取文件内容
     values = []
-    with open("Data/Vectors/"+md5(pattern.encode("utf-8")).hexdigest()+".txt") as f:
+    with open("Data/Vectors1/"+md5(pattern.encode("utf-8")).hexdigest()+".txt") as f:
         for line in f:
             line = line.strip('\n')
             values.append(line.split(", "))
