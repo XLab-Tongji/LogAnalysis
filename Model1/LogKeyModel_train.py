@@ -5,20 +5,24 @@ from tensorboardX import SummaryWriter
 from torch.utils.data import TensorDataset, DataLoader
 import argparse
 import os
+from GlobalVariables import *
+from Model1 import *
 
 # Device configuration
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Hyperparameters
-window_size = 6
-input_size = 1
-hidden_size = 64
-num_layers = 2
-num_classes = 50  # len(pattern2log)+1
-num_epochs = 10  # 300
+# window_size = 6
+# input_size = 1
+# hidden_size = 20
+# num_layers = 3
+# num_classes = 50  # len(pattern2log)+1
+# model_dir = 'output/model'
+# log_dir = 'output/log'
+
+num_epochs = 3  # 300
 batch_size = 200  # 2048
-model_dir = 'model'
 log = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs)
-data_file = '../Logcluster/logcluster/WriteFiles/vectorize'
+data_file = '../Data/LogClusterResult/' + LogFileName.split('.')[0] + '_LogKeys'
 
 
 def generate(name):
@@ -28,7 +32,7 @@ def generate(name):
     with open(name, 'r') as f:
         for line in f.readlines():
             num_sessions += 1
-            line = tuple(map(lambda n: n , map(int, line.strip().split())))
+            line = tuple(map(lambda n: n, map(int, line.strip().split())))
             for i in range(len(line) - window_size):
                 inputs.append(line[i:i + window_size])
                 outputs.append(line[i + window_size])
@@ -57,9 +61,9 @@ class Model(nn.Module):
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-num_layers', default=3, type=int)  # 2
-    parser.add_argument('-hidden_size', default=20, type=int)  # 64
-    parser.add_argument('-window_size', default=6, type=int)  # 10
+    parser.add_argument('-num_layers', default=num_layers, type=int)
+    parser.add_argument('-hidden_size', default=hidden_size, type=int)
+    parser.add_argument('-window_size', default=window_size, type=int)
     args = parser.parse_args()
     num_layers = args.num_layers
     hidden_size = args.hidden_size
@@ -68,7 +72,7 @@ if __name__ == '__main__':
     model = Model(input_size, hidden_size, num_layers, num_classes).to(device)
     seq_dataset = generate(data_file)
     dataloader = DataLoader(seq_dataset, batch_size=batch_size, shuffle=True, pin_memory=True)
-    writer = SummaryWriter(logdir='log/' + log)
+    writer = SummaryWriter(logdir=log_dir + '/' + log)
 
     # Loss and optimizer
     criterion = nn.CrossEntropyLoss()
@@ -82,10 +86,10 @@ if __name__ == '__main__':
             # Forward pass
             seq = seq.clone().detach().view(-1, window_size, input_size).to(device)
             output = model(seq)
-            print("output:")
-            print(output)
-            print("label:")
-            print(label)
+            # print("output:")
+            # print(output)
+            # print("label:")
+            # print(label)
             loss = criterion(output, label.to(device))
 
             # Backward and optimize
