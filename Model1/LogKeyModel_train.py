@@ -5,7 +5,6 @@ from tensorboardX import SummaryWriter
 from torch.utils.data import TensorDataset, DataLoader
 import argparse
 import os
-from GlobalVariables import *
 from Model1 import *
 
 # Device configuration
@@ -22,7 +21,8 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 num_epochs = 3  # 300
 batch_size = 200  # 2048
 log = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs)
-data_file = '../Data/LogClusterResult/' + LogFileName.split('.')[0] + '_LogKeys'
+train_file_name = 'SYSLOG_293_LogKeys_logcluster'
+data_file = '../Data/Vectors/' + train_file_name
 
 
 def generate(name):
