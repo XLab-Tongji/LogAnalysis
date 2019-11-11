@@ -18,12 +18,14 @@ pattern_dic = {}
 
 # log input/output address
 log_file_dir = './Data/LogFiles/'
-log_file_name = 'SYSLOG_293.LOG'
+log_file_name = 'catalogue2.log'
+log_time_file = 'timediff.txt'
 log_address = log_file_dir + log_file_name
 log_pattern_address_sequencer = './sequence/linux.pat'
 log_pattern_folder_cluster = './Data/LogClusterResult/clusters/'
 sequencer_out_file = './Data/Vectors1'+log_file_name.split('.')[0]+'_LogKeys_sequencer'
 log_cluster_out_file = './Data/Vectors1/'+log_file_name.split('.')[0]+'_LogKeys_logcluster'
+log_value_folder = './Data/LogClusterResult/values/'
 if pattern_source == 0:
     out_file = sequencer_out_file
 else:
@@ -92,9 +94,7 @@ def parse_log_cluster():
 参数tool表示使用的工具 0为sequence 1为logcluster
 输出到特定文件
 '''
-last_timestamp = "xxx"
-def valueExtract(pattern, log, tool=0):
-    global last_timestamp
+def valueExtract(pattern, log, tool=0, timestamp=None):
     start_char = "%"
     if tool == 1:
         start_char = "*"
@@ -108,15 +108,20 @@ def valueExtract(pattern, log, tool=0):
         with open("Data/Vectors2/"+md5(pattern.encode("utf-8")).hexdigest()+".txt", "a") as f:
             f.write(", ".join(temp) + "\n")
     # 对于单个日志
-    log_value = [last_timestamp]
+    # log_value = [last_timestamp]
+    log_value = []
+    if timestamp != None:
+        log_value.append(timestamp)
     log_arr = log.split()
     log_index = 0
     cur_log_str = log_arr[log_index]
     last_is_pattern = False
     # 遍历模式字符串进行匹配
-    for pattern_str in pattern_arr:
+    for pattern_str in pattern_arr :
         # 如果是value
-        if pattern_str[0] == start_char and pattern_str[-1] == start_char:
+        # print(pattern_str, cur_log_str)
+        if pattern_str[0] == start_char :
+        # if pattern_str[0] == start_char and pattern_str[-1] == start_char:
             if pattern_str[1:-1] == "msgtime":
                 cur_log_str += (" " + log_arr[log_index+1] + " " + log_arr[log_index+2])
                 log_index += 2
@@ -134,12 +139,22 @@ def valueExtract(pattern, log, tool=0):
                     for i in range(1, log_index_add + 1):
                         cur_log_str += (" " + log_arr[log_index + i])
                     log_index += log_index_add
+            log_len = 1
+            if (tool == 1):
+                log_len = int(pattern_str[2:pattern_str.find(',')])
+            for i in range(1, log_len):
+                cur_log_str += (" " + log_arr[log_index+i])
             log_value.append(cur_log_str)
-            log_index += 1
+            log_index += log_len
             if (log_index < len(log_arr)):
                 cur_log_str = log_arr[log_index]
             last_is_pattern = True
         # 如果是匹配的单词
+        elif tool == 1 and pattern_str[0] == '(':
+            log_value.append(cur_log_str)
+            log_index += 1
+            if (log_index < len(log_arr)):
+                cur_log_str = log_arr[log_index]
         elif cur_log_str.lower() == pattern_str.lower():
             log_index += 1
             if (log_index < len(log_arr)):
@@ -162,9 +177,26 @@ def valueExtract(pattern, log, tool=0):
             else:
                 cur_log_str = cur_log_str[index+len(pattern_str):]
     lines = [", ".join(log_value) + "\n"]
-    with open("output/"+md5(pattern.encode("utf-8")).hexdigest()+".txt", "a") as f:
+    with open("Data/Vectors1/"+md5(pattern.encode("utf-8")).hexdigest()+".txt", "a+") as f:
         f.writelines(lines)
     return log_value
+
+last_timestamp = "xxx"
+def timeExtract(file=None):
+    global last_timestamp
+    if file == None:
+        print("No file input")
+        return
+    times = []
+    with open (log_file_dir + log_file_name) as f:
+        for line in f:
+            if len(line) > 22:
+                times.append(str(timeDiff(line[14:22], last_timestamp)) + "\n")
+                last_timestamp = line[14:22]
+            else:
+                times.append("0\n")
+    with open (log_file_dir + log_time_file, "w") as f:
+        f.writelines(times)
 
 # 时间差
 # 暂时使用时分秒做减法
@@ -173,8 +205,8 @@ def valueExtract(pattern, log, tool=0):
 def timeDiff(t1, t2):
     if (t2 == "xxx"):
         return 0
-    t1_hms_arr = t1.split(" ")[2].split(":")
-    t2_hms_arr = t2.split(" ")[2].split(":")
+    t1_hms_arr = t1.split(":")
+    t2_hms_arr = t2.split(":")
     diff_hour = int(t1_hms_arr[0]) - int(t2_hms_arr[0])
     if (diff_hour == -23):
         diff_hour = 1
@@ -185,11 +217,11 @@ def timeDiff(t1, t2):
 
 # 向量化
 # 改成了对文件向量化
-def toVector(pattern, tool=0):
+def toVector(pattern, tool=0, file=None):
     # 读取文件内容
     values = []
-    with open("Data/Vectors1/"+md5(pattern.encode("utf-8")).hexdigest()+".txt") as f:
-        for line in f:
+    with open("Data/Vectors1/"+md5(pattern.encode("utf-8")).hexdigest()+".txt","r") as f:
+        for line in f.readlines():
             line = line.strip('\n')
             values.append(line.split(", "))
     new_values = []
@@ -203,26 +235,52 @@ def toVector(pattern, tool=0):
                     new_value.append(value[j+1])
             new_values.append(new_value)
     else:
-        for value in values:
-            new_value = []
-            for val in value:
+        ##------ Start of 新增-------------
+        if len(values) <= 0:
+            print("no values")
+            return 
+        val_num = len(values[0])
+        isAlldigit = [1]*val_num
+        for i in range(val_num):
+            for value in values:
+                val = value[i]
                 if (val.isdigit() or (val[0] == "-" and val[1:].isdigit()) 
                     or re.match(r"-?[0-9]+\.[0-9]+$", val)):
-                    new_value.append(val)
+                    #do nothing
+                    pass
+                else:
+                    isAlldigit[i] = 0
+        ##------ End of 新增-------------
+
+        for value in values:
+            new_value = []
+            index=0
+            for val in value:
+                if isAlldigit[index]:
+                    if (val.isdigit() or (val[0] == "-" and val[1:].isdigit()) 
+                        or re.match(r"-?[0-9]+\.[0-9]+$", val)):
+                        new_value.append(val)
+                index+=1
             new_values.append(new_value)
+        
     # Normalize
+    # print(new_values)
     new_values = np.array(new_values, dtype=float)
     new_values -= np.mean(new_values, axis=0)
+    # print(new_values)
     std = np.std(new_values, axis=0)
+    # print(std)
     std[std == 0.0] = 1.0
     new_values /= std
     lines = []
     for val in new_values:
         line = str(val[0])
         for i in range(1, len(val)):
-            line += ", " + str(val[i]);
+            line += ", " + str(val[i])
         lines.append(line + "\n")
-    with open("Data/vectors/"+md5(pattern.encode("utf-8")).hexdigest()+"_vector.txt", "w") as f:
+    if file == None:
+        file = md5(pattern.encode("utf-8")).hexdigest()+"_vector.txt"
+    with open(file, "w") as f:
         f.writelines(lines)
     return new_values
 
@@ -232,8 +290,7 @@ if __name__ == '__main__':
         parse_sequencer()
     else:
         parse_log_cluster()
-    print(pattern2log)
-    with open(out_file, 'x') as out_text:
+    with open(out_file, 'w') as out_text:
         with open(log_address, 'rb') as in_log:
             j = 0
             lineNum = 1
@@ -248,14 +305,18 @@ if __name__ == '__main__':
                             j = 0
                         # call method to get value (line, patten_dic[i])
                 lineNum = lineNum + 1
-    # value extract test
-    # logs = []
-    # with open("input.txt") as f:
-    #     for line in f:
-    #         logs.append(line)
-    # pattern = logs[0]
-    # logs = logs[1:]
-    # for log in logs:
-    #     valueExtract(pattern, log)
-    # toVector(pattern)
-    print(len(pattern2log)+1)
+    # value extract
+    # with open(log_file_dir + log_file_name) as o_log_file:
+    #     o_log_lines = o_log_file.readlines()
+    #     timeExtract(log_file_dir + log_time_file)
+    #     for file in os.listdir(log_pattern_folder_cluster):
+    #         with open(log_pattern_folder_cluster + file) as f:
+    #             with open(log_file_dir + log_time_file) as tf:
+    #                 f_lines = f.readlines()
+    #                 tf_lines = tf.readlines()
+    #                 pattern = f_lines[0]
+    #                 o_lines = f_lines[3].split()
+    #                 for o_line in o_lines:
+    #                     valueExtract(pattern, o_log_lines[int(o_line) - 1], 1, tf_lines[int(o_line) - 1].strip('\n'))
+    #                 toVector(pattern, 1, log_value_folder + file)
+    #                 print(file + " done")

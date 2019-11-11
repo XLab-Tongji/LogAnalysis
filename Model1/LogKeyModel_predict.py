@@ -5,19 +5,20 @@ import torch
 import torch.nn as nn
 import time
 import argparse
-from Model1 import *
+from . import *
 
 
 # Device configuration
 device = torch.device("cpu")
 # Hyperparameters，注意这里的window_size, input_size, hidden_size, num_layers, num_classes同train时的参数设置一致
-# window_size = 6
-# input_size = 1
-# hidden_size = 20
-# num_layers = 3
-# num_classes = 50
+window_size = 6
+input_size = 1
+hidden_size = 20
+num_layers = 3
+num_classes = 50
 num_candidates = 3
-model_path = model_dir + '/Adam_batch_size=200;epoch=3.pt'
+model_dir='output/model'
+model_path = model_dir + '/Adam_batch_size=200;epoch=100.pt'
 
 
 def generate(name):
@@ -75,6 +76,7 @@ if __name__ == '__main__':
     # test_abnormal_loader = generate('hdfs_test_abnormal')
     TP = 0
     FP = 0
+    ALL=0
     # Test the model
     start_time = time.time()
     print('test normal data:')
@@ -89,8 +91,9 @@ if __name__ == '__main__':
                 label = torch.tensor(label).view(-1).to(device)
                 output = model(seq)
                 predicted = torch.argsort(output, 1)[0][-num_candidates:]
-                print('{} - seq: {}, predict result: {}, true label: {}'.format(count_num, _seq, predicted, label))
+                ALL+=1
                 if label not in predicted:
+                    print('{} - seq: {}, predict result: {}, true label: {}'.format(count_num, _seq, predicted, label))
                     FP += 1
                     # break
     # print('test abnormal data:')
@@ -116,7 +119,7 @@ if __name__ == '__main__':
     # R = 100 * TP / (TP + FN)
     # F1 = 2 * P * R / (P + R)
     # print('false positive (FP): {}, false negative (FN): {}, Precision: {:.3f}%, Recall: {:.3f}%, F1-measure: {:.3f}%'.format(FP, FN, P, R, F1))
-    print('false positive(FP): {}'.format(FP))
+    print('false positive(FP): {}'.format(FP/ALL))
     print('Finished Predicting')
     elapsed_time = time.time() - start_time
     print('elapsed_time: {}'.format(elapsed_time))

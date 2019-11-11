@@ -21,9 +21,9 @@ window_size = 10  # 10
 hidden_size = 20  # 64
 num_layers = 3  # 2
 # num_classes = 2  # 28
-input_size = 10  #  x的特征维度。输入数据的维度，对于model2来说，长度为每个key对应的log vector的数据长度
+input_size = 1  #  x的特征维度。输入数据的维度，对于model2来说，长度为每个key对应的log vector的数据长度
 out_size = 10
-num_epochs = 300  # 300
+num_epochs = 3  # 300
 batch_size = 20  # 2048
 # in_features = 10
 # out_features = in_features
@@ -41,11 +41,10 @@ def generate(name):
     inputs = []
     outputs = []
     vectors = []
-    with open('data/' + name, 'r') as f:
+    with open(name, 'r') as f:
         for line in f.readlines():
             num_sessions += 1
             line = tuple(map(lambda n: n, map(float, line.strip().split())))
-            # print(line)
             vectors.append(line)
             # 对每个key的log parameter value vector来说，这些vector的长度一致，在某个位置的数字代表的意义一致
             # 预测示例如：[log_vector1, log_vector2, log_vector3] --> log_vector4
@@ -61,7 +60,8 @@ def generate(name):
         outputs.append(vectors[i+window_size])
     print('Number of sessions({}): {}'.format(name, num_sessions))
     print('Number of seqs({}): {}'.format(name, len(inputs)))
-    # print(inputs[0])
+    #print(inputs)
+    print(inputs[0])
     dataset = TensorDataset(torch.tensor(inputs, dtype=torch.float), torch.tensor(outputs))
     return dataset
 
@@ -100,85 +100,89 @@ if __name__ == '__main__':
     num_layers = args.num_layers
     hidden_size = args.hidden_size
     window_size = args.window_size
+    log_value_folder='../Data/LogClusterResult/values/'
+    file_names = os.listdir(log_value_folder)
+    for i in range(len(file_names)):
+        file_name=str(i+1)+".log"
+        train_dataset_name=log_value_folder+file_name
+        validation_dataset_name=train_dataset_name
 
-    # 产生暂时使用的数据
-    # with open('data/log_vectors1.txt','w') as f:
-    #     for j in range(100):
-    #         for i in range(10):
-    #             f.write(str(round(random.uniform(0, 1), 2)))
-    #             f.write(' ')
-    #         f.write('\n')
+        train_dataset = generate(train_dataset_name)
+        train_dataloader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, pin_memory=True)
+        validation_dataset = generate(validation_dataset_name)
+        validation_dataloader = DataLoader(validation_dataset,batch_size=batch_size, shuffle=True, pin_memory=True)
+        with open(train_dataset_name,'r') as ff:
+             input_size=len(ff.readline().split())
+        print(input_size)
+        model = Model(input_size, hidden_size, num_layers, out_size).to(device)
+        
+        writer = SummaryWriter(logdir='log/'+str(i+1)+'_'+ log)
 
-    model = Model(input_size, hidden_size, num_layers, out_size).to(device)
-    train_dataset = generate(train_dataset_name)
-    train_dataloader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, pin_memory=True)
-    validation_dataset = generate(validation_dataset_name)
-    validation_dataloader = DataLoader(validation_dataset,batch_size=batch_size, shuffle=True, pin_memory=True)
-    writer = SummaryWriter(logdir='log/' + log)
+        # Loss and optimizer
+        criterion = nn.MSELoss()  # 用于回归预测
+        optimizer = optim.SGD(model.parameters(), lr=learning_rate)
+        loss_list = []  # 用于记录训练过程中的loss值，这些值服从高斯分布
+        train_loss_list = []  # 记录训练阶段的loss，之后作图用
 
-    # Loss and optimizer
-    criterion = nn.MSELoss()  # 用于回归预测
-    optimizer = optim.SGD(model.parameters(), lr=learning_rate)
-    loss_list = []  # 用于记录训练过程中的loss值，这些值服从高斯分布
-    train_loss_list = []  # 记录训练阶段的loss，之后作图用
+        # Train and validate the model
+        total_step = len(train_dataloader)
+        for epoch in range(num_epochs):  # Loop over the dataset multiple times
+            # train the model
+            train_loss = 0
+            model.train()
+            for step, (seq, label) in enumerate(train_dataloader):  # the label here is the output vector
+                # Forward pass
+                #print(seq.clone().detach())
+                seq = seq.clone().detach().view(-1, window_size, input_size).to(device)
+                output = model(seq)  # 该output对应着每batch size个输入对应的输出
+                # print('output:')
+                # print(output)
+                # print("label:")
+                # print(label)
+                loss = criterion(output, label.to(device))
+                # Backward and optimize
+                optimizer.zero_grad()
+                loss.backward()
+                train_loss += loss.item()
+                optimizer.step()
+            train_loss_list.append(train_loss)
+            # validate the model
+            model.eval()
+            for step, (seq, label) in enumerate(validation_dataloader):
+                seq = seq.clone().detach().view(-1, window_size, input_size).to(device)
+                output = model(seq)
+                loss = criterion(output, label.to(device))
+                loss_list.append(loss.item())
+            print('Epoch [{}/{}], Train_loss: {:.4f}'.format(epoch + 1, num_epochs, train_loss / len(train_dataloader.dataset)))
+            writer.add_scalar('train_loss', train_loss / len(train_dataloader.dataset), epoch + 1)
+        if not os.path.isdir(model_dir):
+            os.makedirs(model_dir)
+        torch.save(model.state_dict(), model_dir + '/' + str(i+1)+ '.pt')
+        #torch.save(model,str(i+1)+'.pkl')
+        writer.close()
+        print('Finished Training')
 
-    # Train and validate the model
-    total_step = len(train_dataloader)
-    for epoch in range(num_epochs):  # Loop over the dataset multiple times
-        # train the model
-        train_loss = 0
-        model.train()
-        for step, (seq, label) in enumerate(train_dataloader):  # the label here is the output vector
-            # Forward pass
-            seq = seq.clone().detach().view(-1, window_size, input_size).to(device)
-            output = model(seq)  # 该output对应着每batch size个输入对应的输出
-            # print('output:')
-            # print(output)
-            # print("label:")
-            # print(label)
-            loss = criterion(output, label.to(device))
-            # Backward and optimize
-            optimizer.zero_grad()
-            loss.backward()
-            train_loss += loss.item()
-            optimizer.step()
-        train_loss_list.append(train_loss)
-        # validate the model
-        model.eval()
-        for step, (seq, label) in enumerate(validation_dataloader):
-            seq = seq.clone().detach().view(-1, window_size, input_size).to(device)
-            output = model(seq)
-            loss = criterion(output, label.to(device))
-            loss_list.append(loss.item())
-        print('Epoch [{}/{}], Train_loss: {:.4f}'.format(epoch + 1, num_epochs, train_loss / len(train_dataloader.dataset)))
-        writer.add_scalar('train_loss', train_loss / len(train_dataloader.dataset), epoch + 1)
-    if not os.path.isdir(model_dir):
-        os.makedirs(model_dir)
-    torch.save(model.state_dict(), model_dir + '/' + log + '.pt')
-    writer.close()
-    print('Finished Training')
+        # draw the Gaussian distribution of the loss in the validation
+        num_bins = 100
+        sigma = 1
+        mu = 0
+        fig, ax = plt.subplots()
+        print(loss_list)
+        # the histogram of the data
+        n, bins, patches = ax.hist(loss_list, num_bins, density=True)
+        # add a "best fit" line
+        # y = mlab.normpdf(bins, mu, sigma)
+        # ax.plot(bins, y, '--')
+        ax.set_xlabel('loss value')
+        ax.set_ylabel('percentage')
+        ax.set_title('Gaussian distribution')
+        fig.tight_layout()
+        plt.show()
 
-    # draw the Gaussian distribution of the loss in the validation
-    num_bins = 100
-    sigma = 1
-    mu = 0
-    fig, ax = plt.subplots()
-    print(loss_list)
-    # the histogram of the data
-    n, bins, patches = ax.hist(loss_list, num_bins, density=True)
-    # add a "best fit" line
-    # y = mlab.normpdf(bins, mu, sigma)
-    # ax.plot(bins, y, '--')
-    ax.set_xlabel('loss value')
-    ax.set_ylabel('percentage')
-    ax.set_title('Gaussian distribution')
-    fig.tight_layout()
-    plt.show()
-
-    # 作训练迭代过程中的loss变化图
-    plt.plot(train_loss_list, label='loss for every epoch')
-    plt.legend()
-    plt.show()
+        # 作训练迭代过程中的loss变化图
+        plt.plot(train_loss_list, label='loss for every epoch')
+        plt.legend()
+        plt.show()
 
 
 

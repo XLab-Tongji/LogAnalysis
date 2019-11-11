@@ -4,14 +4,13 @@
 import os
 import threading
 import re
-from GlobalVariables import *
 
 logclusterTool = os.getcwd() + '/logcluster/logcluster.pl'
 # 文件放至在 ../Data/LogFiles文件夹中
 LogFileRootDir = '../Data/LogFiles/'
 # 输出文档根目录
-OutputFileDir = '../Data/LogClusterResult/'
-# inputFileName = input('请输入日志文件名:')
+OutputFileDir = '../Data/LogClusterResult-k8s/'
+LogFileName = input('请输入日志文件名:')
 inputFile = LogFileRootDir + LogFileName
 if '.log' not in inputFile and '.LOG' not in inputFile:
     inputFile = inputFile + '.log'

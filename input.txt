@@ -1,0 +1,5 @@
+*{1,1} 02.06 *{1,1} [192.168.255.129] *{2,16}
+000002 02.06 14:22:55.175 [192.168.255.129] bb ASP-144D-0-CCS <2019-06-02T06:22:47.841448Z> 123F INF/LFS/LinuxSyslog, ccs-rt.appstart[5702]: getOsUtcAndBcnPair(): ddal_clk_time_get_times_at_moment() failed: ret=-11
+000003 02.06 14:22:55.175 [192.168.255.129] 55 ASP-144A-Disp_0 <2019-06-02T06:22:47.841497Z> 10C-PsSysTime#0 ERR/CCS/AaSysTime, getOsUtcAndBcnPair(): ddal_clk_time_get_times_at_moment() failed: ret=-11
+000004 02.06 14:22:55.175 [192.168.255.129] 56 ASP-144A-Disp_0 <2019-06-02T06:22:47.841499Z> 10C-PsSysTime#0 WRN/CCS/AaSysTime, AaSysTimeEmSyncCore(): getting of [UTC,BCN] pair failed - time sync NOT possible
+000005 02.06 14:22:55.175 [192.168.255.129] 57 ASP-144A-Disp_0 <2019-06-02T06:22:47.841500Z> 10C-PsSysTime#0 WRN/CCS/AaSysTime, sysTimeEO_CbHandler(): Skip the RT core time sync

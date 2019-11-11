@@ -5,23 +5,23 @@ from tensorboardX import SummaryWriter
 from torch.utils.data import TensorDataset, DataLoader
 import argparse
 import os
-from Model1 import *
+from . import *
 
 # Device configuration
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Hyperparameters
-# window_size = 6
-# input_size = 1
-# hidden_size = 20
-# num_layers = 3
-# num_classes = 50  # len(pattern2log)+1
-# model_dir = 'output/model'
-# log_dir = 'output/log'
+window_size = 6
+input_size = 1
+hidden_size = 20
+num_layers = 3
+num_classes = 50  # len(pattern2log)+1
+model_dir = 'output/model'
+log_dir = 'output/log'
 
-num_epochs = 3  # 300
+num_epochs = 20  # 300
 batch_size = 200  # 2048
 log = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs)
-train_file_name = 'SYSLOG_293_LogKeys_logcluster'
+train_file_name = 'catalogue2_LogKeys_logcluster'
 data_file = '../Data/Vectors1/' + train_file_name
 
 
@@ -102,5 +102,6 @@ if __name__ == '__main__':
     if not os.path.isdir(model_dir):
         os.makedirs(model_dir)
     torch.save(model.state_dict(), model_dir + '/' + log + '.pt')
+    torch.save(model,model_dir + '/' + log + '.pkl')
     writer.close()
     print('Finished Training')
