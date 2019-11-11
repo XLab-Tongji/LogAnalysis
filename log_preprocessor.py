@@ -306,17 +306,17 @@ if __name__ == '__main__':
                         # call method to get value (line, patten_dic[i])
                 lineNum = lineNum + 1
     # value extract
-    # with open(log_file_dir + log_file_name) as o_log_file:
-    #     o_log_lines = o_log_file.readlines()
-    #     timeExtract(log_file_dir + log_time_file)
-    #     for file in os.listdir(log_pattern_folder_cluster):
-    #         with open(log_pattern_folder_cluster + file) as f:
-    #             with open(log_file_dir + log_time_file) as tf:
-    #                 f_lines = f.readlines()
-    #                 tf_lines = tf.readlines()
-    #                 pattern = f_lines[0]
-    #                 o_lines = f_lines[3].split()
-    #                 for o_line in o_lines:
-    #                     valueExtract(pattern, o_log_lines[int(o_line) - 1], 1, tf_lines[int(o_line) - 1].strip('\n'))
-    #                 toVector(pattern, 1, log_value_folder + file)
-    #                 print(file + " done")
+    with open(log_file_dir + log_file_name) as o_log_file:
+        o_log_lines = o_log_file.readlines()
+        timeExtract(log_file_dir + log_time_file)
+        for file in os.listdir(log_pattern_folder_cluster):
+            with open(log_pattern_folder_cluster + file) as f:
+                with open(log_file_dir + log_time_file) as tf:
+                    f_lines = f.readlines()
+                    tf_lines = tf.readlines()
+                    pattern = f_lines[0]
+                    o_lines = f_lines[3].split()
+                    for o_line in o_lines:
+                        valueExtract(pattern, o_log_lines[int(o_line) - 1], 1, tf_lines[int(o_line) - 1].strip('\n'))
+                    toVector(pattern, 1, log_value_folder + file)
+                    print(file + " done")
