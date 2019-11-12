@@ -4,7 +4,8 @@ import torch
 import torch.nn as nn
 import time
 from enum import Enum
-
+from Model1.LogKeyModel_train import Model as Model1
+from Model2.KeyLogModel_train import Model as Model2
 import argparse
 import torch.nn as nn
 import os
@@ -32,38 +33,6 @@ def generate(name):
     print('Number of sessions({}): {}'.format(name, len(logkeys_sequences)))
     return logkeys_sequences
 
-
-class Model1(nn.Module):
-    def __init__(self, input_size1, hidden_size, num_layers, num_keys):
-        super(Model1, self).__init__()
-        self.hidden_size = hidden_size
-        self.num_layers = num_layers
-        self.lstm = nn.LSTM(input_size1, hidden_size, num_layers, batch_first=True)
-        self.fc = nn.Linear(hidden_size, num_keys)
-
-    def forward(self, input):
-        h0 = torch.zeros(self.num_layers, input.size(0), self.hidden_size).to(device)
-        c0 = torch.zeros(self.num_layers, input.size(0), self.hidden_size).to(device)
-        out, _ = self.lstm(input, (h0, c0))
-        out = self.fc(out[:, -1, :])
-        return out
-
-class Model2(nn.Module):
-    def __init__(self, input_size1, hidden_size, num_layers, num_keys):
-        super(Model2, self).__init__()
-        self.hidden_size = hidden_size
-        self.num_layers = num_layers
-        self.lstm = nn.LSTM(input_size1, hidden_size, num_layers, batch_first=True)
-        self.fc = nn.Linear(hidden_size, num_keys)
-        # self.out = nn.Linear(in_features=in_features, out_features=out_features)
-
-    def forward(self, input):
-        h0 = torch.zeros(self.num_layers, input.size(0), self.hidden_size).to(device)
-        c0 = torch.zeros(self.num_layers, input.size(0), self.hidden_size).to(device)
-        out, (h_n, c_n) = self.lstm(input, (h0, c0))
-        out = self.fc(out[:, -1, :])  # 最后一个时步的输出
-        return out
-
 # relation between log_pattern log_key log_line
 pattern2log = []
 pattern_dic = {}
@@ -72,11 +41,12 @@ pattern_dic = {}
 pattern2value=[]
 #存储日志文件每一行属于的log_key 编号，如 line2patternId[2]=1 表示第三条日志属于的编号为1的log_key
 line2patternId=[]
-# 存所有的Model2 的模型
-model2=[]
 window_size1=6
 input_size1 = 1
 num_candidates1 = 3
+
+window_size2=2
+
 def value_log_cluster():
     log_value_folder_cluster='Data/LogClusterResult/values/'
     file_names = os.listdir(log_value_folder_cluster)
@@ -143,7 +113,7 @@ def loadModel1():
     num_layers = 3
     num_classes = 50
     model_dir='Model1/output/model'
-    model_path = model_dir + '/Adam_batch_size=200;epoch=20.pt'
+    model_path = model_dir + '/Adam_batch_size=200;epoch=100.pt'
     model1 = Model1(input_size1, hidden_size, num_layers, num_classes).to(device)
     model1.load_state_dict(torch.load(model_path))
     model1.eval()
@@ -151,6 +121,7 @@ def loadModel1():
     return model1
 def loadModel2():
     model2_dir="Model2/model/"
+    model2=[]
     for i in range(len(os.listdir("Model2/model"))):
         hidden_size = 20  # 64
         num_layers = 3  # 2
@@ -163,6 +134,7 @@ def loadModel2():
         model.eval()
         print('model_path: {}'.format(model_path))
         model2.append(model)
+    return model2
         
 
 if __name__ == '__main__':
@@ -179,31 +151,31 @@ if __name__ == '__main__':
                 if lineNum in pattern2log[i]:
                     line2patternId.append(i+1)
                     break
-    
-    TP = 0
-    FP = 0
     value_log_cluster()
-    loadModel2()
-    window_size2=2
+    model1=loadModel1()
+    model2=loadModel2()
+    
     #用于Model2 的预测。 存储每个log_key 目前预测到了第几条日志。当模型一预测为正常时，模型二则会进行预测。
     #此时需要待预测的log_key的前几条相同log_key的日志，故用pattern_index 记录待预测的log_key是第几条。
     pattern_index=[0]*len(pattern2value)
     start_time = time.time()
     criterion = nn.MSELoss()  # 用于回归预测
-    # 初始化label 和 seq
+    # 初始化 pattern_id 和 seq
     _seq=[1]*window_size1
     pattern_id=1
-    model1=loadModel1()
+    TP = 0
+    FP = 0
     print('predict start')
     with open(log_address, 'rb') as in_log:
         lenth=int(len(in_log.readlines()))
         for lineNum in range(lenth):
             print(FP,lineNum)
-            # 删除最开始的日志，然后将上一次的日志编号加入尾部
+            # 删除最开始的日志编号，然后将上一次的日志编号加入尾部
             del _seq[0]
             _seq.append(pattern_id)
-            #获取预测的pattern_id
+            # 获取待预测的日志编号
             pattern_id=line2patternId[lineNum]
+
             seq = torch.tensor(_seq, dtype=torch.float).view(-1, window_size1, input_size1).to(device)
             label = torch.tensor(pattern_id).view(-1).to(device)
             output = model1(seq)
@@ -244,7 +216,7 @@ if __name__ == '__main__':
     # R = 100 * TP / (TP + FN)
     # F1 = 2 * P * R / (P + R)
     # print('false positive (FP): {}, false negative (FN): {}, Precision: {:.3f}%, Recall: {:.3f}%, F1-measure: {:.3f}%'.format(FP, FN, P, R, F1))
-    print('false positive(FP): {}'.format(FP/TP+FP))
+    print('false positive(FP): {}'.format(FP/(TP+FP)))
     print('Finished Predicting')
     elapsed_time = time.time() - start_time
     print('elapsed_time: {}'.format(elapsed_time))
