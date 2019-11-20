@@ -28,6 +28,10 @@ Jun 9 06:06:20 combo kernel: klogd 1.4.1, log source = /proc/kmsg started.
 Jun 9 06:06:20 combo kernel: Linux version 2.6.5-1.358 (bhcompile@bugs.build.redhat.com) (gcc version 3.3.3 20040412 (Red Hat Linux 3.3.3-7)) #1 Sat May 8 09:04:50 EDT 2004
 ```
 
+### 特别注意
+
+因SYSLOG_293日志中第一行为总体说明，并非具体日志，因此该算法不读入第一行日志，把第二行作为第一条日志开始读入。
+
 ### 算法流程
 
 1. 读取日志文件，将其存储在log_list变量中

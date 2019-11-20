@@ -4,16 +4,16 @@ import os
 
 # log input/output address
 log_file_dir = './'
-log_file_name = 'SYSLOG_293.LOG'
+log_file_name = 'Apache.LOG'
 log_address = log_file_dir + log_file_name
 log_fttree_out_file = './'+log_file_name.split('.')[0]+'_fttree'
 out_file = log_fttree_out_file
 # 日志中Detailed message起始字段号
 detailed_message_number = 5
 # 日志中Message type所处字段号 若为-1 则表示无此字段
-message_type_number = -1
+message_type_number = 6
 # 阈值k，即树的最大深度-1
-k = 2
+k = 5
 
 
 if __name__ == '__main__':
