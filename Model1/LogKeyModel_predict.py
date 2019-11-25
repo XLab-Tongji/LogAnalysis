@@ -17,8 +17,9 @@ hidden_size = 20
 num_layers = 3
 num_classes = 50
 num_candidates = 3
-model_dir='output/model'
-model_path = model_dir + '/Adam_batch_size=200;epoch=100.pt'
+RootPath='../Data/LogClusterResult-5G/'
+model_dir=RootPath+'output/model'
+test_file_name = RootPath+'/logkey_test'
 
 
 def generate(name):
@@ -65,62 +66,62 @@ if __name__ == '__main__':
     hidden_size = args.hidden_size
     window_size = args.window_size
     num_candidates = args.num_candidates
+    for i in range(5):
+        model_path = model_dir + '/Adam_batch_size=200;epoch='+str((i+1)*100)+'.pt'
+        model = Model(input_size, hidden_size, num_layers, num_classes).to(device)
+        model.load_state_dict(torch.load(model_path))
+        model.eval()
+        print('model_path: {}'.format(model_path))
+        # test_loader = generate(test_file_name)
+        test_normal_loader = generate(test_file_name)
+        # test_abnormal_loader = generate('hdfs_test_abnormal')
+        TP = 0
+        FP = 0
+        ALL=0
+        # Test the model
+        start_time = time.time()
+        print('test normal data:')
+        with torch.no_grad():
+            count_num = 0
+            for line in test_normal_loader:
+                for i in range(len(line) - window_size):
+                    count_num += 1
+                    _seq = line[i:i + window_size]
+                    label = line[i + window_size]
+                    seq = torch.tensor(_seq, dtype=torch.float).view(-1, window_size, input_size).to(device)
+                    label = torch.tensor(label).view(-1).to(device)
+                    output = model(seq)
+                    predicted = torch.argsort(output, 1)[0][-num_candidates:]
+                    ALL+=1
+                    if label not in predicted:
+                        print('{} - seq: {}, predict result: {}, true label: {}'.format(count_num, _seq, predicted, label))
+                        FP += 1
+                        # break
+        # print('test abnormal data:')
+        # with torch.no_grad():
+        #     count_num = 0
+        #     for line in test_abnormal_loader:
+        #         for i in range(len(line) - window_size):
+        #             count_num += 1
+        #             seq = line[i:i + window_size]
+        #             label = line[i + window_size]
+        #             seq = torch.tensor(seq, dtype=torch.float).view(-1, window_size, input_size).to(device)
+        #             label = torch.tensor(label).view(-1).to(device)
+        #             output = model(seq)
+        #             predicted = torch.argsort(output, 1)[0][-num_candidates:]
+        #             print('{} - predict result: {}, true label: {}'.format(count_num, predicted, label))
+        #             if label not in predicted:
+        #                 TP += 1
+        #                 break
 
-    model = Model(input_size, hidden_size, num_layers, num_classes).to(device)
-    model.load_state_dict(torch.load(model_path))
-    model.eval()
-    print('model_path: {}'.format(model_path))
-    test_file_name = '../Data/Vectors1/SYSLOG_293_LogKeys_test'
-    # test_loader = generate(test_file_name)
-    test_normal_loader = generate(test_file_name)
-    # test_abnormal_loader = generate('hdfs_test_abnormal')
-    TP = 0
-    FP = 0
-    ALL=0
-    # Test the model
-    start_time = time.time()
-    print('test normal data:')
-    with torch.no_grad():
-        count_num = 0
-        for line in test_normal_loader:
-            for i in range(len(line) - window_size):
-                count_num += 1
-                _seq = line[i:i + window_size]
-                label = line[i + window_size]
-                seq = torch.tensor(_seq, dtype=torch.float).view(-1, window_size, input_size).to(device)
-                label = torch.tensor(label).view(-1).to(device)
-                output = model(seq)
-                predicted = torch.argsort(output, 1)[0][-num_candidates:]
-                ALL+=1
-                if label not in predicted:
-                    print('{} - seq: {}, predict result: {}, true label: {}'.format(count_num, _seq, predicted, label))
-                    FP += 1
-                    # break
-    # print('test abnormal data:')
-    # with torch.no_grad():
-    #     count_num = 0
-    #     for line in test_abnormal_loader:
-    #         for i in range(len(line) - window_size):
-    #             count_num += 1
-    #             seq = line[i:i + window_size]
-    #             label = line[i + window_size]
-    #             seq = torch.tensor(seq, dtype=torch.float).view(-1, window_size, input_size).to(device)
-    #             label = torch.tensor(label).view(-1).to(device)
-    #             output = model(seq)
-    #             predicted = torch.argsort(output, 1)[0][-num_candidates:]
-    #             print('{} - predict result: {}, true label: {}'.format(count_num, predicted, label))
-    #             if label not in predicted:
-    #                 TP += 1
-    #                 break
-
-    # Compute precision, recall and F1-measure
-    # FN = len(test_abnormal_loader) - TP
-    # P = 100 * TP / (TP + FP)
-    # R = 100 * TP / (TP + FN)
-    # F1 = 2 * P * R / (P + R)
-    # print('false positive (FP): {}, false negative (FN): {}, Precision: {:.3f}%, Recall: {:.3f}%, F1-measure: {:.3f}%'.format(FP, FN, P, R, F1))
-    print('false positive(FP): {}'.format(FP/ALL))
-    print('Finished Predicting')
-    elapsed_time = time.time() - start_time
-    print('elapsed_time: {}'.format(elapsed_time))
+        # Compute precision, recall and F1-measure
+        # FN = len(test_abnormal_loader) - TP
+        # P = 100 * TP / (TP + FP)
+        # R = 100 * TP / (TP + FN)
+        # F1 = 2 * P * R / (P + R)
+        # print('false positive (FP): {}, false negative (FN): {}, Precision: {:.3f}%, Recall: {:.3f}%, F1-measure: {:.3f}%'.format(FP, FN, P, R, F1))
+        print('false positive(FP): {}'.format(FP/ALL))
+        print('Finished Predicting')
+        elapsed_time = time.time() - start_time
+        print('elapsed_time: {}'.format(elapsed_time))
 

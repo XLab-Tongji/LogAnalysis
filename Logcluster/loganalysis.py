@@ -7,9 +7,9 @@ import re
 
 logclusterTool = os.getcwd() + '/logcluster/logcluster.pl'
 # 文件放至在 ../Data/LogFiles文件夹中
-LogFileRootDir = '../Data/LogFiles/'
+LogFileRootDir = '../5G/'
 # 输出文档根目录
-OutputFileDir = '../Data/LogClusterResult-k8s/'
+OutputFileDir = '../Data/LogClusterResult-5G/'
 LogFileName = input('请输入日志文件名:')
 inputFile = LogFileRootDir + LogFileName
 if '.log' not in inputFile and '.LOG' not in inputFile:

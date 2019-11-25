@@ -15,14 +15,16 @@ input_size = 1
 hidden_size = 20
 num_layers = 3
 num_classes = 50  # len(pattern2log)+1
-model_dir = 'output/model'
-log_dir = 'output/log'
+RootPath="../Data/LogClusterResult-5G/"
 
-num_epochs = 20  # 300
+model_dir = RootPath+'output/model'
+log_dir = RootPath+'output/log'
+
+num_epochs = 500  # 300
 batch_size = 200  # 2048
 log = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs)
-train_file_name = 'catalogue2_LogKeys_logcluster'
-data_file = '../Data/Vectors1/' + train_file_name
+train_file_name = 'logkey_train'
+data_file = RootPath + train_file_name
 
 
 def generate(name):
@@ -99,9 +101,10 @@ if __name__ == '__main__':
             optimizer.step()
         print('Epoch [{}/{}], Train_loss: {:.4f}'.format(epoch + 1, num_epochs, train_loss / len(dataloader.dataset)))
         writer.add_scalar('train_loss', train_loss / len(dataloader.dataset), epoch + 1)
-    if not os.path.isdir(model_dir):
-        os.makedirs(model_dir)
-    torch.save(model.state_dict(), model_dir + '/' + log + '.pt')
-    torch.save(model,model_dir + '/' + log + '.pkl')
+        if (epoch+1)%100==0:  #每100轮保存一次
+            if not os.path.isdir(model_dir):
+                os.makedirs(model_dir)
+            elog = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(epoch+1)
+            torch.save(model.state_dict(), model_dir + '/' + elog + '.pt')
     writer.close()
     print('Finished Training')

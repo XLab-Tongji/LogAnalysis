@@ -17,15 +17,19 @@ pattern2log = []
 pattern_dic = {}
 
 # log input/output address
-log_file_dir = './Data/LogFiles/'
-log_file_name = 'catalogue2.log'
-log_time_file = 'timediff.txt'
+## 只要改RootName 即可
+RootName='5G'
+
+RootPath='./Data/LogClusterResult-'+RootName+'/'
+log_file_dir = './'+RootName+'/'
+log_file_name = 'Unino.log'
+log_time_file = RootPath+'Vectors/timediff.txt'
 log_address = log_file_dir + log_file_name
 log_pattern_address_sequencer = './sequence/linux.pat'
-log_pattern_folder_cluster = './Data/LogClusterResult/clusters/'
+log_pattern_folder_cluster = RootPath+'clusters/'
 sequencer_out_file = './Data/Vectors1'+log_file_name.split('.')[0]+'_LogKeys_sequencer'
 log_cluster_out_file = './Data/Vectors1/'+log_file_name.split('.')[0]+'_LogKeys_logcluster'
-log_value_folder = './Data/LogClusterResult/values/'
+log_value_folder = RootPath+'values/'
 if pattern_source == 0:
     out_file = sequencer_out_file
 else:
@@ -195,7 +199,7 @@ def timeExtract(file=None):
                 last_timestamp = line[14:22]
             else:
                 times.append("0\n")
-    with open (log_file_dir + log_time_file, "w") as f:
+    with open (log_time_file , "w") as f:
         f.writelines(times)
 
 # 时间差
@@ -290,28 +294,39 @@ if __name__ == '__main__':
         parse_sequencer()
     else:
         parse_log_cluster()
-    with open(out_file, 'w') as out_text:
-        with open(log_address, 'rb') as in_log:
-            j = 0
-            lineNum = 1
-            for line in in_log.readlines():
-                for i in range(len(pattern2log)):
-                    if lineNum in pattern2log[i]:
-                        print(i+1, file=out_text, end='')
-                        print(' ', file=out_text, end='')
-                        j = j + 1
-                        if j == windowSize:
-                            print('', file=out_text)
-                            j = 0
-                        # call method to get value (line, patten_dic[i])
-                lineNum = lineNum + 1
+    # out_train=open(RootPath+"logkey_train",'w')  
+    # out_test=open(RootPath+"logkey_test",'w')  
+    # out_val=open(RootPath+"logkey_val",'w')  
+    # out_abnormal=open(RootPath+"logkey_abnormal",'w')  
+    # out_text=out_train
+    # with open(log_address, 'rb') as in_log:
+    #     j = 0
+    #     lineNum = 1
+    #     for line in in_log.readlines():
+    #         for i in range(len(pattern2log)):
+    #             if lineNum in pattern2log[i]:
+    #                 print(i+1, file=out_text, end='')
+    #                 print(' ', file=out_text, end='')
+    #                 j = j + 1
+    #                 if j == windowSize:
+    #                     print('', file=out_text)
+    #                     j = 0
+    #                 # call method to get value (line, patten_dic[i])
+    #         lineNum = lineNum + 1
+    #         if lineNum>2000 and lineNum<2500: 
+    #             out_text=out_val
+    #         if lineNum>2500 and lineNum<3000: 
+    #             out_text=out_test
+    #         if lineNum>3000 and lineNum<3500: 
+    #             out_text=out_abnormal
+
     # value extract
     with open(log_file_dir + log_file_name) as o_log_file:
         o_log_lines = o_log_file.readlines()
-        timeExtract(log_file_dir + log_time_file)
+        timeExtract( log_time_file)
         for file in os.listdir(log_pattern_folder_cluster):
             with open(log_pattern_folder_cluster + file) as f:
-                with open(log_file_dir + log_time_file) as tf:
+                with open(log_time_file) as tf:
                     f_lines = f.readlines()
                     tf_lines = tf.readlines()
                     pattern = f_lines[0]
