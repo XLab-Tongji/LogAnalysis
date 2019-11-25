@@ -1,0 +1,504 @@
+2019-11-01 02:39:20.022  INFO 6 --- [ool-6-thread-49] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:20.023  INFO 6 --- [ool-6-thread-49] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.023  INFO 6 --- [ool-6-thread-49] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.023  INFO 6 --- [ool-6-thread-49] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.023  INFO 6 --- [ool-6-thread-49] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.023  INFO 6 --- [ool-6-thread-49] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.023  INFO 6 --- [ool-6-thread-49] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.023 ERROR 6 --- [ool-6-thread-49] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b6c595b300011256ac
+2019-11-01 02:39:20.067  INFO 6 --- [pool-6-thread-1] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:20.067  INFO 6 --- [pool-6-thread-1] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.067  INFO 6 --- [pool-6-thread-1] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.068  INFO 6 --- [pool-6-thread-1] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.068  INFO 6 --- [pool-6-thread-1] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.068  INFO 6 --- [pool-6-thread-1] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.068  INFO 6 --- [pool-6-thread-1] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.068 ERROR 6 --- [pool-6-thread-1] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b2c595b300011254ea
+2019-11-01 02:39:20.143  INFO 6 --- [pool-6-thread-8] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:20.153  INFO 6 --- [pool-6-thread-8] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.153  INFO 6 --- [pool-6-thread-8] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.154  INFO 6 --- [pool-6-thread-8] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.155  INFO 6 --- [pool-6-thread-8] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.156  INFO 6 --- [pool-6-thread-8] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.156  INFO 6 --- [pool-6-thread-8] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.156 ERROR 6 --- [pool-6-thread-8] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b4c595b300011255c9
+2019-11-01 02:39:20.190  INFO 6 --- [ool-6-thread-19] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:20.193  INFO 6 --- [ool-6-thread-19] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.193  INFO 6 --- [ool-6-thread-19] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.193  INFO 6 --- [ool-6-thread-19] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.193  INFO 6 --- [ool-6-thread-19] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.193  INFO 6 --- [ool-6-thread-19] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.193  INFO 6 --- [ool-6-thread-19] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.193 ERROR 6 --- [ool-6-thread-19] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b4c595b300011255c7
+2019-11-01 02:39:20.221  INFO 6 --- [pool-6-thread-6] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:20.222  INFO 6 --- [pool-6-thread-6] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.222  INFO 6 --- [pool-6-thread-6] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.222  INFO 6 --- [pool-6-thread-6] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.222  INFO 6 --- [pool-6-thread-6] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.222  INFO 6 --- [pool-6-thread-6] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.222  INFO 6 --- [pool-6-thread-6] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.222 ERROR 6 --- [pool-6-thread-6] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98afc595b30001125342
+2019-11-01 02:39:20.274  INFO 6 --- [ool-6-thread-39] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:20.276  INFO 6 --- [ool-6-thread-39] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.276  INFO 6 --- [ool-6-thread-39] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.279  INFO 6 --- [ool-6-thread-39] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.280  INFO 6 --- [ool-6-thread-39] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.280  INFO 6 --- [ool-6-thread-39] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.280  INFO 6 --- [ool-6-thread-39] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.280 ERROR 6 --- [ool-6-thread-39] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b3c595b30001125530
+2019-11-01 02:39:20.345  INFO 6 --- [ool-6-thread-26] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:20.345  INFO 6 --- [ool-6-thread-26] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.345  INFO 6 --- [ool-6-thread-26] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.345  INFO 6 --- [ool-6-thread-26] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.345  INFO 6 --- [ool-6-thread-26] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.345  INFO 6 --- [ool-6-thread-26] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.345  INFO 6 --- [ool-6-thread-26] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.346 ERROR 6 --- [ool-6-thread-26] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b9c595b300011257ff
+2019-11-01 02:39:20.374  INFO 6 --- [ool-6-thread-14] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:20.375  INFO 6 --- [ool-6-thread-14] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.375  INFO 6 --- [ool-6-thread-14] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.375  INFO 6 --- [ool-6-thread-14] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.375  INFO 6 --- [ool-6-thread-14] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.376  INFO 6 --- [ool-6-thread-14] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.376  INFO 6 --- [ool-6-thread-14] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.376 ERROR 6 --- [ool-6-thread-14] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b6c595b30001125676
+2019-11-01 02:39:20.379  INFO 6 --- [ool-6-thread-50] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:20.380  INFO 6 --- [ool-6-thread-50] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.380  INFO 6 --- [ool-6-thread-50] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.380  INFO 6 --- [ool-6-thread-50] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.380  INFO 6 --- [ool-6-thread-50] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.380  INFO 6 --- [ool-6-thread-50] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:20.380  INFO 6 --- [ool-6-thread-50] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:20.380 ERROR 6 --- [ool-6-thread-50] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b6c595b300011256ab
+2019-11-01 02:39:21.108  INFO 6 --- [ool-6-thread-24] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.109  INFO 6 --- [ool-6-thread-24] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.109  INFO 6 --- [ool-6-thread-24] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.109  INFO 6 --- [ool-6-thread-24] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.109  INFO 6 --- [ool-6-thread-24] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.109  INFO 6 --- [ool-6-thread-24] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.109  INFO 6 --- [ool-6-thread-24] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.109 ERROR 6 --- [ool-6-thread-24] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b9c595b300011257f7
+2019-11-01 02:39:21.147  INFO 6 --- [ool-6-thread-40] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.148  INFO 6 --- [ool-6-thread-40] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.148  INFO 6 --- [ool-6-thread-40] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.148  INFO 6 --- [ool-6-thread-40] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.148  INFO 6 --- [ool-6-thread-40] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.150  INFO 6 --- [ool-6-thread-40] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.150  INFO 6 --- [ool-6-thread-40] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.150 ERROR 6 --- [ool-6-thread-40] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b2c595b300011254a5
+2019-11-01 02:39:21.229  INFO 6 --- [pool-6-thread-5] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.229  INFO 6 --- [pool-6-thread-5] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.230  INFO 6 --- [pool-6-thread-5] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.230  INFO 6 --- [pool-6-thread-5] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.230  INFO 6 --- [pool-6-thread-5] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.230  INFO 6 --- [pool-6-thread-5] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.231  INFO 6 --- [pool-6-thread-5] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.231 ERROR 6 --- [pool-6-thread-5] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b6c595b300011256b7
+2019-11-01 02:39:21.266  INFO 6 --- [ool-6-thread-18] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.267  INFO 6 --- [ool-6-thread-18] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.267  INFO 6 --- [ool-6-thread-18] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.267  INFO 6 --- [ool-6-thread-18] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.267  INFO 6 --- [ool-6-thread-18] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.267  INFO 6 --- [ool-6-thread-18] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.267  INFO 6 --- [ool-6-thread-18] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.267 ERROR 6 --- [ool-6-thread-18] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b8c595b30001125790
+2019-11-01 02:39:21.269  INFO 6 --- [ool-6-thread-27] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.270  INFO 6 --- [ool-6-thread-27] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.270  INFO 6 --- [ool-6-thread-27] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.270  INFO 6 --- [ool-6-thread-27] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.270  INFO 6 --- [ool-6-thread-27] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.270  INFO 6 --- [ool-6-thread-27] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.270  INFO 6 --- [ool-6-thread-27] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.270 ERROR 6 --- [ool-6-thread-27] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98afc595b3000112537c
+2019-11-01 02:39:21.274  INFO 6 --- [ool-6-thread-41] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.278  INFO 6 --- [ool-6-thread-41] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.278  INFO 6 --- [ool-6-thread-41] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.278  INFO 6 --- [ool-6-thread-41] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.278  INFO 6 --- [ool-6-thread-41] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.278  INFO 6 --- [ool-6-thread-41] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.278  INFO 6 --- [ool-6-thread-41] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.278 ERROR 6 --- [ool-6-thread-41] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b9c595b3000112583e
+2019-11-01 02:39:21.285  INFO 6 --- [pool-6-thread-9] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.286  INFO 6 --- [pool-6-thread-9] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.286  INFO 6 --- [pool-6-thread-9] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.286  INFO 6 --- [pool-6-thread-9] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.286  INFO 6 --- [pool-6-thread-9] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.287  INFO 6 --- [pool-6-thread-9] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.287  INFO 6 --- [pool-6-thread-9] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.287 ERROR 6 --- [pool-6-thread-9] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b5c595b30001125636
+2019-11-01 02:39:21.327  INFO 6 --- [ool-6-thread-29] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.329  INFO 6 --- [ool-6-thread-29] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.329  INFO 6 --- [ool-6-thread-29] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.332  INFO 6 --- [ool-6-thread-29] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.333  INFO 6 --- [ool-6-thread-29] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+Received shipment task: 5dbb98afc595b300011253b3
+2019-11-01 02:39:21.333  INFO 6 --- [pool-6-thread-2] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.333  INFO 6 --- [pool-6-thread-2] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.335  INFO 6 --- [pool-6-thread-2] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.335  INFO 6 --- [pool-6-thread-2] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.335  INFO 6 --- [pool-6-thread-2] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.336  INFO 6 --- [pool-6-thread-2] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.336  INFO 6 --- [pool-6-thread-2] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.336 ERROR 6 --- [pool-6-thread-2] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+2019-11-01 02:39:21.337  INFO 6 --- [ool-6-thread-29] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.337  INFO 6 --- [ool-6-thread-29] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.338 ERROR 6 --- [ool-6-thread-29] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b0c595b30001125405
+2019-11-01 02:39:21.349  INFO 6 --- [ool-6-thread-46] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.350  INFO 6 --- [ool-6-thread-46] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.350  INFO 6 --- [ool-6-thread-46] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.350  INFO 6 --- [ool-6-thread-46] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.350  INFO 6 --- [ool-6-thread-46] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.350  INFO 6 --- [ool-6-thread-46] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.350  INFO 6 --- [ool-6-thread-46] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.351 ERROR 6 --- [ool-6-thread-46] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b9c595b30001125848
+2019-11-01 02:39:21.371  INFO 6 --- [ool-6-thread-13] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.373  INFO 6 --- [ool-6-thread-13] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.374  INFO 6 --- [ool-6-thread-13] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+Received shipment task: 5dbb98bac595b300011258dc
+2019-11-01 02:39:21.378  INFO 6 --- [ool-6-thread-33] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+Received shipment task: 5dbb98b8c595b300011257be
+2019-11-01 02:39:21.381  INFO 6 --- [ool-6-thread-33] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.382  INFO 6 --- [pool-6-thread-7] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.382  INFO 6 --- [ool-6-thread-33] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.383  INFO 6 --- [ool-6-thread-33] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.385  INFO 6 --- [ool-6-thread-33] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.385  INFO 6 --- [pool-6-thread-7] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.385  INFO 6 --- [ool-6-thread-33] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+Received shipment task: 5dbb98b3c595b30001125550
+2019-11-01 02:39:21.385  INFO 6 --- [ool-6-thread-13] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.385  INFO 6 --- [pool-6-thread-7] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.386  INFO 6 --- [ool-6-thread-33] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.387  INFO 6 --- [ool-6-thread-13] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.387  INFO 6 --- [ool-6-thread-32] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.387  INFO 6 --- [pool-6-thread-7] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.388 ERROR 6 --- [ool-6-thread-33] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+2019-11-01 02:39:21.388  INFO 6 --- [ool-6-thread-13] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.389  INFO 6 --- [ool-6-thread-32] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.390  INFO 6 --- [pool-6-thread-7] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.390  INFO 6 --- [ool-6-thread-13] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.390  INFO 6 --- [ool-6-thread-32] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.391  INFO 6 --- [pool-6-thread-7] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.392 ERROR 6 --- [ool-6-thread-13] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+2019-11-01 02:39:21.392  INFO 6 --- [ool-6-thread-32] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.394  INFO 6 --- [pool-6-thread-7] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.405  INFO 6 --- [ool-6-thread-32] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.405  INFO 6 --- [ool-6-thread-32] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.405  INFO 6 --- [ool-6-thread-32] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.406 ERROR 6 --- [ool-6-thread-32] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+2019-11-01 02:39:21.406 ERROR 6 --- [pool-6-thread-7] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b5c595b3000112565a
+2019-11-01 02:39:21.496  INFO 6 --- [ool-6-thread-17] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.499  INFO 6 --- [ool-6-thread-17] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.499  INFO 6 --- [ool-6-thread-17] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.499  INFO 6 --- [ool-6-thread-17] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.499  INFO 6 --- [ool-6-thread-17] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.499  INFO 6 --- [ool-6-thread-17] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.499  INFO 6 --- [ool-6-thread-17] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.499 ERROR 6 --- [ool-6-thread-17] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b2c595b300011254dd
+2019-11-01 02:39:21.502  INFO 6 --- [ool-6-thread-25] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.535  INFO 6 --- [ool-6-thread-25] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.535  INFO 6 --- [ool-6-thread-25] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.545  INFO 6 --- [ool-6-thread-25] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.545  INFO 6 --- [ool-6-thread-25] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.546  INFO 6 --- [ool-6-thread-25] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.546  INFO 6 --- [ool-6-thread-25] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.551 ERROR 6 --- [ool-6-thread-25] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b2c595b300011254e9
+2019-11-01 02:39:21.555  INFO 6 --- [ool-6-thread-48] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.561  INFO 6 --- [ool-6-thread-48] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.562  INFO 6 --- [ool-6-thread-48] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.565  INFO 6 --- [ool-6-thread-48] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.569  INFO 6 --- [ool-6-thread-48] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.574  INFO 6 --- [ool-6-thread-48] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.574  INFO 6 --- [ool-6-thread-48] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.575 ERROR 6 --- [ool-6-thread-48] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b7c595b3000112575a
+2019-11-01 02:39:21.587  INFO 6 --- [ool-6-thread-47] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.587  INFO 6 --- [ool-6-thread-47] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.587  INFO 6 --- [ool-6-thread-47] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.588  INFO 6 --- [ool-6-thread-47] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.588  INFO 6 --- [ool-6-thread-47] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.588  INFO 6 --- [ool-6-thread-47] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.588  INFO 6 --- [ool-6-thread-47] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.588 ERROR 6 --- [ool-6-thread-47] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b8c595b300011257ea
+2019-11-01 02:39:21.605  INFO 6 --- [ool-6-thread-38] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.606  INFO 6 --- [ool-6-thread-38] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.606  INFO 6 --- [ool-6-thread-38] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.606  INFO 6 --- [ool-6-thread-38] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.606  INFO 6 --- [ool-6-thread-38] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.606  INFO 6 --- [ool-6-thread-38] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.606  INFO 6 --- [ool-6-thread-38] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.606 ERROR 6 --- [ool-6-thread-38] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b1c595b30001125448
+2019-11-01 02:39:21.620  INFO 6 --- [ool-6-thread-16] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.621  INFO 6 --- [ool-6-thread-16] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.621  INFO 6 --- [ool-6-thread-16] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.621  INFO 6 --- [ool-6-thread-16] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.621  INFO 6 --- [ool-6-thread-16] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.621  INFO 6 --- [ool-6-thread-16] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.621  INFO 6 --- [ool-6-thread-16] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.621 ERROR 6 --- [ool-6-thread-16] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98bac595b30001125905
+2019-11-01 02:39:21.624  INFO 6 --- [ool-6-thread-23] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.625  INFO 6 --- [ool-6-thread-23] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.625  INFO 6 --- [ool-6-thread-23] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.625  INFO 6 --- [ool-6-thread-23] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.625  INFO 6 --- [ool-6-thread-23] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.625  INFO 6 --- [ool-6-thread-23] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.625  INFO 6 --- [ool-6-thread-23] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.625 ERROR 6 --- [ool-6-thread-23] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b5c595b30001125602
+Received shipment task: 5dbb98afc595b300011253a2
+2019-11-01 02:39:21.631  INFO 6 --- [ool-6-thread-35] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.632  INFO 6 --- [ool-6-thread-35] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.632  INFO 6 --- [ool-6-thread-35] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.632  INFO 6 --- [ool-6-thread-35] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.632  INFO 6 --- [ool-6-thread-35] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.632  INFO 6 --- [ool-6-thread-35] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.632  INFO 6 --- [ool-6-thread-35] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.632 ERROR 6 --- [ool-6-thread-35] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+2019-11-01 02:39:21.631  INFO 6 --- [pool-6-thread-4] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.633  INFO 6 --- [pool-6-thread-4] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.633  INFO 6 --- [pool-6-thread-4] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.633  INFO 6 --- [pool-6-thread-4] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.633  INFO 6 --- [pool-6-thread-4] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.633  INFO 6 --- [pool-6-thread-4] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.633  INFO 6 --- [pool-6-thread-4] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.633 ERROR 6 --- [pool-6-thread-4] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b9c595b3000112583d
+2019-11-01 02:39:21.637  INFO 6 --- [ool-6-thread-30] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.637  INFO 6 --- [ool-6-thread-30] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.637  INFO 6 --- [ool-6-thread-30] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.637  INFO 6 --- [ool-6-thread-30] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.637  INFO 6 --- [ool-6-thread-30] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.637  INFO 6 --- [ool-6-thread-30] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.637  INFO 6 --- [ool-6-thread-30] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.637 ERROR 6 --- [ool-6-thread-30] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b0c595b300011253f0
+2019-11-01 02:39:21.645  INFO 6 --- [ool-6-thread-37] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.646  INFO 6 --- [ool-6-thread-37] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.646  INFO 6 --- [ool-6-thread-37] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.647  INFO 6 --- [ool-6-thread-37] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.648  INFO 6 --- [ool-6-thread-37] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.648  INFO 6 --- [ool-6-thread-37] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.648  INFO 6 --- [ool-6-thread-37] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.650 ERROR 6 --- [ool-6-thread-37] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98afc595b30001125372
+2019-11-01 02:39:21.660  INFO 6 --- [ool-6-thread-21] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.662  INFO 6 --- [ool-6-thread-21] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.662  INFO 6 --- [ool-6-thread-21] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.662  INFO 6 --- [ool-6-thread-21] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.662  INFO 6 --- [ool-6-thread-21] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.663  INFO 6 --- [ool-6-thread-21] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.663  INFO 6 --- [ool-6-thread-21] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.663 ERROR 6 --- [ool-6-thread-21] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98afc595b3000112537d
+2019-11-01 02:39:21.668  INFO 6 --- [ool-6-thread-42] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.670  INFO 6 --- [ool-6-thread-42] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.670  INFO 6 --- [ool-6-thread-42] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.670  INFO 6 --- [ool-6-thread-42] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.670  INFO 6 --- [ool-6-thread-42] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.670  INFO 6 --- [ool-6-thread-42] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.670  INFO 6 --- [ool-6-thread-42] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.670 ERROR 6 --- [ool-6-thread-42] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98aec595b3000112533f
+2019-11-01 02:39:21.671  INFO 6 --- [ool-6-thread-15] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.672  INFO 6 --- [ool-6-thread-15] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.672  INFO 6 --- [ool-6-thread-15] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.673  INFO 6 --- [ool-6-thread-15] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.673  INFO 6 --- [ool-6-thread-15] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.673  INFO 6 --- [ool-6-thread-15] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.673  INFO 6 --- [ool-6-thread-15] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.673 ERROR 6 --- [ool-6-thread-15] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b4c595b300011255be
+2019-11-01 02:39:21.678  INFO 6 --- [ool-6-thread-44] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.679  INFO 6 --- [ool-6-thread-44] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.679  INFO 6 --- [ool-6-thread-44] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.679  INFO 6 --- [ool-6-thread-44] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.679  INFO 6 --- [ool-6-thread-44] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.679  INFO 6 --- [ool-6-thread-44] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.679  INFO 6 --- [ool-6-thread-44] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.679 ERROR 6 --- [ool-6-thread-44] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98bac595b300011258e3
+2019-11-01 02:39:21.680  INFO 6 --- [ool-6-thread-22] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.681  INFO 6 --- [ool-6-thread-22] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.681  INFO 6 --- [ool-6-thread-22] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.681  INFO 6 --- [ool-6-thread-22] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.681  INFO 6 --- [ool-6-thread-22] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.681  INFO 6 --- [ool-6-thread-22] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.681  INFO 6 --- [ool-6-thread-22] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.682 ERROR 6 --- [ool-6-thread-22] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b2c595b30001125493
+2019-11-01 02:39:21.700  INFO 6 --- [ool-6-thread-34] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.700  INFO 6 --- [ool-6-thread-34] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.700  INFO 6 --- [ool-6-thread-34] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.700  INFO 6 --- [ool-6-thread-34] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.700  INFO 6 --- [ool-6-thread-34] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.701  INFO 6 --- [ool-6-thread-34] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.701  INFO 6 --- [ool-6-thread-34] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.701 ERROR 6 --- [ool-6-thread-34] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b7c595b30001125755
+2019-11-01 02:39:21.705  INFO 6 --- [ool-6-thread-36] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.706  INFO 6 --- [ool-6-thread-36] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.706  INFO 6 --- [ool-6-thread-36] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.706  INFO 6 --- [ool-6-thread-36] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.706  INFO 6 --- [ool-6-thread-36] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.706  INFO 6 --- [ool-6-thread-36] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.706  INFO 6 --- [ool-6-thread-36] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.706 ERROR 6 --- [ool-6-thread-36] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b4c595b300011255c5
+2019-11-01 02:39:21.707  INFO 6 --- [ool-6-thread-45] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.707  INFO 6 --- [ool-6-thread-45] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.707  INFO 6 --- [ool-6-thread-45] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.708  INFO 6 --- [ool-6-thread-45] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.708  INFO 6 --- [ool-6-thread-45] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.708  INFO 6 --- [ool-6-thread-45] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.708  INFO 6 --- [ool-6-thread-45] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.708 ERROR 6 --- [ool-6-thread-45] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98bbc595b3000112593f
+2019-11-01 02:39:21.709  INFO 6 --- [ool-6-thread-31] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.710  INFO 6 --- [ool-6-thread-31] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.710  INFO 6 --- [ool-6-thread-31] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.710  INFO 6 --- [ool-6-thread-31] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.710  INFO 6 --- [ool-6-thread-31] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.710  INFO 6 --- [ool-6-thread-31] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.710  INFO 6 --- [ool-6-thread-31] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.710 ERROR 6 --- [ool-6-thread-31] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98aec595b30001125302
+2019-11-01 02:39:21.713  INFO 6 --- [ool-6-thread-12] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.714  INFO 6 --- [ool-6-thread-12] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.714  INFO 6 --- [ool-6-thread-12] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.714  INFO 6 --- [ool-6-thread-12] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.714  INFO 6 --- [ool-6-thread-12] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.714  INFO 6 --- [ool-6-thread-12] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.714  INFO 6 --- [ool-6-thread-12] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.714 ERROR 6 --- [ool-6-thread-12] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b7c595b30001125779
+2019-11-01 02:39:21.715  INFO 6 --- [pool-6-thread-3] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.716  INFO 6 --- [pool-6-thread-3] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.716  INFO 6 --- [pool-6-thread-3] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.716  INFO 6 --- [pool-6-thread-3] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.716  INFO 6 --- [pool-6-thread-3] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.716  INFO 6 --- [pool-6-thread-3] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.716  INFO 6 --- [pool-6-thread-3] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.716 ERROR 6 --- [pool-6-thread-3] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b9c595b30001125841
+2019-11-01 02:39:21.721  INFO 6 --- [ool-6-thread-43] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.721  INFO 6 --- [ool-6-thread-43] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.721  INFO 6 --- [ool-6-thread-43] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+Received shipment task: 5dbb98afc595b30001125395
+2019-11-01 02:39:21.722  INFO 6 --- [ool-6-thread-11] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.723  INFO 6 --- [ool-6-thread-43] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.723  INFO 6 --- [ool-6-thread-43] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.723  INFO 6 --- [ool-6-thread-43] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.723  INFO 6 --- [ool-6-thread-43] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.723 ERROR 6 --- [ool-6-thread-43] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+2019-11-01 02:39:21.723  INFO 6 --- [ool-6-thread-11] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.724  INFO 6 --- [ool-6-thread-11] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.724  INFO 6 --- [ool-6-thread-11] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.725  INFO 6 --- [ool-6-thread-11] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.725  INFO 6 --- [ool-6-thread-11] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.725  INFO 6 --- [ool-6-thread-11] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+Received shipment task: 5dbb98afc595b30001125348
+2019-11-01 02:39:21.726 ERROR 6 --- [ool-6-thread-11] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+2019-11-01 02:39:21.726  INFO 6 --- [ool-6-thread-28] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.727  INFO 6 --- [ool-6-thread-28] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.727  INFO 6 --- [ool-6-thread-28] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.727  INFO 6 --- [ool-6-thread-28] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.727  INFO 6 --- [ool-6-thread-28] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.728  INFO 6 --- [ool-6-thread-28] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.728  INFO 6 --- [ool-6-thread-28] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.728 ERROR 6 --- [ool-6-thread-28] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b0c595b30001125413
+2019-11-01 02:39:21.730  INFO 6 --- [ool-6-thread-20] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.730  INFO 6 --- [ool-6-thread-20] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.730  INFO 6 --- [ool-6-thread-20] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.730  INFO 6 --- [ool-6-thread-20] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.730  INFO 6 --- [ool-6-thread-20] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.731  INFO 6 --- [ool-6-thread-20] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.731  INFO 6 --- [ool-6-thread-20] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.731 ERROR 6 --- [ool-6-thread-20] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b2c595b300011254a1
+2019-11-01 02:39:21.748  INFO 6 --- [ool-6-thread-10] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.750  INFO 6 --- [ool-6-thread-10] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.750  INFO 6 --- [ool-6-thread-10] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.750  INFO 6 --- [ool-6-thread-10] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.750  INFO 6 --- [ool-6-thread-10] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.750  INFO 6 --- [ool-6-thread-10] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.750  INFO 6 --- [ool-6-thread-10] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.751 ERROR 6 --- [ool-6-thread-10] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b3c595b30001125521
+2019-11-01 02:39:21.755  INFO 6 --- [ool-6-thread-49] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+Received shipment task: 5dbb98b9c595b3000112581f
+2019-11-01 02:39:21.757  INFO 6 --- [pool-6-thread-1] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.757  INFO 6 --- [pool-6-thread-1] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.757  INFO 6 --- [pool-6-thread-1] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.757  INFO 6 --- [pool-6-thread-1] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.757  INFO 6 --- [pool-6-thread-1] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.757  INFO 6 --- [pool-6-thread-1] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.757  INFO 6 --- [pool-6-thread-1] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.758 ERROR 6 --- [pool-6-thread-1] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+2019-11-01 02:39:21.758  INFO 6 --- [ool-6-thread-49] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.758  INFO 6 --- [ool-6-thread-49] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.759  INFO 6 --- [ool-6-thread-49] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.759  INFO 6 --- [ool-6-thread-49] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.759  INFO 6 --- [ool-6-thread-49] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.759  INFO 6 --- [ool-6-thread-49] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.760 ERROR 6 --- [ool-6-thread-49] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b7c595b30001125756
+2019-11-01 02:39:21.765  INFO 6 --- [pool-6-thread-8] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.765  INFO 6 --- [pool-6-thread-8] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.765  INFO 6 --- [pool-6-thread-8] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.768  INFO 6 --- [pool-6-thread-8] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.768  INFO 6 --- [pool-6-thread-8] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.769  INFO 6 --- [pool-6-thread-8] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.769  INFO 6 --- [pool-6-thread-8] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.769 ERROR 6 --- [pool-6-thread-8] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98afc595b300011253aa
+2019-11-01 02:39:21.770  INFO 6 --- [ool-6-thread-19] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.771  INFO 6 --- [ool-6-thread-19] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.771  INFO 6 --- [ool-6-thread-19] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.771  INFO 6 --- [ool-6-thread-19] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.771  INFO 6 --- [ool-6-thread-19] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.772  INFO 6 --- [ool-6-thread-19] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.772  INFO 6 --- [ool-6-thread-19] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.772 ERROR 6 --- [ool-6-thread-19] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98bac595b300011258d1
+2019-11-01 02:39:21.794  INFO 6 --- [pool-6-thread-6] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.795  INFO 6 --- [pool-6-thread-6] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.795  INFO 6 --- [pool-6-thread-6] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.795  INFO 6 --- [pool-6-thread-6] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.796  INFO 6 --- [pool-6-thread-6] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.796  INFO 6 --- [pool-6-thread-6] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.796  INFO 6 --- [pool-6-thread-6] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.796 ERROR 6 --- [pool-6-thread-6] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98b1c595b30001125484
+2019-11-01 02:39:21.839  INFO 6 --- [ool-6-thread-39] w.weave.socks.queuemaster.DockerSpawner  : Spawning new container
+2019-11-01 02:39:21.840  INFO 6 --- [ool-6-thread-39] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.840  INFO 6 --- [ool-6-thread-39] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.840  INFO 6 --- [ool-6-thread-39] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.840  INFO 6 --- [ool-6-thread-39] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.841  INFO 6 --- [ool-6-thread-39] o.apache.http.impl.execchain.RetryExec   : I/O exception (org.newsclub.net.unix.AFUNIXSocketException) caught when processing request to {}->unix://localhost:80: No such file or directory
+2019-11-01 02:39:21.841  INFO 6 --- [ool-6-thread-39] o.apache.http.impl.execchain.RetryExec   : Retrying request to {}->unix://localhost:80
+2019-11-01 02:39:21.842 ERROR 6 --- [ool-6-thread-39] w.weave.socks.queuemaster.DockerSpawner  : Exception trying to launch/remove worker container. javax.ws.rs.ProcessingException: org.newsclub.net.unix.AFUNIXSocketException: No such file or directory (socket: /var/run/docker.sock)
+Received shipment task: 5dbb98afc595b3000112538f
