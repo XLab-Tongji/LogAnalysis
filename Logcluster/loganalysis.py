@@ -4,15 +4,15 @@
 import os
 import threading
 import re
-from GlobalVariables import *
+#from GlobalVariables import *
 
 logclusterTool = os.getcwd() + '/logcluster/logcluster.pl'
 # 文件放至在 ../Data/LogFiles文件夹中
-LogFileRootDir = '../Data/LogFiles/'
+LogFileRootDir = '../5G/LogFiles/'
 # 输出文档根目录
-OutputFileDir = '../Data/LogClusterResult/'
-# inputFileName = input('请输入日志文件名:')
-inputFile = LogFileRootDir + LogFileName
+OutputFileDir = '../5G/LogClusterResult/'
+inputFileName = input('请输入日志文件名:')
+inputFile = LogFileRootDir + inputFileName
 if '.log' not in inputFile and '.LOG' not in inputFile:
     inputFile = inputFile + '.log'
 print("请设置以下几个参数的值：（敲回车直接使用默认值）")

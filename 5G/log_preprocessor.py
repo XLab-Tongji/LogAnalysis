@@ -9,21 +9,20 @@ import re
 
 # columns of line
 windowSize = 10
-# log cluster:1 or sequencer:0
-pattern_source = 1
 
 # relation between log_pattern log_key log_line
 pattern2log = []
 pattern_dic = {}
 
 # log input/output address
-log_file_dir = './Data/LogFiles/'
-log_file_name = 'SYSLOG_293.LOG'
+log_file_dir = './'
+log_file_name = '5G.log'
 log_address = log_file_dir + log_file_name
-log_pattern_address_sequencer = './sequence/linux.pat'
-log_pattern_folder_cluster = './Data/LogClusterResult/clusters/'
-sequencer_out_file = './Data/Vectors1'+log_file_name.split('.')[0]+'_LogKeys_sequencer'
-log_cluster_out_file = './Data/Vectors1/'+log_file_name.split('.')[0]+'_LogKeys_logcluster'
+log_pattern_address_sequencer = '../sequence/linux.pat'
+log_pattern_folder_cluster = './clusters/'
+sequencer_out_file = './Vectors1'+log_file_name.split('.')[0]+'_LogKeys_sequencer'
+log_cluster_out_file = './Vectors1/'+log_file_name.split('.')[0]+'_LogKeys_logcluster'
+pattern_source = int(input("请选择聚类工具，输入0即为sequencer,输入其他即为log_cluster:"))
 if pattern_source == 0:
     print("使用sequencer聚类工具")
     out_file = sequencer_out_file
