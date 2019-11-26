@@ -19,8 +19,8 @@ num_classes = 50
 num_candidates = 3
 RootPath='../Data/LogClusterResult-5G/'
 model_dir=RootPath+'output/model'
-test_file_name = RootPath+'/logkey_test'
-
+test_file_name = RootPath+'logkey/logkey_test'
+abnormal_file_name=RootPath+'logkey/logkey_abnormal'
 
 def generate(name):
     # If you what to replicate the DeepLog paper clusters(Actually, I have a better result than DeepLog paper clusters),
@@ -66,6 +66,7 @@ if __name__ == '__main__':
     hidden_size = args.hidden_size
     window_size = args.window_size
     num_candidates = args.num_candidates
+    outfile=open(RootPath+'output/reslut_test_model1.txt','w')
     for i in range(5):
         model_path = model_dir + '/Adam_batch_size=200;epoch='+str((i+1)*100)+'.pt'
         model = Model(input_size, hidden_size, num_layers, num_classes).to(device)
@@ -74,10 +75,12 @@ if __name__ == '__main__':
         print('model_path: {}'.format(model_path))
         # test_loader = generate(test_file_name)
         test_normal_loader = generate(test_file_name)
-        # test_abnormal_loader = generate('hdfs_test_abnormal')
+        test_abnormal_loader = generate(abnormal_file_name)
         TP = 0
         FP = 0
-        ALL=0
+        FN = 0
+        TN = 0
+        ALL = 0
         # Test the model
         start_time = time.time()
         print('test normal data:')
@@ -92,36 +95,53 @@ if __name__ == '__main__':
                     label = torch.tensor(label).view(-1).to(device)
                     output = model(seq)
                     predicted = torch.argsort(output, 1)[0][-num_candidates:]
-                    ALL+=1
+                    ALL += 1
                     if label not in predicted:
                         print('{} - seq: {}, predict result: {}, true label: {}'.format(count_num, _seq, predicted, label))
-                        FP += 1
+                        FN += 1
+                    
                         # break
-        # print('test abnormal data:')
-        # with torch.no_grad():
-        #     count_num = 0
-        #     for line in test_abnormal_loader:
-        #         for i in range(len(line) - window_size):
-        #             count_num += 1
-        #             seq = line[i:i + window_size]
-        #             label = line[i + window_size]
-        #             seq = torch.tensor(seq, dtype=torch.float).view(-1, window_size, input_size).to(device)
-        #             label = torch.tensor(label).view(-1).to(device)
-        #             output = model(seq)
-        #             predicted = torch.argsort(output, 1)[0][-num_candidates:]
-        #             print('{} - predict result: {}, true label: {}'.format(count_num, predicted, label))
-        #             if label not in predicted:
-        #                 TP += 1
-        #                 break
+        TP = ALL-FN
+        print('test abnormal data:')
+        abnormal_label=[10,20,30,40 ,50 ,60, 70, 80, 90, 100,
+                                105 ,115 ,125 ,135 ,145, 155, 165 ,175 ,185 ,195,
+                                202 ,212 ,222 ,232 ,242 ,252 ,262 ,273 ,284 ,295,
+                                306 ,312 ,323 ,333 ,343 ,353 ,363 ,376 ,381 ,390,
+                                400 ,412 ,415 ,423 ,444 ,467 ,478 ,485 ,489 ,499]
+        with torch.no_grad():
+            count_num = 0
+            for line in test_abnormal_loader:
+                for i in range(len(line) - window_size):
+                    count_num += 1
+                    seq = line[i:i + window_size]
+                    label = line[i + window_size]
+                    seq = torch.tensor(seq, dtype=torch.float).view(-1, window_size, input_size).to(device)
+                    label = torch.tensor(label).view(-1).to(device)
+                    output = model(seq)
+                    predicted = torch.argsort(output, 1)[0][-num_candidates:]
+                    print('{} - predict result: {}, true label: {}'.format(count_num, predicted, label))
+                    ALL += 1
+                    if label not in predicted:
+                        if label in abnormal_label:
+                            TN += 1
+                        else:
+                            FN += 1
+                    else:
+                        if label in abnormal_label:
+                            FP += 1
+                        else:
+                            TP += 1
 
         # Compute precision, recall and F1-measure
-        # FN = len(test_abnormal_loader) - TP
-        # P = 100 * TP / (TP + FP)
-        # R = 100 * TP / (TP + FN)
-        # F1 = 2 * P * R / (P + R)
-        # print('false positive (FP): {}, false negative (FN): {}, Precision: {:.3f}%, Recall: {:.3f}%, F1-measure: {:.3f}%'.format(FP, FN, P, R, F1))
-        print('false positive(FP): {}'.format(FP/ALL))
+        P = 100 * TP / (TP + FP)
+        R = 100 * TP / (TP + FN)
+        F1 = 2 * P * R / (P + R)
+        Acc=(TP+TN)*100/ALL
+        print(model_path,file=outfile)
+        print('true positive (TP): {},false positive (FP): {}, true Negative (TN): {},false negative (FN): {}'.format(TP, FP,TN,FN),file=outfile)
+        print('Acc: {:.3f}% ,Precision: {:.3f}%, Recall: {:.3f}%, F1-measure: {:.3f}%'.format(Acc,P, R, F1),file=outfile)
         print('Finished Predicting')
         elapsed_time = time.time() - start_time
         print('elapsed_time: {}'.format(elapsed_time))
+        print('',file=outfile)
 

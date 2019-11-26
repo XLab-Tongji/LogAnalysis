@@ -23,7 +23,7 @@ log_dir = RootPath+'output/log'
 num_epochs = 500  # 300
 batch_size = 200  # 2048
 log = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs)
-train_file_name = 'logkey_train'
+train_file_name = 'logkey/logkey_train'
 data_file = RootPath + train_file_name
 
 

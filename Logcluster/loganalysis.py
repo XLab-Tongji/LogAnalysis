@@ -7,13 +7,15 @@ import re
 
 logclusterTool = os.getcwd() + '/logcluster/logcluster.pl'
 # 文件放至在 ../Data/LogFiles文件夹中
-LogFileRootDir = '../5G/'
+LogFileRootDir = '../k8s/sessiondb1/'
 # 输出文档根目录
-OutputFileDir = '../Data/LogClusterResult-5G/'
-LogFileName = input('请输入日志文件名:')
+OutputFileDir = '../Data/LogClusterResult-k8s-sessiondb1/'
+LogFileName = 'Union.log'
 inputFile = LogFileRootDir + LogFileName
 if '.log' not in inputFile and '.LOG' not in inputFile:
     inputFile = inputFile + '.log'
+if not os.path.isdir(OutputFileDir):
+    os.makedirs(OutputFileDir)
 print("请设置以下几个参数的值：（敲回车直接使用默认值）")
 support = input("--support(正整数，默认值为100): ")
 wweight = input("--wweight(0～1的小数，默认值为0.5): ")
