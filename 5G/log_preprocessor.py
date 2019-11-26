@@ -310,9 +310,6 @@ if __name__ == '__main__':
             print(k+1, file=out_text, end='')
             print(' ', file=out_text, end='')
             j = j + 1
-            if j == windowSize:
-                print('', file=out_text)
-                j = 0
             # call method to get value (line, patten_dic[i])
             lineNum = lineNum + 1
             if lineNum>2000 and lineNum<2500:
