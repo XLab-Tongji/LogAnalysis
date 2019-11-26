@@ -22,7 +22,7 @@ RootName='5G'
 
 RootPath='./Data/LogClusterResult-'+RootName+'/'
 log_file_dir = './'+RootName+'/'
-log_file_name = 'Unino.log'
+log_file_name = 'Union.log'
 log_time_file = RootPath+'Vectors/timediff.txt'
 log_address = log_file_dir + log_file_name
 log_pattern_address_sequencer = './sequence/linux.pat'
@@ -303,15 +303,18 @@ if __name__ == '__main__':
         j = 0
         lineNum = 1
         for line in in_log.readlines():
+            k=len(pattern2log)
             for i in range(len(pattern2log)):
                 if lineNum in pattern2log[i]:
-                    print(i+1, file=out_text, end='')
-                    print(' ', file=out_text, end='')
-                    j = j + 1
-                    if j == windowSize:
-                        print('', file=out_text)
-                        j = 0
-                    # call method to get value (line, patten_dic[i])
+                    k=i
+                    break
+            print(k+1, file=out_text, end='')
+            print(' ', file=out_text, end='')
+            j = j + 1
+            if j == windowSize:
+                print('', file=out_text)
+                j = 0
+            # call method to get value (line, patten_dic[i])
             lineNum = lineNum + 1
             if lineNum>2000 and lineNum<2500: 
                 out_text=out_val

@@ -136,10 +136,6 @@ if __name__ == '__main__':
                 #print(seq.clone().detach())
                 seq = seq.clone().detach().view(-1, window_size, input_size).to(device)
                 output = model(seq)  # 该output对应着每batch size个输入对应的输出
-                # print('output:')
-                # print(output)
-                # print("label:")
-                # print(label)
                 loss = criterion(output, label.to(device))
                 # Backward and optimize
                 optimizer.zero_grad()
