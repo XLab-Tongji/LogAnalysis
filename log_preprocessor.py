@@ -30,6 +30,7 @@ log_pattern_folder_cluster = RootPath+'clusters/'
 sequencer_out_file = './Data/Vectors1'+log_file_name.split('.')[0]+'_LogKeys_sequencer'
 log_cluster_out_file = './Data/Vectors1/'+log_file_name.split('.')[0]+'_LogKeys_logcluster'
 log_value_folder = RootPath+'values/'
+pattern_source = int(input("请选择聚类工具，0为sequencer，1为log_cluster:"))
 if pattern_source == 0:
     out_file = sequencer_out_file
 else:
