@@ -20,22 +20,37 @@ pattern_dic = {}
 ## 只要改RootName 即可
 RootName='5G'
 
-RootPath='./Data/LogClusterResult-'+RootName+'/'
-log_file_dir = './'+RootName+'/'
+RootPath='./Data/LogClusterResult-' + RootName + '/'
+log_file_dir = './' + RootName + '/'
 log_file_name = 'Union.log'
-log_time_file = RootPath+'Vectors/timediff.txt'
+log_time_file = RootPath + 'Vectors/timediff.txt'
 log_address = log_file_dir + log_file_name
 log_pattern_address_sequencer = './sequence/linux.pat'
-log_pattern_folder_cluster = RootPath+'clusters/'
+log_pattern_folder_cluster = RootPath + 'clusters/'
+log_value_folder = RootPath + 'values/'
+log_extract_folder = RootPath + 'Vectors/'
 sequencer_out_file = './Data/Vectors1'+log_file_name.split('.')[0]+'_LogKeys_sequencer'
 log_cluster_out_file = './Data/Vectors1/'+log_file_name.split('.')[0]+'_LogKeys_logcluster'
-log_value_folder = RootPath+'values/'
 pattern_source = int(input("请选择聚类工具，0为sequencer，1为log_cluster:"))
 if pattern_source == 0:
     out_file = sequencer_out_file
 else:
     out_file = log_cluster_out_file
 
+# 提取时间戳参数
+time_start = time_end = 0
+if RootName == '5G':
+    time_start = 13
+    time_end = 21
+elif RootName == 'k8s/catalogue2':
+    time_start = 14
+    time_end = 22
+elif RootName == 'k8s/queue-master2':
+    time_start = 11
+    time_end = 19
+elif RootName == 'k8s/sessiondb1':
+    time_start = 0
+    time_end = 8
 
 # 继承枚举类
 class LineNumber(Enum):
@@ -99,18 +114,20 @@ def parse_log_cluster():
 参数tool表示使用的工具 0为sequence 1为logcluster
 输出到特定文件
 '''
-def valueExtract(pattern, log, tool=0, timestamp=None):
+def valueExtract(pattern, log, tool=0, timestamp=None, file=None):
+    if file == None:
+        file = log_extract_folder + md5(pattern.encode("utf-8")).hexdigest() + ".txt"
     start_char = "%"
     if tool == 1:
         start_char = "*"
     pattern_arr = pattern.split()
     # pattern 写入
-    if tool == 0 and not os.path.exists(md5(pattern.encode("utf-8")).hexdigest()+".txt"):
+    if tool == 0 and not os.path.exists(file):
         temp = []
         for pattern_str in pattern_arr:
             if pattern_str[0] == start_char and pattern_str[-1] == start_char:
                 temp.append(pattern_str)
-        with open("Data/Vectors2/"+md5(pattern.encode("utf-8")).hexdigest()+".txt", "a") as f:
+        with open(file, "a") as f:
             f.write(", ".join(temp) + "\n")
     # 对于单个日志
     # log_value = [last_timestamp]
@@ -182,7 +199,7 @@ def valueExtract(pattern, log, tool=0, timestamp=None):
             else:
                 cur_log_str = cur_log_str[index+len(pattern_str):]
     lines = [", ".join(log_value) + "\n"]
-    with open("Data/Vectors1/"+md5(pattern.encode("utf-8")).hexdigest()+".txt", "a+") as f:
+    with open(file, "a+") as f:
         f.writelines(lines)
     return log_value
 
@@ -195,9 +212,11 @@ def timeExtract(file=None):
     times = []
     with open (log_file_dir + log_file_name) as f:
         for line in f:
-            if len(line) > 22:
-                times.append(str(timeDiff(line[14:22], last_timestamp)) + "\n")
-                last_timestamp = line[14:22]
+            if RootName == 'k8s/sessiondb1':
+                line = line.split()[4]
+            if len(line) > time_end:
+                times.append(str(timeDiff(line[time_start:time_end], last_timestamp)) + "\n")
+                last_timestamp = line[time_start:time_end]
             else:
                 times.append("0\n")
     with open (log_time_file , "w") as f:
@@ -210,22 +229,27 @@ def timeExtract(file=None):
 def timeDiff(t1, t2):
     if (t2 == "xxx"):
         return 0
-    t1_hms_arr = t1.split(":")
-    t2_hms_arr = t2.split(":")
-    diff_hour = int(t1_hms_arr[0]) - int(t2_hms_arr[0])
-    if (diff_hour == -23):
-        diff_hour = 1
-    diff_min = int(t1_hms_arr[1]) - int(t2_hms_arr[1])
-    diff_sec = int(t1_hms_arr[2]) - int(t2_hms_arr[2])
-    diff = diff_hour*3600 + diff_min*60 + diff_sec
+    try:
+        t1_hms_arr = t1.split(":")
+        t2_hms_arr = t2.split(":")
+        diff_hour = int(t1_hms_arr[0]) - int(t2_hms_arr[0])
+        if (diff_hour == -23):
+            diff_hour = 1
+        diff_min = int(t1_hms_arr[1]) - int(t2_hms_arr[1])
+        diff_sec = int(t1_hms_arr[2]) - int(t2_hms_arr[2])
+        diff = diff_hour*3600 + diff_min*60 + diff_sec
+    except:
+        return 0
     return diff
 
 # 向量化
 # 改成了对文件向量化
-def toVector(pattern, tool=0, file=None):
+def toVector(pattern, tool=0, in_file=None, out_file=None):
     # 读取文件内容
     values = []
-    with open("Data/Vectors1/"+md5(pattern.encode("utf-8")).hexdigest()+".txt","r") as f:
+    if in_file == None:
+        in_file = log_extract_folder + md5(pattern.encode("utf-8")).hexdigest() + ".txt"
+    with open(in_file, "r") as f:
         for line in f.readlines():
             line = line.strip('\n')
             values.append(line.split(", "))
@@ -249,7 +273,7 @@ def toVector(pattern, tool=0, file=None):
         for i in range(val_num):
             for value in values:
                 val = value[i]
-                if (val.isdigit() or (val[0] == "-" and val[1:].isdigit()) 
+                if (val.isdigit() or (len(val) > 1 and val[0] == "-" and val[1:].isdigit()) 
                     or re.match(r"-?[0-9]+\.[0-9]+$", val)):
                     #do nothing
                     pass
@@ -261,8 +285,8 @@ def toVector(pattern, tool=0, file=None):
             new_value = []
             index=0
             for val in value:
-                if isAlldigit[index]:
-                    if (val.isdigit() or (val[0] == "-" and val[1:].isdigit()) 
+                if index < len(isAlldigit) and isAlldigit[index]:
+                    if (val.isdigit() or (len(val) > 1 and val[0] == "-" and val[1:].isdigit()) 
                         or re.match(r"-?[0-9]+\.[0-9]+$", val)):
                         new_value.append(val)
                 index+=1
@@ -281,14 +305,13 @@ def toVector(pattern, tool=0, file=None):
     for val in new_values:
         line = str(val[0])
         for i in range(1, len(val)):
-            line += ", " + str(val[i])
+            line += " " + str(val[i])
         lines.append(line + "\n")
-    if file == None:
-        file = md5(pattern.encode("utf-8")).hexdigest()+"_vector.txt"
-    with open(file, "w") as f:
+    if out_file == None:
+        out_file = md5(pattern.encode("utf-8")).hexdigest()+"_vector.txt"
+    with open(out_file, "w") as f:
         f.writelines(lines)
     return new_values
-
 
 if __name__ == '__main__':
     if pattern_source == 0:
@@ -327,7 +350,7 @@ if __name__ == '__main__':
     # value extract
     # with open(log_file_dir + log_file_name) as o_log_file:
     #     o_log_lines = o_log_file.readlines()
-    #     timeExtract( log_time_file)
+    #     timeExtract(log_time_file)
     #     for file in os.listdir(log_pattern_folder_cluster):
     #         with open(log_pattern_folder_cluster + file) as f:
     #             with open(log_time_file) as tf:
@@ -335,7 +358,24 @@ if __name__ == '__main__':
     #                 tf_lines = tf.readlines()
     #                 pattern = f_lines[0]
     #                 o_lines = f_lines[3].split()
+    #                 pattern_file = md5(pattern.encode("utf-8")).hexdigest() + ".txt"
     #                 for o_line in o_lines:
-    #                     valueExtract(pattern, o_log_lines[int(o_line) - 1], 1, tf_lines[int(o_line) - 1].strip('\n'))
-    #                 toVector(pattern, 1, log_value_folder + file)
+    #                     vfile = log_extract_folder + "train/" + pattern_file
+    #                     lineNum = int(o_line)
+    #                     if lineNum>2000 and lineNum<2500: 
+    #                         vfile = log_extract_folder + "val/" + pattern_file
+    #                     elif lineNum>2500 and lineNum<3000: 
+    #                         vfile = log_extract_folder + "test/" + pattern_file
+    #                     elif lineNum>3000 and lineNum<3500: 
+    #                         vfile = log_extract_folder + "abnormal/" + pattern_file
+    #                     if lineNum < len(o_log_lines) and lineNum < len(tf_lines):
+    #                         valueExtract(pattern, o_log_lines[lineNum - 1], 1, tf_lines[lineNum - 1].strip('\n'), vfile)
+    #                 in_files = [log_extract_folder + c_file + pattern_file for c_file in ['train/', 'val/', 'test/', 'abnormal/']]
+    #                 out_files = [log_value_folder + c_file + file for c_file in ['train/', 'val/', 'test/', 'abnormal/']]
+    #                 for i in range(len(in_files)):
+    #                     if (os.path.exists(in_files[i])):
+    #                         toVector(pattern, 1, in_files[i], out_files[i])
+    #                     else:
+    #                         with open(out_files[i], 'w') as f:
+    #                             pass
     #                 print(file + " done")
