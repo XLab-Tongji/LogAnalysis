@@ -15,10 +15,10 @@ input_size = 1
 hidden_size = 20
 num_layers = 3
 num_classes = 50  # len(pattern2log)+1
-RootPath="../Data/LogClusterResult-5G/"
+RootPath = "../Data/LogClusterResult-5G/"
 
-model_dir = RootPath+'output/model'
-log_dir = RootPath+'output/log'
+model_dir = RootPath + 'output/model'
+log_dir = RootPath + 'output/log'
 
 num_epochs = 500  # 300
 batch_size = 200  # 2048
@@ -74,7 +74,7 @@ if __name__ == '__main__':
     model = Model(input_size, hidden_size, num_layers, num_classes).to(device)
     seq_dataset = generate(data_file)
     dataloader = DataLoader(seq_dataset, batch_size=batch_size, shuffle=True, pin_memory=True)
-    writer = SummaryWriter(logdir=log_dir + '/' + log)
+    writer = SummaryWriter(logdir = log_dir + '/' + log)
 
     # Loss and optimizer
     criterion = nn.CrossEntropyLoss()

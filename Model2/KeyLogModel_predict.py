@@ -19,12 +19,14 @@ window_size = 10  # 10
 hidden_size = 20  # 64
 num_layers = 3  # 2
 # num_classes = 2  # 28
-input_size = 2  #  x的特征维度。输入数据的维度，对于model2来说，长度为每个key对应的log vector的数据长度
-out_size = 2
+# input_size = 2  #  x的特征维度。输入数据的维度，对于model2来说，长度为每个key对应的log vector的数据长度
+# out_size = 2
 num_epochs = 5  # 300
 batch_size = 20  # 2048
 num_candidates = 9
-RootPath='../Data/LogClusterResult-5G/'
+
+RootPath = '../Data/LogClusterResult-5G/'
+log_value_folder = RootPath + 'logvalue/logvalue_test/'
 
 mse_threshold = 0.1
 
@@ -35,7 +37,7 @@ def generate(name):
         for line in f.readlines():
             line = list(map(lambda n: n, map(float, line.strip().split())))
             vectors.append(tuple(line))
-    return vectors
+    return vectors, len(vectors[0])
 
 
 class Model(nn.Module):
@@ -64,16 +66,20 @@ if __name__ == '__main__':
     num_layers = args.num_layers
     hidden_size = args.hidden_size
     window_size = args.window_size
-    log_value_folder=RootPath+'values/test/'
     file_names = os.listdir(log_value_folder)
     for ii in range(len(file_names)):
-        modelfile=RootPath+'output/model2/'+str(ii+1)+'/'
+        modelfile = RootPath + 'output/model2/' + str(ii+1) + '/'
+        if not os.path.exists(modelfile):
+            print(modelfile + " doesn't exist")
+            print("class " + str(ii+1) + " doesn't exist in train data")
+            continue
         for model_path in os.listdir(modelfile):
+            test_loader, input_size = generate(log_value_folder + str(ii+1) + '.txt')
+            out_size = input_size
             model = Model(input_size, hidden_size, num_layers, out_size).to(device)
-            model.load_state_dict(torch.load(modelfile+model_path))
+            model.load_state_dict(torch.load(modelfile + model_path))
             model.eval()
             print('model_path: {}'.format(model_path))
-            test_loader = generate(log_value_folder+str(ii+1)+'.log')
             TP = 0
             FP = 0
             TN = 0
@@ -94,9 +100,9 @@ if __name__ == '__main__':
                     # 计算预测结果和原始结果的MSE，若MSE在高斯分布的置信区间以内，则该日志是正常日志，否则为异常日志
                     # 此处用正常日志流做test，故只需要计算TP、FP
                     # predicted = torch.argsort()
-                    print(output)
+                    # print(output)
                     mse = criterion(output, label.to(device))
-                    print(mse)
+                    # print(mse)
                     if mse < mse_threshold:
                         TP += 1
                     else:

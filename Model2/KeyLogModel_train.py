@@ -21,20 +21,21 @@ window_size = 10  # 10
 hidden_size = 20  # 64
 num_layers = 3  # 2
 # num_classes = 2  # 28
-input_size = 2  #  x的特征维度。输入数据的维度，对于model2来说，长度为每个key对应的log vector的数据长度
-out_size = 2
+# input_size = 2  #  x的特征维度。输入数据的维度，对于model2来说，长度为每个key对应的log vector的数据长度
+# out_size = 2
 num_epochs = 5 # 300
 batch_size = 20  # 2048
 # in_features = 10
 # out_features = in_features
 learning_rate = 0.01
-RootPath='../Data/LogClusterResult-5G/'
-model_dir = RootPath+'output/model2'
+RootPath = '../Data/LogClusterResult-5G/'
+log_value_folder = RootPath + 'logvalue/logvalue_train/'
+model_dir = RootPath + 'output/model2'
 log = 'model2_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs)
 
 # files path info
-train_dataset_name = 'log_vectors1'
-validation_dataset_name = 'log_vectors1'
+# train_dataset_name = 'log_vectors1'
+# validation_dataset_name = 'log_vectors1'
 
 
 def generate(name):
@@ -58,13 +59,16 @@ def generate(name):
             # break
     for i in range(len(vectors) - window_size):
         inputs.append(vectors[i: i + window_size])
-        outputs.append(vectors[i+window_size])
+        outputs.append(vectors[i + window_size])
     print('Number of sessions({}): {}'.format(name, num_sessions))
     print('Number of seqs({}): {}'.format(name, len(inputs)))
-    #print(inputs)
-    print(inputs[0])
+    # print(inputs)
+    # print(inputs[0])
     dataset = TensorDataset(torch.tensor(inputs, dtype=torch.float), torch.tensor(outputs))
-    return dataset
+    if len(vectors) > 0:
+        return dataset, len(vectors[0])
+    else:
+        return None, 0
 
 
 class Model(nn.Module):
@@ -101,23 +105,22 @@ if __name__ == '__main__':
     num_layers = args.num_layers
     hidden_size = args.hidden_size
     window_size = args.window_size
-    log_value_folder=RootPath+'values/train/'
     file_names = os.listdir(log_value_folder)
     for i in range(len(file_names)):
-        file_name=str(i+1)+".log"
-        train_dataset_name=log_value_folder+file_name
-        validation_dataset_name=train_dataset_name
+        file_name = str(i+1) + ".txt"
+        train_dataset_name = log_value_folder + file_name
+        validation_dataset_name = train_dataset_name
 
-        train_dataset = generate(train_dataset_name)
+        train_dataset, input_size = generate(train_dataset_name)
+        if input_size == 0:
+            continue
         train_dataloader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, pin_memory=True)
-        validation_dataset = generate(validation_dataset_name)
-        validation_dataloader = DataLoader(validation_dataset,batch_size=batch_size, shuffle=True, pin_memory=True)
-        with open(train_dataset_name,'r') as ff:
-             input_size=len(ff.readline().split())
-        print(input_size)
+        validation_dataset, _ = generate(validation_dataset_name)
+        validation_dataloader = DataLoader(validation_dataset, batch_size=batch_size, shuffle=True, pin_memory=True)
+        out_size = input_size
         model = Model(input_size, hidden_size, num_layers, out_size).to(device)
         
-        writer = SummaryWriter(logdir=RootPath+'/output/log2/'+str(i+1)+'_'+ log)
+        writer = SummaryWriter(logdir = RootPath + '/output/log2/' + str(i+1) + '_' + log)
 
         # Loss and optimizer
         criterion = nn.MSELoss()  # 用于回归预测
@@ -133,7 +136,7 @@ if __name__ == '__main__':
             model.train()
             for step, (seq, label) in enumerate(train_dataloader):  # the label here is the output vector
                 # Forward pass
-                #print(seq.clone().detach())
+                # print(seq.clone().detach())
                 seq = seq.clone().detach().view(-1, window_size, input_size).to(device)
                 output = model(seq)  # 该output对应着每batch size个输入对应的输出
                 loss = criterion(output, label.to(device))
@@ -152,12 +155,12 @@ if __name__ == '__main__':
                 loss_list.append(loss.item())
             print('Epoch [{}/{}], Train_loss: {:.4f}'.format(epoch + 1, num_epochs, train_loss / len(train_dataloader.dataset)))
             writer.add_scalar('train_loss', train_loss / len(train_dataloader.dataset), epoch + 1)
-            if (epoch+1)%2==0:
-                save_path=model_dir+'/'+str(i+1)
+            if (epoch+1) % 2 == 0:
+                save_path = model_dir + '/' + str(i+1)
                 if not os.path.isdir(save_path):
                     os.makedirs(save_path)
-                torch.save(model.state_dict(), save_path + '/' + str(i+1)+'_epoch='+str(epoch+1)+ '.pt')
-        #torch.save(model,str(i+1)+'.pkl')
+                torch.save(model.state_dict(), save_path + '/' + str(i+1) + '_epoch=' + str(epoch+1)+ '.pt')
+        # torch.save(model,str(i+1)+'.pkl')
         writer.close()
         print('Finished Training')
 

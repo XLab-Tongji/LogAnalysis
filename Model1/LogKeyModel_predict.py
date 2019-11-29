@@ -17,10 +17,10 @@ hidden_size = 20
 num_layers = 3
 num_classes = 50
 num_candidates = 3
-RootPath='../Data/LogClusterResult-5G/'
-model_dir=RootPath+'output/model'
-test_file_name = RootPath+'logkey/logkey_test'
-abnormal_file_name=RootPath+'logkey/logkey_abnormal'
+RootPath = '../Data/LogClusterResult-5G/'
+model_dir = RootPath + 'output/model'
+test_file_name = RootPath + 'logkey/logkey_test'
+abnormal_file_name = RootPath + 'logkey/logkey_abnormal'
 
 def generate(name):
     # If you what to replicate the DeepLog paper clusters(Actually, I have a better result than DeepLog paper clusters),
@@ -66,9 +66,9 @@ if __name__ == '__main__':
     hidden_size = args.hidden_size
     window_size = args.window_size
     num_candidates = args.num_candidates
-    outfile=open(RootPath+'output/reslut_test_model1.txt','w')
+    outfile = open(RootPath + 'output/reslut_test_model1.txt', 'w')
     for i in range(5):
-        model_path = model_dir + '/Adam_batch_size=200;epoch='+str((i+1)*100)+'.pt'
+        model_path = model_dir + '/Adam_batch_size=200;epoch=' + str((i+1)*100) + '.pt'
         model = Model(input_size, hidden_size, num_layers, num_classes).to(device)
         model.load_state_dict(torch.load(model_path))
         model.eval()
@@ -104,10 +104,10 @@ if __name__ == '__main__':
         TP = ALL-FN
         print('test abnormal data:')
         abnormal_label=[10,20,30,40 ,50 ,60, 70, 80, 90, 100,
-                                105 ,115 ,125 ,135 ,145, 155, 165 ,175 ,185 ,195,
-                                202 ,212 ,222 ,232 ,242 ,252 ,262 ,273 ,284 ,295,
-                                306 ,312 ,323 ,333 ,343 ,353 ,363 ,376 ,381 ,390,
-                                400 ,412 ,415 ,423 ,444 ,467 ,478 ,485 ,489 ,499]
+                        105 ,115 ,125 ,135 ,145, 155, 165 ,175 ,185 ,195,
+                        202 ,212 ,222 ,232 ,242 ,252 ,262 ,273 ,284 ,295,
+                        306 ,312 ,323 ,333 ,343 ,353 ,363 ,376 ,381 ,390,
+                        400 ,412 ,415 ,423 ,444 ,467 ,478 ,485 ,489 ,499]
         with torch.no_grad():
             count_num = 0
             for line in test_abnormal_loader:
