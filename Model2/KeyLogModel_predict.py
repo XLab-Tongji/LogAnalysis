@@ -101,23 +101,19 @@ if __name__ == '__main__':
                     # 此处用正常日志流做test，故只需要计算TP、FP
                     # predicted = torch.argsort()
                     # print(output)
-                    mse = criterion(output, label.to(device))
+                    mse = criterion(output[0], label.to(device))
                     # print(mse)
                     if mse < mse_threshold:
                         TP += 1
                     else:
                         FP += 1
                 # # 对异常数据集的测试
-                # P = 100.0 * float(TP) / float(TP + FP)  # precision
-                # R = 0  # Recall
-                # F1 = 0  # F1
-                # print(
-                #     'false positive (FP): {}, false negative (FN): {}, Precision: {:.3f}%, Recall: {:.3f}%, F1-measure: {:.3f}%'.format(
-                #         FP, FN, P, R, F1))
-                # print('Finished Predicting')
-                # elapsed_time = time.time() - start_time
-                # print('elapsed_time: {}'.format(elapsed_time))
-
-
-
-
+                P = 100.0 * float(TP) / float(TP + FP)  # precision
+                R = 0  # Recall
+                F1 = 0  # F1
+                print(
+                    'false positive (FP): {}, false negative (FN): {}, Precision: {:.3f}%, Recall: {:.3f}%, F1-measure: {:.3f}%'.format(
+                        FP, FN, P, R, F1))
+                print('Finished Predicting')
+                elapsed_time = time.time() - start_time
+                print('elapsed_time: {}'.format(elapsed_time))

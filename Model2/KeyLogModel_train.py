@@ -23,14 +23,14 @@ num_layers = 3  # 2
 # num_classes = 2  # 28
 # input_size = 2  #  x的特征维度。输入数据的维度，对于model2来说，长度为每个key对应的log vector的数据长度
 # out_size = 2
-num_epochs = 5 # 300
+num_epochs = 300
 batch_size = 20  # 2048
 # in_features = 10
 # out_features = in_features
 learning_rate = 0.01
 RootPath = '../Data/LogClusterResult-5G/'
 log_value_folder = RootPath + 'logvalue/logvalue_train/'
-model_dir = RootPath + 'output/model2'
+model_dir = RootPath + 'output/model2/'
 log = 'model2_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs)
 
 # files path info
@@ -155,8 +155,8 @@ if __name__ == '__main__':
                 loss_list.append(loss.item())
             print('Epoch [{}/{}], Train_loss: {:.4f}'.format(epoch + 1, num_epochs, train_loss / len(train_dataloader.dataset)))
             writer.add_scalar('train_loss', train_loss / len(train_dataloader.dataset), epoch + 1)
-            if (epoch+1) % 2 == 0:
-                save_path = model_dir + '/' + str(i+1)
+            if (epoch+1) % 100 == 0:
+                save_path = model_dir + str(i+1)
                 if not os.path.isdir(save_path):
                     os.makedirs(save_path)
                 torch.save(model.state_dict(), save_path + '/' + str(i+1) + '_epoch=' + str(epoch+1)+ '.pt')
