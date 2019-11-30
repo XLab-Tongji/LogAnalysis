@@ -212,7 +212,7 @@ if __name__ == '__main__':
             predicted = torch.argsort(output, 1)[0][-num_candidates1:]
             pattern_index[pattern_id] += 1
             if label not in predicted:
-                if label in abnormal_label:
+                if lineNum + 1 in abnormal_label:
                     TN += 1
                 else:
                     FN += 1
@@ -238,12 +238,12 @@ if __name__ == '__main__':
                         mse = 100 * mse_threshold
                     
                     if mse < mse_threshold:
-                        if label in abnormal_label:
+                        if lineNum + 1 in abnormal_label:
                             FP += 1
                         else:
                             TP += 1
                     else:
-                        if label in abnormal_label:
+                        if lineNum + 1 in abnormal_label:
                             TN += 1
                         else:
                             FN += 1
