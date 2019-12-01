@@ -16,7 +16,7 @@ for i in file_names:
         for j in nums:
             if(j!=" "or j!=''):
                 j=int(j)
-                with open("dealedvalue.log", 'r')as value:
+                with open("normalize_value.log", 'r')as value:
                     values = value.readlines()
                     if(j-1<len(values)):
                         text = values[j - 1]
