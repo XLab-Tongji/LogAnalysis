@@ -18,9 +18,9 @@ pattern_dic = {}
 
 # log input/output address
 ## 只要改RootName 即可
-RootName='5G'
+RootName='k8s-2'
 
-RootPath='./Data/LogClusterResult-'+RootName+'/'
+RootPath='./k8s-2/LogClusterResult-'+RootName+'/'
 log_file_dir = './'+RootName+'/'
 log_file_name = 'Union.log'
 log_time_file = RootPath+'Vectors/timediff.txt'
@@ -306,15 +306,15 @@ if __name__ == '__main__':
         for line in in_log.readlines():
             k=len(pattern2log)
             for i in range(len(pattern2log)):
-                if lineNum in pattern2log[i]:
+                if lineNum in pattern2log[len(pattern2log)-1-i]:
                     k=i
                     break
             print(k+1, file=out_text, end='')
             print(' ', file=out_text, end='')
             j = j + 1
-            if j == windowSize:
-                print('', file=out_text)
-                j = 0
+            # if j == windowSize:
+            #     print('', file=out_text)
+            #     j = 0
             # call method to get value (line, patten_dic[i])
             lineNum = lineNum + 1
             if lineNum>2000 and lineNum<2500: 

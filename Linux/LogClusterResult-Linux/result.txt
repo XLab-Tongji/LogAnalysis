@@ -1,0 +1,21 @@
+2019-10-31 *{1,1} INFO *{1,1} 6 --- *{1,1} w.w.s.o.controllers.OrdersController : Received payment response: PaymentResponse{authorised=true, message=Payment authorised} 
+Support: 1746
+
+*{2,2} INFO *{1,1} 6 --- *{1,1} w.w.s.o.controllers.OrdersController : Sending payment request: PaymentRequest{address=Address{id=null, number='', street='', city='', country='', postcode=''}, card=Card{id=null, longNum='1234', expires='', ccv=''}, customer=Customer{id=null, firstName='', lastName='', *{1,1} addresses=[], cards=[]}} 
+Support: 1738
+
+2019-10-31 *{1,1} INFO *{1,1} 6 --- *{1,1} w.w.s.o.controllers.OrdersController : Sending payment request: PaymentRequest{address=Address{id=null, number='', street='', city='', country='', postcode=''}, card=Card{id=null, longNum='1234', expires='', ccv=''}, customer=Customer{id=null, firstName='', lastName='', *{1,1} addresses=[], cards=[]}} 
+Support: 1733
+
+2019-10-31 *{1,1} INFO *{1,1} 6 --- ([nio-80-exec-345]|[nio-80-exec-347]|[nio-80-exec-325]|[nio-80-exec-340]|[nio-80-exec-348]|[nio-80-exec-335]|[nio-80-exec-342]|[nio-80-exec-324]|[nio-80-exec-349]|[nio-80-exec-344]|[nio-80-exec-343]|[nio-80-exec-247]) w.w.s.o.controllers.OrdersController : Received payment response: PaymentResponse{authorised=true, message=Payment authorised} 
+Support: 1455
+
+2019-10-31 *{1,1} INFO *{1,1} 6 --- ([nio-80-exec-348]|[nio-80-exec-324]|[nio-80-exec-335]|[nio-80-exec-342]|[nio-80-exec-349]|[nio-80-exec-343]|[nio-80-exec-344]|[nio-80-exec-247]|[nio-80-exec-345]|[nio-80-exec-347]|[nio-80-exec-325]|[nio-80-exec-340]) w.w.s.o.controllers.OrdersController : Sending payment request: PaymentRequest{address=Address{id=null, number='', street='', city='', country='', postcode=''}, card=Card{id=null, longNum='1234', expires='', ccv=''}, customer=Customer{id=null, firstName='', lastName='', *{1,1} addresses=[], cards=[]}} 
+Support: 1445
+
+2019-10-31 *{1,1} INFO *{2,2} --- ([nio-80-exec-247]|[nio-80-exec-335]) w.w.s.o.controllers.OrdersController : Sending payment request: PaymentRequest{address=Address{id=null, number='', street='', city='', country='', postcode=''}, card=Card{id=null, longNum='1234', expires='', ccv=''}, customer=Customer{id=null, firstName='', lastName='', *{1,1} addresses=[], cards=[]}} 
+Support: 243
+
+*{2,2} INFO *{1,1} 6 --- ([nio-80-exec-335]|[nio-80-exec-345]) w.w.s.o.controllers.OrdersController : Sending payment request: PaymentRequest{address=Address{id=null, number='', street='', city='', country='', postcode=''}, card=Card{id=null, longNum='1234', expires='', ccv=''}, customer=Customer{id=null, firstName='', lastName='', *{1,1} addresses=[], cards=[]}} 
+Support: 241
+

@@ -64,7 +64,8 @@ if __name__ == '__main__':
     num_layers = args.num_layers
     hidden_size = args.hidden_size
     window_size = args.window_size
-    log_value_folder=RootPath+'values/test/'
+    log_value_folder=RootPath+'values/'
+
     file_names = os.listdir(log_value_folder)
     for ii in range(len(file_names)):
         modelfile=RootPath+'output/model2/'+str(ii+1)+'/'
@@ -73,7 +74,11 @@ if __name__ == '__main__':
             model.load_state_dict(torch.load(modelfile+model_path))
             model.eval()
             print('model_path: {}'.format(model_path))
-            test_loader = generate(log_value_folder+str(ii+1)+'.log')
+            outfile=open(RootPath+'output/reslut_model2/result'+str(ii+1)+'.txt','w')
+            test_loader = generate(log_value_folder+'/test/'+str(ii+1)+'.log')
+            test_abnormal_loader = generate(log_value_folder+'/abnormal/'+str(ii+1)+'.log')
+            abnormal_label=[]
+            ALL= 0
             TP = 0
             FP = 0
             TN = 0
@@ -94,23 +99,44 @@ if __name__ == '__main__':
                     # 计算预测结果和原始结果的MSE，若MSE在高斯分布的置信区间以内，则该日志是正常日志，否则为异常日志
                     # 此处用正常日志流做test，故只需要计算TP、FP
                     # predicted = torch.argsort()
-                    print(output)
                     mse = criterion(output, label.to(device))
-                    print(mse)
+                    ALL+=1
                     if mse < mse_threshold:
                         TP += 1
                     else:
                         FP += 1
+                
                 # # 对异常数据集的测试
-                # P = 100.0 * float(TP) / float(TP + FP)  # precision
-                # R = 0  # Recall
-                # F1 = 0  # F1
-                # print(
-                #     'false positive (FP): {}, false negative (FN): {}, Precision: {:.3f}%, Recall: {:.3f}%, F1-measure: {:.3f}%'.format(
-                #         FP, FN, P, R, F1))
-                # print('Finished Predicting')
-                # elapsed_time = time.time() - start_time
-                # print('elapsed_time: {}'.format(elapsed_time))
+                for i in range(len(test_abnormal_loader) - window_size):
+                    seq = test_abnormal_loader[i:i+window_size]
+                    label = test_abnormal_loader[i+window_size]
+                    seq = torch.tensor(seq, dtype=torch.float).view(-1, window_size, input_size).to(device)
+                    label = torch.tensor(label).view(-1).to(device)
+                    output = model(seq)
+                    # 计算预测结果和原始结果的MSE，若MSE在高斯分布的置信区间以内，则该日志是正常日志，否则为异常日志
+                    mse = criterion(output, label.to(device))
+                    ALL+=1
+                    if mse < mse_threshold:
+                        if label not in abnormal_label:
+                            TP += 1
+                        else:
+                            FN += 1
+                    else:
+                        if label not in abnormal_label:
+                            FP += 1
+                        else:
+                            TN += 1
+            
+            P = 100.0 * float(TP) / float(TP + FP)  # precision
+            R = 0  # Recall
+            F1 = 0  # F1
+            Acc=(TP+TN)*100/ALL
+            print(model_path,file=outfile)
+            print('true positive (TP): {},false positive (FP): {}, true Negative (TN): {},false negative (FN): {}'.format(TP, FP,TN,FN),file=outfile)
+            print('Acc: {:.3f}% ,Precision: {:.3f}%, Recall: {:.3f}%, F1-measure: {:.3f}%'.format(Acc,P, R, F1),file=outfile)
+            print('Finished Predicting')
+            elapsed_time = time.time() - start_time
+            print('elapsed_time: {}'.format(elapsed_time))
 
 
 

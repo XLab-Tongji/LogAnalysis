@@ -7,9 +7,9 @@ import re
 
 logclusterTool = os.getcwd() + '/logcluster/logcluster.pl'
 # 文件放至在 ../Data/LogFiles文件夹中
-LogFileRootDir = '../k8s/sessiondb1/'
+LogFileRootDir = '../Linux/'
 # 输出文档根目录
-OutputFileDir = '../Data/LogClusterResult-k8s-sessiondb1/'
+OutputFileDir = '../Linux/LogClusterResult-Linux/'
 LogFileName = 'Union.log'
 inputFile = LogFileRootDir + LogFileName
 if '.log' not in inputFile and '.LOG' not in inputFile:

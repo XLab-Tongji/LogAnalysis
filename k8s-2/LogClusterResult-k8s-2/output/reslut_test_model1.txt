@@ -1,0 +1,40 @@
+../k8s-2/LogClusterResult-k8s-2/output/model/Adam_batch_size=200;epoch=100.pt
+true positive (TP): 426,false positive (FP): 23, true Negative (TN): 27,false negative (FN): 215
+Acc: 65.557% ,Precision: 94.878%, Recall: 66.459%, F1-measure: 78.165%
+
+../k8s-2/LogClusterResult-k8s-2/output/model/Adam_batch_size=200;epoch=200.pt
+true positive (TP): 515,false positive (FP): 30, true Negative (TN): 20,false negative (FN): 126
+Acc: 77.424% ,Precision: 94.495%, Recall: 80.343%, F1-measure: 86.847%
+
+../k8s-2/LogClusterResult-k8s-2/output/model/Adam_batch_size=200;epoch=300.pt
+true positive (TP): 516,false positive (FP): 30, true Negative (TN): 20,false negative (FN): 125
+Acc: 77.569% ,Precision: 94.505%, Recall: 80.499%, F1-measure: 86.942%
+
+../k8s-2/LogClusterResult-k8s-2/output/model/Adam_batch_size=200;epoch=400.pt
+true positive (TP): 528,false positive (FP): 29, true Negative (TN): 21,false negative (FN): 113
+Acc: 79.450% ,Precision: 94.794%, Recall: 82.371%, F1-measure: 88.147%
+
+../k8s-2/LogClusterResult-k8s-2/output/model/Adam_batch_size=200;epoch=500.pt
+true positive (TP): 519,false positive (FP): 28, true Negative (TN): 22,false negative (FN): 122
+Acc: 78.292% ,Precision: 94.881%, Recall: 80.967%, F1-measure: 87.374%
+
+../k8s-2/LogClusterResult-k8s-2/output/model/Adam_batch_size=200;epoch=600.pt
+true positive (TP): 519,false positive (FP): 25, true Negative (TN): 25,false negative (FN): 122
+Acc: 78.726% ,Precision: 95.404%, Recall: 80.967%, F1-measure: 87.595%
+
+../k8s-2/LogClusterResult-k8s-2/output/model/Adam_batch_size=200;epoch=700.pt
+true positive (TP): 503,false positive (FP): 24, true Negative (TN): 26,false negative (FN): 138
+Acc: 76.556% ,Precision: 95.446%, Recall: 78.471%, F1-measure: 86.130%
+
+../k8s-2/LogClusterResult-k8s-2/output/model/Adam_batch_size=200;epoch=800.pt
+true positive (TP): 492,false positive (FP): 24, true Negative (TN): 26,false negative (FN): 149
+Acc: 74.964% ,Precision: 95.349%, Recall: 76.755%, F1-measure: 85.048%
+
+../k8s-2/LogClusterResult-k8s-2/output/model/Adam_batch_size=200;epoch=900.pt
+true positive (TP): 486,false positive (FP): 26, true Negative (TN): 24,false negative (FN): 155
+Acc: 73.806% ,Precision: 94.922%, Recall: 75.819%, F1-measure: 84.302%
+
+../k8s-2/LogClusterResult-k8s-2/output/model/Adam_batch_size=200;epoch=1000.pt
+true positive (TP): 486,false positive (FP): 26, true Negative (TN): 24,false negative (FN): 155
+Acc: 73.806% ,Precision: 94.922%, Recall: 75.819%, F1-measure: 84.302%
+

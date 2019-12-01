@@ -1,0 +1,40 @@
+../5G/LogClusterResult-5G/output/model/Adam_batch_size=200;epoch=100.pt
+true positive (TP): 242,false positive (FP): 23, true Negative (TN): 22,false negative (FN): 436
+Acc: 36.515% ,Precision: 91.321%, Recall: 35.693%, F1-measure: 51.326%
+
+../5G/LogClusterResult-5G/output/model/Adam_batch_size=200;epoch=200.pt
+true positive (TP): 492,false positive (FP): 14, true Negative (TN): 31,false negative (FN): 186
+Acc: 72.337% ,Precision: 97.233%, Recall: 72.566%, F1-measure: 83.108%
+
+../5G/LogClusterResult-5G/output/model/Adam_batch_size=200;epoch=300.pt
+true positive (TP): 519,false positive (FP): 16, true Negative (TN): 29,false negative (FN): 159
+Acc: 75.795% ,Precision: 97.009%, Recall: 76.549%, F1-measure: 85.573%
+
+../5G/LogClusterResult-5G/output/model/Adam_batch_size=200;epoch=400.pt
+true positive (TP): 531,false positive (FP): 17, true Negative (TN): 28,false negative (FN): 147
+Acc: 77.317% ,Precision: 96.898%, Recall: 78.319%, F1-measure: 86.623%
+
+../5G/LogClusterResult-5G/output/model/Adam_batch_size=200;epoch=500.pt
+true positive (TP): 545,false positive (FP): 18, true Negative (TN): 27,false negative (FN): 133
+Acc: 79.115% ,Precision: 96.803%, Recall: 80.383%, F1-measure: 87.832%
+
+../5G/LogClusterResult-5G/output/model/Adam_batch_size=200;epoch=600.pt
+true positive (TP): 533,false positive (FP): 16, true Negative (TN): 29,false negative (FN): 145
+Acc: 77.732% ,Precision: 97.086%, Recall: 78.614%, F1-measure: 86.879%
+
+../5G/LogClusterResult-5G/output/model/Adam_batch_size=200;epoch=700.pt
+true positive (TP): 537,false positive (FP): 16, true Negative (TN): 29,false negative (FN): 141
+Acc: 78.285% ,Precision: 97.107%, Recall: 79.204%, F1-measure: 87.246%
+
+../5G/LogClusterResult-5G/output/model/Adam_batch_size=200;epoch=800.pt
+true positive (TP): 537,false positive (FP): 15, true Negative (TN): 30,false negative (FN): 141
+Acc: 78.423% ,Precision: 97.283%, Recall: 79.204%, F1-measure: 87.317%
+
+../5G/LogClusterResult-5G/output/model/Adam_batch_size=200;epoch=900.pt
+true positive (TP): 534,false positive (FP): 18, true Negative (TN): 27,false negative (FN): 144
+Acc: 77.593% ,Precision: 96.739%, Recall: 78.761%, F1-measure: 86.829%
+
+../5G/LogClusterResult-5G/output/model/Adam_batch_size=200;epoch=1000.pt
+true positive (TP): 532,false positive (FP): 16, true Negative (TN): 29,false negative (FN): 146
+Acc: 77.593% ,Precision: 97.080%, Recall: 78.466%, F1-measure: 86.786%
+
