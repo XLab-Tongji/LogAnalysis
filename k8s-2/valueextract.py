@@ -16,9 +16,12 @@ for i in file_names:
         for j in nums:
             if(j!=" "or j!=''):
                 j=int(j)
-                with open("value.log", 'r')as value:
+                with open("dealedvalue.log", 'r')as value:
                     values = value.readlines()
-                    text = values[j - 1]
+                    if(j-1<len(values)):
+                        text = values[j - 1]
+                    else:
+                        text=""
                 if(j<=2000):
                     #写到logvalue_train lide 1.log li
                         with open(RootPath+'logvalue/logvalue_train/'+i,'a+')as t:
