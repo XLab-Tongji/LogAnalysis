@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Hyperparameters
-window_size = 10  # 10
+window_size = 4  # 10
 hidden_size = 20  # 64
 num_layers = 3  # 2
 # num_classes = 2  # 28
@@ -107,7 +107,7 @@ if __name__ == '__main__':
     window_size = args.window_size
     file_names = os.listdir(log_value_folder)
     for i in range(len(file_names)):
-        file_name = str(i+1) + ".txt"
+        file_name = str(i+1) + ".log"
         train_dataset_name = log_value_folder + file_name
         validation_dataset_name = train_dataset_name
 
@@ -169,7 +169,7 @@ if __name__ == '__main__':
         sigma = 1
         mu = 0
         fig, ax = plt.subplots()
-        print(loss_list)
+        # print(loss_list)
         # # the histogram of the data
         # n, bins, patches = ax.hist(loss_list, num_bins, density=True)
         # # add a "best fit" line

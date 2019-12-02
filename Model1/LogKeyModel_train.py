@@ -10,16 +10,16 @@ from . import *
 # Device configuration
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Hyperparameters
-window_size = 6
+window_size = 4
 input_size = 1
 hidden_size = 20
 num_layers = 3
-RootPath = "../Data/LogClusterResult-5G/"
+RootPath = "../Data/LogClusterResult-k8s/"
 
 model_dir = RootPath + 'output/model1'
 log_dir = RootPath + 'output/log1'
 
-num_epochs = 500  # 300
+num_epochs = 1000  # 300
 batch_size = 200  # 2048
 log = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs)
 train_file_name = 'logkey/logkey_train'
@@ -71,6 +71,7 @@ if __name__ == '__main__':
     window_size = args.window_size
 
     num_classes = len(os.listdir(RootPath + 'clusters/')) + 2
+    print("Train num_classes: ", num_classes)
     model = Model(input_size, hidden_size, num_layers, num_classes).to(device)
     seq_dataset = generate(data_file)
     dataloader = DataLoader(seq_dataset, batch_size=batch_size, shuffle=True, pin_memory=True)

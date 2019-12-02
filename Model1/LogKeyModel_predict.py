@@ -4,6 +4,7 @@
 import torch
 import torch.nn as nn
 import time
+import os
 import argparse
 from . import *
 
@@ -15,10 +16,11 @@ window_size = 6
 input_size = 1
 hidden_size = 20
 num_layers = 3
-num_classes = 50
+num_classes = 9
 num_candidates = 3
-RootPath = '../Data/LogClusterResult-5G/'
-model_dir = RootPath + 'output/model'
+RootPath = '../Data/LogClusterResult-k8s/'
+abnormal_label_file = '../k8s-2/k8s_label.txt'
+model_dir = RootPath + 'output/model1/'
 test_file_name = RootPath + 'logkey/logkey_test'
 abnormal_file_name = RootPath + 'logkey/logkey_abnormal'
 
@@ -37,6 +39,11 @@ def generate(name):
     print('Number of sessions({}): {}'.format(name, len(logkeys_sequences)))
     return logkeys_sequences
 
+def generate_abnomal_label(name):
+    with open(name, 'r') as f:
+        line = f.readline()
+        line = list(map(lambda n: n, map(int, line.strip().split())))
+    return line
 
 class Model(nn.Module):
     def __init__(self, input_size, hidden_size, num_layers, num_keys):
@@ -66,8 +73,10 @@ if __name__ == '__main__':
     hidden_size = args.hidden_size
     window_size = args.window_size
     num_candidates = args.num_candidates
+    num_classes = len(os.listdir(RootPath + 'clusters/')) + 2
     outfile = open(RootPath + 'output/reslut_test_model1.txt', 'w')
-    for i in range(5):
+    abnormal_label = generate_abnomal_label(abnormal_label_file)
+    for i in range(10):
         model_path = model_dir + '/Adam_batch_size=200;epoch=' + str((i+1)*100) + '.pt'
         model = Model(input_size, hidden_size, num_layers, num_classes).to(device)
         model.load_state_dict(torch.load(model_path))
@@ -101,17 +110,15 @@ if __name__ == '__main__':
                         FN += 1
                     
                         # break
-        TP = ALL-FN
+        TP += ALL - FN
         print('test abnormal data:')
-        abnormal_label=[10,20,30,40 ,50 ,60, 70, 80, 90, 100,
-                        105 ,115 ,125 ,135 ,145, 155, 165 ,175 ,185 ,195,
-                        202 ,212 ,222 ,232 ,242 ,252 ,262 ,273 ,284 ,295,
-                        306 ,312 ,323 ,333 ,343 ,353 ,363 ,376 ,381 ,390,
-                        400 ,412 ,415 ,423 ,444 ,467 ,478 ,485 ,489 ,499]
+        
         with torch.no_grad():
             count_num = 0
             for line in test_abnormal_loader:
-                for i in range(len(line) - window_size):
+                i = 0
+                while i < len(line) - window_size:
+                    lineNum = i + window_size + 1
                     count_num += 1
                     seq = line[i:i + window_size]
                     label = line[i + window_size]
@@ -120,14 +127,18 @@ if __name__ == '__main__':
                     output = model(seq)
                     predicted = torch.argsort(output, 1)[0][-num_candidates:]
                     print('{} - predict result: {}, true label: {}'.format(count_num, predicted, label))
+                    if lineNum in abnormal_label: ## 若出现异常日志，则接下来的预测跳过异常日志，保证进行预测的日志均为正常日志
+                        i += window_size+1
+                    else:
+                        i += 1
                     ALL += 1
                     if label not in predicted:
-                        if label in abnormal_label:
+                        if lineNum in abnormal_label:
                             TN += 1
                         else:
                             FN += 1
                     else:
-                        if label in abnormal_label:
+                        if lineNum in abnormal_label:
                             FP += 1
                         else:
                             TP += 1
