@@ -312,14 +312,14 @@ if __name__ == '__main__':
             j = j + 1
             # call method to get value (line, patten_dic[i])
             lineNum = lineNum + 1
-            if lineNum>2028 and lineNum<2520:
+            if lineNum>2000 and lineNum<2500:
                 out_text=out_val
-            if lineNum>2520 and lineNum<3016:
+            if lineNum>2500 and lineNum<3000:
                 out_text=out_test
-            if lineNum>3016 and lineNum<3512:
+            if lineNum>3000 and lineNum<3500:
                 out_text=out_abnormal
 
-    # value extract
+    # #value extract
     # with open(log_file_dir + log_file_name) as o_log_file:
     #     o_log_lines = o_log_file.readlines()
     #     timeExtract( log_time_file)
