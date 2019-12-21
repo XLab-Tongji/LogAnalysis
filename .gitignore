@@ -3,3 +3,5 @@
 .idea/
 */.idea/
 /Data/
+
+*/__pycache__/
