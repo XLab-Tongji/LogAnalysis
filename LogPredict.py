@@ -24,8 +24,8 @@ input_size1 = 1
 num_candidates = 3
 
 RootPath = "./Data/LogClusterResult-k8s/"
-log_address = "./k8s-2/k8s-2_abnormal.log"
-abnormal_label_file = './k8s-2/k8s_label.txt'
+log_address = "./k8s/k8s_abnormal.log"
+abnormal_label_file = './k8s/k8s_label.txt'
 mse_threshold = 0.1
 
 
