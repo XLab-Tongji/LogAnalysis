@@ -18,7 +18,7 @@ pattern_dic = {}
 
 # log input/output address
 ## 只要改RootName 即可
-RootName='5G'
+RootName='k8s'
 
 RootPath='./Data/LogClusterResult-' + RootName + '/'
 log_file_dir = './' + RootName + '/'
@@ -318,10 +318,10 @@ if __name__ == '__main__':
         parse_sequencer()
     else:
         parse_log_cluster()
-    out_train=open(RootPath+"logkey/logkey_train",'w')  
-    out_test=open(RootPath+"logkey/logkey_test",'w')  
-    out_val=open(RootPath+"logkey/logkey_val",'w')  
-    out_abnormal=open(RootPath+"logkey/logkey_abnormal",'w')  
+    out_train=open(RootPath+"logkey/logkey_train",'w+')
+    out_test=open(RootPath+"logkey/logkey_test",'w+')
+    out_val=open(RootPath+"logkey/logkey_val",'w+')
+    out_abnormal=open(RootPath+"logkey/logkey_abnormal",'w+')
     out_text=out_train
     with open(log_address, 'rb') as in_log:
         j = 0

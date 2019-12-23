@@ -2,35 +2,64 @@
 
 python版本：3.6
 
-## LogCluster
+## Step 1、 Use LogCluster to parse log
 
-**说明：**
+**Description：**
 
-* 原始日志文件需放在*LogFile* 目录下，然后运行*loganalysis.py*
+* You can skip to Step 3 because the default dataset used has been already parsed.
 
-* 输出所有聚类结果，路径为*WriteFile/cluster
+* check the log path and output path in *loganalysis.py*
 
-* 输出文件命名为*(1,2,3...n).log*, 按聚类下日志总数**降序**排列, **n**为总聚类数
+* **run  *loganalysis.py***
 
-  样例输出文件：
+* all cluster result will be in your output path
+
+* file is named ad (1,2,3...n).log*, according to the total number of logs under the cluster escending order **, ** n  is the total number of clusters
+
+  eg 1.log
 
   ```
   //log key
       Dec 9 10:12:28 combo *{1,1} ttloop: read: Connection reset by peer  
-      //该聚类下的日志总数
+      //Total number of logs under this cluster
       Support: 3                                                           
   
-      //log 在原文件的行数
+      //log line
       21705 21706 21707 
   ```
 
 
 
+## Step 2、 Pre-process Log
 
-## Model1
+**Description：**
 
-This is for training a model by using all the keys.
+* You can skip to Step 3 because the default dataset used has been already parsed.
+* check the log path and output path in k8s/*log_preprocessor.py*
+* **run *k8s/log_preprocessor.py* ** to get log key data
+* check the log path and output path in k8s/*value.py, k8s/value_deal.py, k8s/value_extract.py
+* **run k8s/*value.py, k8s/value_deal.py, k8s/value_extract.py*** to get variable data
+* all data file is saved in the output path,  including train_dataset, validation_dataset, test_dataset...
 
-## 输出
+## Step 3、Train log key anomaly detection model
 
-输出文件放在根目录下所有文件夹的`output`文件夹下，例如`Model1/output/`文件夹下
+**Description：**
+
+* check the log key data path(the path in step2.2) and model output path in *log_key_LSTM_train.py*
+* **run *Model1/log_key_LSTM_train.py* ** to train the log key anomaly detection model
+* model is saved in the output path
+
+## Step 4、Train variable anomaly detection model
+
+**Description：**
+
+* check the viriable data path(the path in step2.4) and model output path in *variable_LSTM_train.py*
+* **run *Model2/viriable_LSTM_train.py* ** to train the variable anomaly detection model
+* model is saved in the output path
+
+## Step 5、Predict and get evaluations
+
+**Description：**
+
+* check the model path(the path in step3 and step4) in *log_predict.py*
+* **run *log_predict.py* ** to get prediction and get evaluations

@@ -18,7 +18,7 @@ pattern_dic = {}
 
 # log input/output address
 
-RootPath='LogClusterResult-k8s/'
+RootPath='./Data/LogClusterResult-k8s/'
 log_file_dir = './'
 log_file_name = 'union.log'
 log_time_file = RootPath+'Vectors/timediff.txt'

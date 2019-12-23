@@ -1,7 +1,7 @@
 cd Model1
-python LogKeyModel_train.py
+python log_key_LSTM_train.py
 cd ..
 cd Model2
-python KeyLogModel_train.py
+python variable_LSTM_train.py
 cd ..
-python LogPredict.py
+python log_predict.py
