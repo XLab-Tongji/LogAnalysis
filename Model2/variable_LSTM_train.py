@@ -58,7 +58,7 @@ class Model(nn.Module):
         return out
 
 
-def generate(file_path):
+def generate_seq_label(file_path):
     num_sessions = 0
     inputs = []
     outputs = []
@@ -99,11 +99,11 @@ if __name__ == '__main__':
         train_data_set_name = log_value_folder + file_name
         validation_data_set_name = train_data_set_name
 
-        train_data_set, input_size = generate(train_data_set_name)
+        train_data_set, input_size = generate_seq_label(train_data_set_name)
         if input_size == 0:
             continue
         train_data_loader = DataLoader(train_data_set, batch_size=batch_size, shuffle=True, pin_memory=True)
-        validation_data_set, _ = generate(validation_data_set_name)
+        validation_data_set, _ = generate_seq_label(validation_data_set_name)
         validation_data_loader = DataLoader(validation_data_set, batch_size=batch_size, shuffle=True, pin_memory=True)
         out_size = input_size
         model = Model(input_size, hidden_size, num_of_layers, out_size).to(device)

@@ -8,13 +8,13 @@ python版本：3.6
 
 * You can skip to Step 3 because the default dataset used has been already parsed.
 
-* check the log path and output path in *loganalysis.py*
+* check the log path and output path in *loganalysis.py* (Perl environment is needed)
 
 * **run  *loganalysis.py***
 
 * all cluster result will be in your output path
 
-* file is named ad (1,2,3...n).log*, according to the total number of logs under the cluster escending order **, ** n  is the total number of clusters
+* file is named ad (1,2,3...n).log*, according to the total number of logs under the cluster descending order **, ** n  is the total number of clusters
 
   eg 1.log
 
@@ -36,7 +36,7 @@ python版本：3.6
 
 * You can skip to Step 3 because the default dataset used has been already parsed.
 * check the log path and output path in k8s/*log_preprocessor.py*
-* **run *k8s/log_preprocessor.py* ** to get log key data
+* **run k8s/log_preprocessor.py**  to get log key data
 * check the log path and output path in k8s/*value.py, k8s/value_deal.py, k8s/value_extract.py
 * **run k8s/*value.py, k8s/value_deal.py, k8s/value_extract.py*** to get variable data
 * all data file is saved in the output path,  including train_dataset, validation_dataset, test_dataset...

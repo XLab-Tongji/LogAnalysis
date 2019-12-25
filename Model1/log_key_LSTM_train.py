@@ -45,7 +45,7 @@ class Model(nn.Module):
         return out
 
 
-def generate(file_path):
+def generate_seq_label(file_path):
     num_of_sessions = 0
     input_data, output_data = [], []
     with open(file_path, 'r') as file:
@@ -76,7 +76,7 @@ if __name__ == '__main__':
     num_classes = len(os.listdir(root_path + 'clusters/')) + 2
     print("Train num_classes: ", num_classes)
     model = Model(input_size, hidden_size, num_of_layers, num_classes).to(device)
-    sequence_data_set = generate(data_file)
+    sequence_data_set = generate_seq_label(data_file)
     data_loader = DataLoader(sequence_data_set, batch_size=batch_size, shuffle=True, pin_memory=True)
     writer = SummaryWriter(logdir = log_directory + '/' + log_template)
 
@@ -96,6 +96,8 @@ if __name__ == '__main__':
             # print(output)
             # print("label:")
             # print(label)
+
+            # calculate loss
             loss = criterion(output, label.to(device))
 
             # Backward and optimize
