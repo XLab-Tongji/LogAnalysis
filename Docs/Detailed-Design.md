@@ -18,8 +18,21 @@
 
 ##### 3.1.1 LogCluster
 
-##### 3.1.2 Sequencer
+##### 3.1.2 Sequence
+以下为Sequence的介绍，关于Sequence的具体使用，注意事项等详见[Sequence说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Sequence.md)
+###### 3.1.2.1算法简介
+它基于一个基本概念，对于多个日志消息，如果同一个位置共享一个相同的父节点和一个相同的子节点，然后在这个位置可能是变量字符串，这意味着我们可以提取它。
 
+例如，查看以下两条messages：
+
+Jan 12 06:49:42 irc sshd[7034]: Accepted password for root from 218.161.81.238 port 4228 ssh2
+
+Jan 12 14:44:48 jlz sshd[11084]: Accepted publickey for jlz from 76.21.0.16 port 36609 ssh2
+
+每条message的第一个token是一个时间戳，并且第三个token是一个字面量sshd,对于字面量irz和jlz他们共享同一个父节点时间戳，共享同一个孩子节点sshd, 这意味着在这两者之间的token也就是每个消息中的第二个令牌，可能表示此message类型中的变量token。在这种情况下，“irc”和“jlz”碰巧表示系统日志主机。
+###### 3.1.2.2程序命令analyze算法流程图
+
+![img](<https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/sequence.png>)
 ##### 3.1.3 FT-tree
 
 以下为FT-tree算法介绍，关于FT-tree的具体使用，注意事项等详见[FT-tree说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Fttree.md)
@@ -77,7 +90,63 @@
 - 最后将聚类结果与日志进行匹配，得到每一条日志的聚类类型
 
 ##### 3.1.4 Drain
+以下为Drain的介绍，关于Sequence的具体使用，注意事项等详见[Drain说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Drain.md)
+Drain是一个日志解析工具，主要用于web service management  可以将raw log message 解析为log event
+###### 3.1.4完整的Drain流程
 
+######        1预处理  
+
+​	新到来的log message用domain knowledge进行预处理.就是用简单的正则表达式，将log message 中的诸如IP address的token移除。
+
+######        2通过log message length进行搜索
+
+​        得到预处理之后的log message 之后，计算token数作为log Length进入第二层节点   
+
+######        3通过log message前几个token进行搜索  穿过depth-2层
+
+​              比如“Receive from node  4”会进入上图中的Receive节点
+
+​              为了防止分支爆炸，将所有数字匹配到一个独特的节点“*”中   并且当达到maxChild之后，其他未能匹配的log message全部去匹配“*”  
+
+​        如果未匹配且未达到maxChild   创建对应节点
+
+######        4通过相同的token搜索
+
+​              经过之前的步骤，现在已经到了一个叶子节点
+
+​             这一步要去从log group list中选择要将message归于那个group
+
+​              计算simSeq
+
+![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/Drain1.png) 
+
+Seq1(i)和seq2(i)分别代表log message和log event的第i个token
+
+Log event 应该是指每个group的pattern   n为log length
+
+比较log message和每个group的log event的token是否一样   
+
+​       ![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/Drain2.png)
+
+比较simSeq是否超过阈值st    但没有说这个阈值从哪里来的
+
+若超过，返回simSeq最高的group
+
+若没有超过 返回一个flag(eg None in python)
+
+######        4.5 更新解析树
+
+​       ①如果在第四步中匹配成功
+
+​              将log ID加入group的log IDs
+
+​              更新log event 扫描log message和log event，如果相同位置的token相同，则不做修改，如果不同，用通配符(wildcard)即”*”更新那个位置    
+
+​       ②如果在第四步中没匹配成功
+
+​              创建一个新的log group  log IDs仅仅包含这个message logID 
+
+​                                                    Log event 就是log message 
 ##### 3.1.5 Louvain社区发现算法
 
 Louvain社区发现算法是一种基于图论的聚类算法，Louvain算法思想如下，其具体说明详见[Louvain社区发现算法](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Louvain-Algorithm.md):
