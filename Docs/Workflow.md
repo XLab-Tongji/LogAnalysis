@@ -1,92 +1,27 @@
-# 详细设计规约
+## workflow构建
 
-### 1. 过程流设计
+### 使用
 
-### 2. 日志结构
+修改代码最后一行后即可直接运行
 
-[Log Structure](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Log%20Structure.md)一文从以下五个角度研究了日志的组成结构：
+```python
+mainFlow(para1,para2,para3=None)
+```
+- para1 源数据文件文件名
 
-- Who to log
-- How to log
-- Where to log
-- What to log
-- Whether to log
+- para2 窗口大小 建议取值范围为2-5
 
-### 3. 算法设计
+- para3 日志种类数，可选参数，默认值None。若未给出此参数则取源文件最大日志序号作为日志种类数
 
-#### 3.1 聚类算法
+示例：
 
-##### 3.1.1 LogCluster
+```python
+mainFlow('vectorize',3,None)
+```
 
-##### 3.1.2 Sequencer
+### 流程
 
-##### 3.1.3 FT-tree
-
-以下为FT-tree算法介绍，关于FT-tree的具体使用，注意事项等详见[FT-tree说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/FT-tree.md)
-
-1. 读取日志文件，将其存储在log_list变量中
-
-2. 遍历log_list，找出所有日志类型，并构造索引表log_type_index（索引表只是为了加速计算）
-
-3. 提取log_list中的detailed message存储在log_message中
-
-4. 统计所有日志中所有单词及其出现次数，存储在字典word_support中，key为单词，value为频数
-
-5. 将word_support根据value值进行排序，将排序结果存储在word_list中
-
-6. 分别对每一种类型的日志计算其词频排序，并构造FT-tree
-
-7. 根据k值对FT-tree进行减枝
-
-8. 将聚类结果输出到指定文件中
-
-   算法的具体实现难以概述，故结合下面案例对该算法进行较为清晰的介绍：
-
-   <img src="pics/6.PNG" width=100%>
-
-- 上图为读入的日志文件（部分），首先提取出Message type与Detailed meesage两个字段，如下图所示
-
-  <img src="pics/7.PNG" width=90%>
-
-- 统计所有日志中每个单词的出现频次，按大小排序，如上述日志中，单词出现频数排序如下：
-
-  | changed | state | to   | Interface | Vlan-interface | down | up   | ae3  | ae1  | vlan22 | vlan20 |
-  | ------- | ----- | ---- | --------- | -------------- | ---- | ---- | ---- | ---- | ------ | ------ |
-  | 8       | 8     | 8    | 4         | 4              | 4    | 4    | 2    | 2    | 2      | 2      |
-
-- 将所有日志按Message type分类，每一类对应一棵FT-tree，FT-tree根节点即为日志类型，如上述日志构造出两棵FT-tree，一颗根节点为SIF，另一棵根结点为OSPF
-
-- 遍历每一条日志，根据上一步得到的词频排序表，对每条日志中的单词按词频顺序排列，并据此构造FT-tree
-
-  如“Interface ae3, changed state to down”排序后变为：changed state to Interface down ae3
-
-  构造的FT-tree为
-
-  <img src="pics/8.PNG" width=25%>
-
-  再遍历下一条同类型日志，不断对FT-tree作扩充：
-
-  <img src="pics/10.PNG" width=80%>
-
-- 根据阈值k，对FT-tree进行剪枝，如k等于5，则FT-tree包含根节点后最大深度为5+1=6，则深度大于6的结点都被舍弃
-
-  <img src="pics/11.PNG" width=60%>
-
-- 最后的FT-tree中有多少个叶子结点，就说明得到了多少种聚类，把所有Message Type对应的FT-tree聚类数相加即为聚类总数
-
-- 最后将聚类结果与日志进行匹配，得到每一条日志的聚类类型
-
-##### 3.1.4 Drain
-
-#### 3.2 Model1：log key anomaly detection model算法设计
-
-#### 3.3 Model2：parameter value anomaly detection model for each log key 算法设计
-
-#### 3.4 Workflow算法设计
-
-以下为Workflow算法介绍，关于Workflow的具体使用，注意事项等详见[Workflow说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Workflow.md)
-
-##### 3.4.1 将数据从文件读取到dataset中
+##### 1.将数据从文件读取到dataset中
 
 对应函数为：
 
@@ -104,7 +39,7 @@ def loadData(infile):
 
 <img src="pics/13.png" width=90%>
 
-##### 3.4.2 构建data_tree
+##### 2.构建data_tree
 
 对应函数为：
 
@@ -148,7 +83,7 @@ data_tree则是由多个Node组成的一个列表。
 
   我们将会使用next_pattern3进行并发事件检查，使用next_pattern进行新任务检查
 
-#####  3.4.3 检查并发事件
+#####  3.检查并发事件
 
 对应函数为：
 
@@ -160,7 +95,7 @@ def checkConcurrency(window_size,type_num):
 
 遍历data_tree中每一个结点data_tree[i]:
 
-	若data_tree[i]的next_pattern3为[[1,2,3],[3,2,4],[2,1,3]]，则[1,2,3]与[2,1,3]中的事件2与事件1就是一组并发事件，即存在j，k满足：
+​	若data_tree[i]的next_pattern3为[[1,2,3],[3,2,4],[2,1,3]]，则[1,2,3]与[2,1,3]中的事件2与事件1就是一组并发事件，即存在j，k满足：
 
 ```
 if (data_tree[i].next_pattern3[j][0] == data_tree[i].next_pattern3[k][1]) and \
@@ -172,7 +107,7 @@ if (data_tree[i].next_pattern3[j][0] == data_tree[i].next_pattern3[k][1]) and \
 
 将并发事件合并为一个新事件：如12 53为两个并发事件，则将其合并后的新事件为12053，计算方法为事件1*1000+事件2
 
-##### 3.4.4 检查新任务
+##### 4.检查新任务
 
 对应函数为：
 
@@ -190,7 +125,7 @@ def checkNewTask(window_size,type_num):
 
 所以对dataset中所有data_tree[0].base_pattern后跟随2 3 4 7的模式，在2 3 4 7前作截断。对dataset中所有data_tree[0].base_pattern后跟随1 5 6的模式，认为这是一个正常任务流，不做处理。
 
-#####  3.4.5 输出，重构dataset
+##### 5.输出，重构dataset
 
 对应函数为：
 
@@ -202,7 +137,7 @@ def outputDataset(infile):
 
 并构建new_dataset，new_dataset是一个二维列表，new_dataset[0]表示第一个任务中的所有事件流
 
-##### 3.4.6 检查循环事件并输出最终结果
+##### 6.检查循环事件并输出最终结果
 
 对应函数为：
 
@@ -215,3 +150,16 @@ def checkCycle(infile):
 如1 3 5 7 2 6 2 6 2 6 3 终2 6是一个循环单元，那么只保留一个循环单元，并将循环起始位置的数字设置为-2*1000-2，最终结果为1 3 5 7 -2002 3。具体算法为：只保留一个循环单元，并将循环起始位置数字$m$替换为$-1 \times m \times 1000 - n$，其中$n$为循环单元的长度。如5 -12004 5 6 2 1 2 则表示5  (12 5 6 2) 1 2括号中为循环部分。
 
 然后将结果输出到命名格式为"new2"+infilename+".txt"的文本文件中。这就是我们程序的最终运行结果。
+
+### 可能的问题
+
+1.只考虑两个事件并发，没有考虑多并发的情形。
+
+2.目前程序中将并发事件作为一个新事件进行处理，但这种方法可能未必妥当。
+
+3.目前新任务的检查方式可能会导致某些任务只含有一个或两个事件（这是由于不必要的截断导致的），但暂时没有想到好的避免方法。
+
+4.检查新任务时候，需要设定一个阈值，当频率小于阈值时，视为是一个新任务起点。目前阈值的计算公式为0.02*window_size，因为没有没有办法进行验证，所以无法判断这个阈值的选取是否合理。
+
+
+
