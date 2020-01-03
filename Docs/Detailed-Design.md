@@ -22,7 +22,7 @@
 
 ##### 3.1.3 FT-tree
 
-以下为FT-tree算法介绍，关于FT-tree的具体使用，注意事项等详见[FT-tree说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/FT-tree.md)
+以下为FT-tree算法介绍，关于FT-tree的具体使用，注意事项等详见[FT-tree说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Fttree.md)
 
 1. 读取日志文件，将其存储在log_list变量中
 
