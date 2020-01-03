@@ -4,7 +4,7 @@
 
 ### 2. 日志结构
 
-[Log Structure](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Log%20Structure.md)一文从以下五个角度研究了日志的组成结构：
+[Log Structure](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Log-Structure.md)一文从以下五个角度研究了日志的组成结构：
 
 - Who to log
 - How to log
