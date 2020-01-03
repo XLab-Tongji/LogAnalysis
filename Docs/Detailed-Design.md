@@ -78,6 +78,16 @@
 
 ##### 3.1.4 Drain
 
+##### 3.1.5 Louvain社区发现算法
+
+Louvain社区发现算法是一种基于图论的聚类算法，Louvain算法思想如下，其具体说明详见[Louvain社区发现算法](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Louvain-Algorithm.md):
+
+- 1）将图中的每个节点看成一个独立的社区，次数社区的数目与节点个数相同；
+- 2）对每个节点$i$，依次尝试把节点$i$分配到其每个邻居节点所在的社区，计算分配前与分配后的模块度变化$ΔQ$，并记录$ΔQ$最大的那个邻居节点，如果$maxΔQ>0$，则把节点i分配$ΔQ$最大的那个邻居节点所在的社区，否则保持不变；
+- 3）重复2），直到所有节点的所属社区不再变化；
+- 4）对图进行压缩，将所有在同一个社区的节点压缩成一个新节点，社区内节点之间的边的权重转化为新节点的环的权重，社区间的边权重转化为新节点间的边权重；
+- 5）重复1）直到整个图的模块度不再发生变化。
+
 #### 3.2 Model1：log key anomaly detection model算法设计
 
 #### 3.3 Model2：parameter value anomaly detection model for each log key 算法设计
