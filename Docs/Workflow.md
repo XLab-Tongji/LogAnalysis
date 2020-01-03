@@ -33,11 +33,11 @@ def loadData(infile):
 
 如源数据文件为：
 
-<img src="pics/12.png" width=30%>
+<img src="pics/12.PNG" width=30%>
 
 处理后得到的dataset为：
 
-<img src="pics/13.png" width=90%>
+<img src="pics/13.PNG" width=90%>
 
 ##### 2.构建data_tree
 
