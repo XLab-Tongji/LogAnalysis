@@ -23,7 +23,8 @@
 LogCluster是一个开源的基于perl语言的命令行日志分析工具，能够从大量的蕴含了事件的日志数据文件中挖掘出有意义的日志模式并对日志进行聚类，通过传入一系列的参数和参数值，来改变LogCluster的聚类算法分析效果。
 
 - LogCluster算法流程图
-![img](<https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/LogCluster.png>)
+
+![img](<https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/logcluster/LogCluster.png>)
 
 #### 3.1.2 Sequence
 以下为Sequence的介绍，关于Sequence的具体使用，注意事项等详见[Sequence说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Sequence.md) 
@@ -130,11 +131,11 @@ Drain是一个日志解析工具，主要用于web service management  可以将
 
 Louvain社区发现算法是一种基于图论的聚类算法，Louvain算法思想如下，其具体说明详见[Louvain社区发现算法](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Louvain-Algorithm.md):
 
-- 1）将图中的每个节点看成一个独立的社区，次数社区的数目与节点个数相同；
-- 2）对每个节点$i$，依次尝试把节点$i$分配到其每个邻居节点所在的社区，计算分配前与分配后的模块度变化$ΔQ$，并记录$ΔQ$最大的那个邻居节点，如果$maxΔQ>0$，则把节点i分配$ΔQ$最大的那个邻居节点所在的社区，否则保持不变；
-- 3）重复2），直到所有节点的所属社区不再变化；
-- 4）对图进行压缩，将所有在同一个社区的节点压缩成一个新节点，社区内节点之间的边的权重转化为新节点的环的权重，社区间的边权重转化为新节点间的边权重；
-- 5）重复1）直到整个图的模块度不再发生变化。
+1. 将图中的每个节点看成一个独立的社区，次数社区的数目与节点个数相同；
+2. 对每个节点i，依次尝试把节点i分配到其每个邻居节点所在的社区，计算分配前与分配后的模块度变化ΔQ，并记录ΔQ最大的那个邻居节点，如果maxΔQ>0，则把节点i分配ΔQ最大的那个邻居节点所在的社区，否则保持不变；
+3. 重复2，直到所有节点的所属社区不再变化；
+4. 对图进行压缩，将所有在同一个社区的节点压缩成一个新节点，社区内节点之间的边的权重转化为新节点的环的权重，社区间的边权重转化为新节点间的边权重；
+5. 重复1，直到整个图的模块度不再发生变化。<br><br>
 
 ### 3.2 Model1：log key anomaly detection model算法设计
 
@@ -149,21 +150,24 @@ Louvain社区发现算法是一种基于图论的聚类算法，Louvain算法思
 ![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/model1/model1_structure.png)
 
 - 训练阶段<br>
-&emsp;&emsp;供训练的log key值流会被分成长度为h的子流，每个子流包含两部分含义：历史log key值流和当前log key值。例如，有一个正常的log key值流为{k23, k6, k12, k5, k26, k12}，设窗口长度h=3，则训练数据将被分成如下形式：{k23, k6, k12  k5}, {k6, k12, k5  k26}, {k12, k5, k26  k12}。
+&emsp;&emsp;供训练的log key值流会被分成长度为h的子流，每个子流包含两部分含义：历史log key值流和当前log key值。例如，有一个正常的log key值流为{k23, k6, k12, k5, k26, k12}，设窗口长度h=3，则训练数据将被分成如下形式：{k23, k6, k12 -> k5}, {k6, k12, k5 -> k26}, {k12, k5, k26 -> k12}。
 
 - 检测阶段<br>
-&emsp;&emsp;为了检测一个log key （mt）是否异常，将向模型输入mt之前的h个log值流w={mt-h, …, mt-1}，输出输出是一个条件概率分布结果Pr[mt = ki|w]={k1: p1, k2: p2, …, kn: pn}，kiK(I = 1, …, n)。若概率最高的前g个候选值中包含了mt，则mt被视为正常，否则为异常。
+&emsp;&emsp;为了检测一个log key （mt）是否异常，将向模型输入mt之前的h个log值流w={mt-h, …, mt-1}，输出输出是一个条件概率分布结果<br>
+&emsp;&emsp; Pr[mt = ki | w ] = { k1: p1, k2: p2, …, kn: pn }，ki属于K( I = 1, …, n )<br>
+&emsp;&emsp;若概率最高的前g个候选值中包含了mt，则mt被视为正常，否则为异常。
 
 - 模型一的工作过程如下图所示：<br>
 ![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/model1/model1_flow.png)
-
+<br><br>
 
 ### 3.3 Model2：parameter value anomaly detection model for each log key 算法设计
 
 &emsp;&emsp;模型一对于系统事件流中的异常检测非常有帮助，但是还有一些异常不能由这些key值直接检测到，它们隐藏在每条log的其他参数值当中。模型二能解决这个问题，其是针对每个log key训练的异常日志检测模型。在该部分，对于每个不同的log key，都会训练一个单独的模型出来。
 
 &emsp;&emsp;模型二的训练数据是针对某个特定的log key而言的，这些数据都是与时间序列有关的一系列参数组成的向量集。下图是一个日志的key值和其他参数值（parameter value）的提取示例：<br>
-![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/model2/model2_value.png)
+<img src="https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/model2/model2_value.png" width="60%" height="30px" />
+<!-- ![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/model2/model2_value.png) -->
 
 
 - 模型结构<br>
@@ -174,13 +178,16 @@ Louvain社区发现算法是一种基于图论的聚类算法，Louvain算法思
 &emsp;&emsp;由于针对于每个log key，其parameter value vector同时间序列有关，例如，对于k2，构造出来的用于训练的向量集可表示如下：{[t2 – t1, 0.2], [t2’ – t1’, 0.7], … … }，因此我们可以再次利用LSTM来搭建用于训练的神经网络。在对训练数据进行预处理的时候，需要对数据进行归一化处理，我们的处理办法是：对于属于同一个log key的所有参数值向量，将在同一位置出现的参数值（parameter value），通过计算均值和标准差，用Z-score标准化方法对数据进行归一化处理。模型二的输出是一个对于下一个参数值向量的预测。该预测结果以之前的历史日志数据为基础，是一个向量。这里我们也能用到模型一中窗口长度的思想来对模型进行训练。
 
 - 检测阶段<br>
-&emsp;&emsp;在利用模型二对日志的异常与否进行检测的时候，我们采用均方误差(Mean square error, MSE)的方法来计算预测出来的向量和真实的向量之间的差异。在这里判断一条日志是否是异常的时候，我们并没有设置阈值来判断。我们的方法是：将训练数据分为训练集（training set）和验证集 (validation set)两部分，用训练集来训练我们的模型，而对于验证集中的每个参数值向量v ⃗，利用训练出来的模型计算预测出的参数值向量（该预测结果需要用到该验证集中位于每个v ⃗之前的向量）和v ⃗之间的MSE。在每一个时间步中，使用验证集得到的这些MSE服从高斯分布。于是，在进行异常检测的时候，如果预测参数值向量和真实参数值向量之间的MSE位于得到的高斯分布的置信区间内，则该日志是正常的，否则被视为异常。
+&emsp;&emsp;在利用模型二对日志的异常与否进行检测的时候，我们采用均方误差(Mean square error, MSE)的方法来计算预测出来的向量和真实的向量之间的差异。在这里判断一条日志是否是异常的时候，我们并没有设置阈值来判断。我们的方法是：将训练数据分为训练集（training set）和验证集 (validation set)两部分，用训练集来训练我们的模型，而对于验证集中的每个参数值向量v，利用训练出来的模型计算预测出的参数值向量（该预测结果需要用到该验证集中位于每个v之前的向量）和v之间的MSE。在每一个时间步中，使用验证集得到的这些MSE服从高斯分布。于是，在进行异常检测的时候，如果预测参数值向量和真实参数值向量之间的MSE位于得到的高斯分布的置信区间内，则该日志是正常的，否则被视为异常。
 
-综上，综合模型一和模型二，异常检测的作过程如下图所示：<br>
+综上，综合模型一和模型二，异常检测的作过程如下图所示：
+
 ![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/model2/flow.png)
 
-### 3.4 Workflow算法设计
+<br><br>
 
+
+### 3.4 Workflow算法设计
 以下为Workflow算法介绍，关于Workflow的具体使用，注意事项等详见[Workflow说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Workflow.md)
 
 #### 3.4.1 将数据从文件读取到dataset中
