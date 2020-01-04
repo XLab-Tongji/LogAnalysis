@@ -72,7 +72,7 @@
 
 
 
-![usecase_total](pics/requirement_specification/UseCase.PNG)
+![usecase_total](pics/requirement_specification/UseCase.png)
 
 ​                                                   
 
