@@ -17,7 +17,7 @@
 ### 3.1 聚类算法
 
 #### 3.1.1 LogCluster
-以下为LogCluster的介绍，关于LogCluster的具体使用，注意事项等详见[LogCluster说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/LogCluster.md) 
+以下为LogCluster的介绍，关于LogCluster的具体使用，注意事项等详见[LogCluster说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/LogCluster.pdf) 
 
 - LogCluster简介<br>
 &emsp;&emsp;LogCluster是一个开源的基于perl语言的命令行日志分析工具，能够从大量的蕴含了事件的日志数据文件中挖掘出有意义的日志模式并对日志进行聚类，通过传入一系列的参数和参数值，来改变LogCluster的聚类算法分析效果。
