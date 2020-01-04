@@ -19,8 +19,8 @@
 #### 3.1.1 LogCluster
 以下为LogCluster的介绍，关于LogCluster的具体使用，注意事项等详见[LogCluster说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/LogCluster.md) 
 
-- LogCluster简介
-LogCluster是一个开源的基于perl语言的命令行日志分析工具，能够从大量的蕴含了事件的日志数据文件中挖掘出有意义的日志模式并对日志进行聚类，通过传入一系列的参数和参数值，来改变LogCluster的聚类算法分析效果。
+- LogCluster简介<br>
+&emsp;&emsp;LogCluster是一个开源的基于perl语言的命令行日志分析工具，能够从大量的蕴含了事件的日志数据文件中挖掘出有意义的日志模式并对日志进行聚类，通过传入一系列的参数和参数值，来改变LogCluster的聚类算法分析效果。
 
 - LogCluster算法流程图
 
@@ -96,6 +96,8 @@ Jan 12 14:44:48 jlz sshd[11084]: Accepted publickey for jlz from 76.21.0.16 port
 
 - 最后将聚类结果与日志进行匹配，得到每一条日志的聚类类型
 
+<br><br>
+
 #### 3.1.4 Drain
 以下为Drain的介绍，关于Sequence的具体使用，注意事项等详见[Drain说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Drain.md)
 Drain是一个日志解析工具，主要用于web service management  可以将raw log message 解析为log event
@@ -127,6 +129,8 @@ Drain是一个日志解析工具，主要用于web service management  可以将
     - 如果在第四步中没匹配成功<br>
        &emsp;&emsp;创建一个新的log group  log IDs仅仅包含这个message logID <br>
        &emsp;&emsp;Log event 就是log message 
+<br><br>
+
 #### 3.1.5 Louvain社区发现算法
 
 Louvain社区发现算法是一种基于图论的聚类算法，Louvain算法思想如下，其具体说明详见[Louvain社区发现算法](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Louvain-Algorithm.md):
@@ -165,9 +169,9 @@ Louvain社区发现算法是一种基于图论的聚类算法，Louvain算法思
 
 &emsp;&emsp;模型一对于系统事件流中的异常检测非常有帮助，但是还有一些异常不能由这些key值直接检测到，它们隐藏在每条log的其他参数值当中。模型二能解决这个问题，其是针对每个log key训练的异常日志检测模型。在该部分，对于每个不同的log key，都会训练一个单独的模型出来。
 
-&emsp;&emsp;模型二的训练数据是针对某个特定的log key而言的，这些数据都是与时间序列有关的一系列参数组成的向量集。下图是一个日志的key值和其他参数值（parameter value）的提取示例：<br>
-<img src="https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/model2/model2_value.png" width="60%" height="30px" />
-<!-- ![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/model2/model2_value.png) -->
+&emsp;&emsp;模型二的训练数据是针对某个特定的log key而言的，这些数据都是与时间序列有关的一系列参数组成的向量集。下图是一个日志的key值和其他参数值（parameter value）的提取示例：
+
+![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/model2/model2_value.png)
 
 
 - 模型结构<br>
