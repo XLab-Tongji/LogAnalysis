@@ -41,7 +41,7 @@
 
 #### LogCluster
 
-以下为LogCluster的介绍，关于LogCluster的具体使用，注意事项等详见[LogCluster说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/LogCluster.pdf) 
+以下为LogCluster的介绍，关于LogCluster的算法分析与使用详见[LogCluster说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/LogCluster.pdf) 
 
 - LogCluster简介<br>
   &emsp;&emsp;LogCluster是一个开源的基于perl语言的命令行日志分析工具，能够从大量的蕴含了事件的日志数据文件中挖掘出有意义的日志模式并对日志进行聚类，通过传入一系列的参数和参数值，来改变LogCluster的聚类算法分析效果。
@@ -65,7 +65,7 @@
 
 #### FT-tree
 
-以下为FT-tree算法介绍，关于FT-tree的具体使用，注意事项等详见[FT-tree说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Fttree.md)
+以下为FT-tree算法介绍，关于FT-tree的算法分析，注意事项等详见[FT-tree说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Fttree.md)
 
 1. 读取日志文件，将其存储在log_list变量中
 
@@ -123,7 +123,7 @@
 
 #### Drain
 
-以下为Drain的介绍，关于Sequence的具体使用，注意事项等详见[Drain说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Drain.md)
+以下为Drain的介绍，关于Drain的具体使用，注意事项等详见[Drain说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Drain.md)
 Drain是一个日志解析工具，主要用于web service management  可以将raw log message 解析为log event
 
 下面是完整的Drain流程
@@ -172,28 +172,40 @@ Louvain社区发现算法是一种基于图论的聚类算法，Louvain算法思
 - 原理<br>
   &emsp;&emsp;该模型可被视作一个多分类模型，每一个不同的log key代表了不同的类。令K={k1, k2, …, kn}，代表的是从日志中提取出来的不同的log key值的集合。<br>
   &emsp;&emsp;原始日志的key值流反映了被测系统的特定的事件执行顺序和状态，利用这个特点可以基于LSTM神经网络训练一个基于上下文的异常日志检测模型。设mi是日志的key值流中出现在i位置的log key，则miK，且mi的值对之前出现的key值流有很强的依赖性，设mt为我们要进行异常检测的log key，我们取一个长度为h的窗口，w = {mt-h, …, mt-2, mt-1}，则mt的值可以由w中的值来进行预测，将预测结果与mt的实际值进行比对，便能判断mt是否正常。
-
 - 模型结构<br>
   &emsp;&emsp;模型一为多层Lstm结构，下面是模型结构图：<br>
   ![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/model1/model1_structure.png)
 
-  ```python
+&emsp;&emsp;其代码定义如下：  
+
+```python
   class Model(nn.Module):
       def __init__(self, input_size, hidden_size, num_of_layers, num_of_keys):
           super(Model, self).__init__()
           self.hidden_size = hidden_size
           self.num_of_layers = num_of_layers
           self.lstm = nn.LSTM(input_size, hidden_size, num_of_layers, batch_first=True)
-          self.fc = nn.Linear(hidden_size, num_of_keys)
-  ```
+        self.fc = nn.Linear(hidden_size, num_of_keys)
+```
 
 - 训练阶段<br>
   &emsp;&emsp;供训练的log key值流会被分成长度为h的子流，每个子流包含两部分含义：历史log key值流和当前log key值。例如，有一个正常的log key值流为{k23, k6, k12, k5, k26, k12}，设窗口长度h=3，则训练数据将被分成如下形式：{k23, k6, k12 -> k5}, {k6, k12, k5 -> k26}, {k12, k5, k26 -> k12}。
 
-  对应训练的数据处理的函数为
+  对应训练的数据处理的代码为
 
   ```python
   def generate_logkey_label(file_path):
+      num_of_sessions = 0
+    input_data, output_data = [], []
+      with open(file_path, 'r') as file:
+          for line in file.readlines():
+              num_of_sessions += 1
+              line = tuple(map(lambda n: n, map(int, line.strip().split())))
+              for i in range(len(line) - window_length):
+                  input_data.append(line[i:i + window_length])
+                  output_data.append(line[i + window_length])
+      data_set = TensorDataset(torch.tensor(input_data, dtype=torch.float), torch.tensor(output_data))
+      return data_set
   ```
 
 - 检测阶段<br>
@@ -216,6 +228,7 @@ Louvain社区发现算法是一种基于图论的聚类算法，Louvain算法思
 - 模型结构<br>
   &emsp;&emsp;模型二为多层Lstm结构，下面是模型结构图：<br>
   ![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/model2/model2_structure.png)
+  &emsp;&emsp;其代码定义如下：  
 
   ```python
   class Model(nn.Module):
@@ -230,10 +243,29 @@ Louvain社区发现算法是一种基于图论的聚类算法，Louvain算法思
 - 训练阶段<br>
   &emsp;&emsp;由于针对于每个log key，其parameter value vector同时间序列有关，例如，对于k2，构造出来的用于训练的向量集可表示如下：{[t2 – t1, 0.2], [t2’ – t1’, 0.7], … … }，因此我们可以再次利用LSTM来搭建用于训练的神经网络。在对训练数据进行预处理的时候，需要对数据进行归一化处理，我们的处理办法是：对于属于同一个log key的所有参数值向量，将在同一位置出现的参数值（parameter value），通过计算均值和标准差，用Z-score标准化方法对数据进行归一化处理。模型二的输出是一个对于下一个参数值向量的预测。该预测结果以之前的历史日志数据为基础，是一个向量。这里我们也能用到模型一中窗口长度的思想来对模型进行训练。
 
-  ​	对应训练的数据处理的函数为
+  ```
+  对应训练的数据处理的代码为
+  ```
 
   ```python
   def generate_value_label(file_path):
+      num_sessions = 0
+    inputs = []
+      outputs = []
+      vectors = []
+      with open(file_path, 'r') as f:
+          for line in f.readlines():
+              num_sessions += 1
+              line = tuple(map(lambda n: n, map(float, line.strip().split())))
+              vectors.append(line)
+      for i in range(len(vectors) - window_length):
+          inputs.append(vectors[i: i + window_length])
+          outputs.append(vectors[i + window_length])
+      data_set = TensorDataset(torch.tensor(inputs, dtype=torch.float), torch.tensor(outputs))
+      if len(vectors) > 0:
+          return data_set, len(vectors[0])
+      else:
+          return None, 0
   ```
 
 - 检测阶段<br>
@@ -242,6 +274,8 @@ Louvain社区发现算法是一种基于图论的聚类算法，Louvain算法思
 综上，综合模型一和模型二，异常检测的作过程如下图所示：
 
 ![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/model2/flow.png)
+
+&emsp;&emsp;当捕获到一条新的日志时，系统会将该日志解析成一个kog key和对应的一个参数值组成的向量（parameter value vector）。系统首先利用模型一对这个log key进行检测，看其是否正常，如果正常，系统会利用模型二对参数值向量做进一步的异常检测。若两个步骤的检测结果都表明该日志是正常的日志，则该日志正常，否则该日志异常。
 
 <br><br>
 
@@ -337,12 +371,13 @@ if (data_tree[i].next_pattern3[j][0] == data_tree[i].next_pattern3[k][1]) and \
 
 将并发事件合并为一个新事件：如12 53为两个并发事件，则将其合并后的新事件为12053，计算方法为事件1*1000+事件2
 
-####  检查新任务
+#### 检查新任务
 
 对应函数为：
 
 ```
 def checkNewTask(window_size,type_num):
+
 ```
 
 完成并发事件检查后，dataset发生了改变，所以在检查新任务之前，要重新构建data_tree（直接调用第3步的函数即可）
