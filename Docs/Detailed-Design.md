@@ -41,7 +41,7 @@
 
 #### LogCluster
 
-以下为LogCluster的介绍，关于LogCluster的具体使用，注意事项等详见[LogCluster说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/LogCluster.pdf) 
+以下为LogCluster的介绍，关于LogCluster的算法分析与使用详见[LogCluster说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/LogCluster.pdf) 
 
 - LogCluster简介<br>
   &emsp;&emsp;LogCluster是一个开源的基于perl语言的命令行日志分析工具，能够从大量的蕴含了事件的日志数据文件中挖掘出有意义的日志模式并对日志进行聚类，通过传入一系列的参数和参数值，来改变LogCluster的聚类算法分析效果。
@@ -65,7 +65,7 @@
 
 #### FT-tree
 
-以下为FT-tree算法介绍，关于FT-tree的具体使用，注意事项等详见[FT-tree说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Fttree.md)
+以下为FT-tree算法介绍，关于FT-tree的算法分析，注意事项等详见[FT-tree说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Fttree.md)
 
 1. 读取日志文件，将其存储在log_list变量中
 
@@ -123,7 +123,7 @@
 
 #### Drain
 
-以下为Drain的介绍，关于Sequence的具体使用，注意事项等详见[Drain说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Drain.md)
+以下为Drain的介绍，关于Drain的具体使用，注意事项等详见[Drain说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Drain.md)
 Drain是一个日志解析工具，主要用于web service management  可以将raw log message 解析为log event
 
 下面是完整的Drain流程
@@ -172,20 +172,21 @@ Louvain社区发现算法是一种基于图论的聚类算法，Louvain算法思
 - 原理<br>
   &emsp;&emsp;该模型可被视作一个多分类模型，每一个不同的log key代表了不同的类。令K={k1, k2, …, kn}，代表的是从日志中提取出来的不同的log key值的集合。<br>
   &emsp;&emsp;原始日志的key值流反映了被测系统的特定的事件执行顺序和状态，利用这个特点可以基于LSTM神经网络训练一个基于上下文的异常日志检测模型。设mi是日志的key值流中出现在i位置的log key，则miK，且mi的值对之前出现的key值流有很强的依赖性，设mt为我们要进行异常检测的log key，我们取一个长度为h的窗口，w = {mt-h, …, mt-2, mt-1}，则mt的值可以由w中的值来进行预测，将预测结果与mt的实际值进行比对，便能判断mt是否正常。
-
 - 模型结构<br>
   &emsp;&emsp;模型一为多层Lstm结构，下面是模型结构图：<br>
   ![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/model1/model1_structure.png)
 
-  ```python
+&emsp;&emsp;其代码定义如下：  
+
+```python
   class Model(nn.Module):
       def __init__(self, input_size, hidden_size, num_of_layers, num_of_keys):
           super(Model, self).__init__()
           self.hidden_size = hidden_size
           self.num_of_layers = num_of_layers
           self.lstm = nn.LSTM(input_size, hidden_size, num_of_layers, batch_first=True)
-          self.fc = nn.Linear(hidden_size, num_of_keys)
-  ```
+        self.fc = nn.Linear(hidden_size, num_of_keys)
+```
 
 - 训练阶段<br>
   &emsp;&emsp;供训练的log key值流会被分成长度为h的子流，每个子流包含两部分含义：历史log key值流和当前log key值。例如，有一个正常的log key值流为{k23, k6, k12, k5, k26, k12}，设窗口长度h=3，则训练数据将被分成如下形式：{k23, k6, k12 -> k5}, {k6, k12, k5 -> k26}, {k12, k5, k26 -> k12}。
@@ -227,6 +228,7 @@ Louvain社区发现算法是一种基于图论的聚类算法，Louvain算法思
 - 模型结构<br>
   &emsp;&emsp;模型二为多层Lstm结构，下面是模型结构图：<br>
   ![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/model2/model2_structure.png)
+  &emsp;&emsp;其代码定义如下：  
 
   ```python
   class Model(nn.Module):
@@ -329,7 +331,6 @@ data_tree则是由多个Node组成的一个列表。
   data_tree[0].next_frequency=[1,2] #表示base[1,2,3]后出现1次数为1 出现3次数为2
   data_tree[0].next_pattern3=[[3,3,1],[1,2,3],[3,2,2]]
   data_tree[0].next_frequency3=[1,1,1] #表示[1,2,3]后出现上述三种魔术的次数都是1
-  
   ```
 
 - ```
@@ -338,7 +339,6 @@ data_tree则是由多个Node组成的一个列表。
   data_tree[1].next_frequency=[1,1] 
   data_tree[1].next_pattern3=[[3,1,2],[2,2,1]]
   data_tree[1].next_frequency3=[1,1] 
-  
   ```
 
   依此类推构建出data_tree，使得data_tree列表中结点的base_pattern涵盖dataset中出现的所有长度为window_size的模式
@@ -351,7 +351,6 @@ data_tree则是由多个Node组成的一个列表。
 
 ```
 def checkConcurrency(window_size,type_num):
-
 ```
 
 在检查并发事件时，我们只考虑两个事件的并发检查，未进行多个事件的并发检查（只要考虑到多个事件并发出现的频率不高，且多事件并发检查效率较慢）。
@@ -360,14 +359,12 @@ def checkConcurrency(window_size,type_num):
 
 ```
 若data_tree[i]的next_pattern3为[[1,2,3],[3,2,4],[2,1,3]]，则[1,2,3]与[2,1,3]中的事件2与事件1就是一组并发事件，即存在j，k满足：
-
 ```
 
 ```
 if (data_tree[i].next_pattern3[j][0] == data_tree[i].next_pattern3[k][1]) and \
         (data_tree[i].next_pattern3[j][1] == data_tree[i].next_pattern3[k][0]) and \
         (data_tree[i].next_pattern3[j][2] == data_tree[i].next_pattern3[k][2]):
-
 ```
 
 则data_tree[i].next_pattern3[j]的第零个与第一个元素是一组并发事件。
@@ -399,7 +396,6 @@ def checkNewTask(window_size,type_num):
 
 ```python
 def outputDataset(infile):
-
 ```
 
 检查出所有新任务起点后，将结果输出到命名格式为"new"+infilename+".txt"的文本文件中。每一行代表一个任务。
@@ -412,7 +408,6 @@ def outputDataset(infile):
 
 ```python
 def checkCycle(infile):
-
 ```
 
 最后遍历new_dataset，对每一个任务中的事件流进行循环事件检查。
