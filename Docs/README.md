@@ -27,6 +27,10 @@ Open folder "LogAnalysis" with your IDE
 * python app.py
 
 ##### 3.2 前端运行
+* cd {fontedn folder}/
+* npm install
+* npm run dev
+* open browser with http://localhost:8080
 
 ### 4. 项目基本功能
 * 日志清洗
