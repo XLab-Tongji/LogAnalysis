@@ -48,3 +48,37 @@ Open folder "LogAnalysis" with your IDE
 * 基于workflow的异常日志定位
 
 ### 5. 代码结构说明
+
+> 5G  5G日志相关文件
+>
+> k8s  k8s日志相关文件
+>
+> logcluster  logcluster聚类工具
+>
+> Model1  模型一相关代码
+>
+> > log_key_LSTM_train.py     模型一训练
+>
+> Model2  模型二相关代码
+> > variable_LSTM_train.py  模型二训练
+>
+> Frontend
+> > 
+> >
+> > 
+>
+> Backend
+> > app.py  后端运行
+> >
+> > log_processor 数据预处理
+> >
+> > log_key_LSTM_train.py  模型一训练
+> >
+> > variable_LSTM_train.py  模型二训练
+> >
+> > LogPredict.py  日志预测
+> >
+> > upload  日志上传
+>
+> Docs  项目文档
+
