@@ -1,8 +1,24 @@
 # 详细设计规约
 
-## 1. 过程流设计
+## 背景
 
-## 2. 日志结构
+5G的出现，不仅伴随着数据传输速率的提高、延迟的减少以及设备连接的大规模化，同时也伴随着数据量的增多、微服务的增多等，由此将产生大量的日志数据，这些数据中记录了众多的5G设备运行信息，如何利用这些信息做到日志异常诊断智能化，对于5G时代系统的运维具有重要的意义。
+
+系统发生故障前，其日志通常都具有许多特征反应出系统的异常状态，如果我们能提前发现系统异常，就能避免系统发生更严重的错误。然而在目前大多数系统中，管理员都是在系统出现故障之后，根据日志信息进行排错。这种事后检测会浪费大量的时间和精力，并且不一定能取得很好的效果。
+
+传统的日志分析方法具有速度慢，鲁棒性差，难以适应大型系统等弊端，以迫切需要自动的、基于日志的系统异常检测方案。因此本项目使用机器学习方法来自动化学习，检测，定位日志中可能出现的异常。
+
+## 过程流设计
+
+- 用户异常检测总体过程流
+
+![img](https://github.com/XLab-Tongji/LogAnalysis/raw/master/Docs/pics/user_seq.png)
+
+- 异常检测算法过程流
+
+![predict_seq.png](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/predict_seq.png?raw=true)
+
+## 日志结构
 
 [Log Structure文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Log-Structure.md)从以下五个角度研究了日志的组成结构，具体日志结构的调研结果详见文档
 
@@ -12,11 +28,18 @@
 - What to log
 - Whether to log
 
-## 3. 算法设计
+## 算法设计
 
-### 3.1 聚类算法
+算法部分，主要包含四部分的详细设计
 
-#### 3.1.1 LogCluster
+- 聚类算法
+- Logkey异常检测模型
+- Value异常检测模型
+- Workflow算法
+
+### 聚类算法
+
+#### LogCluster
 
 以下为LogCluster的介绍，关于LogCluster的具体使用，注意事项等详见[LogCluster说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/LogCluster.pdf) 
 
@@ -26,7 +49,7 @@
 
 ![img](<https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/logcluster/LogCluster.png>)
 
-#### 3.1.2 Sequence
+#### Sequence
 
 以下为Sequence的介绍，关于Sequence的具体使用，注意事项等详见[Sequence说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Sequence.md) 
 
@@ -40,7 +63,7 @@
 
 ![img](<https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/sequence.png>)
 
-#### 3.1.3 FT-tree
+#### FT-tree
 
 以下为FT-tree算法介绍，关于FT-tree的具体使用，注意事项等详见[FT-tree说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Fttree.md)
 
@@ -98,7 +121,7 @@
 
 <br><br>
 
-#### 3.1.4 Drain
+#### Drain
 
 以下为Drain的介绍，关于Sequence的具体使用，注意事项等详见[Drain说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Drain.md)
 Drain是一个日志解析工具，主要用于web service management  可以将raw log message 解析为log event
@@ -132,7 +155,7 @@ Drain是一个日志解析工具，主要用于web service management  可以将
     &emsp;&emsp;Log event 就是log message 
     <br><br>
 
-#### 3.1.5 Louvain社区发现算法
+#### Louvain社区发现算法
 
 Louvain社区发现算法是一种基于图论的聚类算法，Louvain算法思想如下，其具体说明详见[Louvain社区发现算法](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Louvain-Algorithm.md):
 
@@ -142,7 +165,7 @@ Louvain社区发现算法是一种基于图论的聚类算法，Louvain算法思
 4. 对图进行压缩，将所有在同一个社区的节点压缩成一个新节点，社区内节点之间的边的权重转化为新节点的环的权重，社区间的边权重转化为新节点间的边权重；
 5. 重复1，直到整个图的模块度不再发生变化。<br><br>
 
-### 3.2 Model1：log key anomaly detection model算法设计
+### Model1：log key anomaly detection model算法设计
 
 模型一是通过每条log的key值来对日志的异常与否进行判断。该模型的训练数据是从日志文件中提取出来的每条日志的key值数字化以后的一系列数字流，每个key值都有对应的正常（1）或异常（0）标签。我们选取正常日志的key值流来对模型一进行训练。
 
@@ -182,7 +205,7 @@ Louvain社区发现算法是一种基于图论的聚类算法，Louvain算法思
   ![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/model1/model1_flow.png)
   <br><br>
 
-### 3.3 Model2：parameter value anomaly detection model for each log key 算法设计
+### Model2：parameter value anomaly detection model for each log key 算法设计
 
 &emsp;&emsp;模型一对于系统事件流中的异常检测非常有帮助，但是还有一些异常不能由这些key值直接检测到，它们隐藏在每条log的其他参数值当中。模型二能解决这个问题，其是针对每个log key训练的异常日志检测模型。在该部分，对于每个不同的log key，都会训练一个单独的模型出来。
 
@@ -222,11 +245,11 @@ Louvain社区发现算法是一种基于图论的聚类算法，Louvain算法思
 
 <br><br>
 
-### 3.4 Workflow算法设计
+### Workflow算法设计
 
 以下为Workflow算法介绍，关于Workflow的具体使用，注意事项等详见[Workflow说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Workflow.md)
 
-#### 3.4.1 将数据从文件读取到dataset中
+#### 将数据从文件读取到dataset中
 
 对应函数为：
 
@@ -244,7 +267,7 @@ def loadData(infile):
 
 <img src="pics/13.PNG" width=90%>
 
-#### 3.4.2 构建data_tree
+#### 构建data_tree
 
 对应函数为：
 
@@ -288,7 +311,7 @@ data_tree则是由多个Node组成的一个列表。
 
   我们将会使用next_pattern3进行并发事件检查，使用next_pattern进行新任务检查
 
-#### 3.4.3 检查并发事件
+#### 检查并发事件
 
 对应函数为：
 
@@ -314,7 +337,7 @@ if (data_tree[i].next_pattern3[j][0] == data_tree[i].next_pattern3[k][1]) and \
 
 将并发事件合并为一个新事件：如12 53为两个并发事件，则将其合并后的新事件为12053，计算方法为事件1*1000+事件2
 
-#### 3.4.4 检查新任务
+####  检查新任务
 
 对应函数为：
 
@@ -332,7 +355,7 @@ def checkNewTask(window_size,type_num):
 
 所以对dataset中所有data_tree[0].base_pattern后跟随2 3 4 7的模式，在2 3 4 7前作截断。对dataset中所有data_tree[0].base_pattern后跟随1 5 6的模式，认为这是一个正常任务流，不做处理。
 
-#### 3.4.5 输出，重构dataset
+#### 输出，重构dataset
 
 对应函数为：
 
@@ -344,7 +367,7 @@ def outputDataset(infile):
 
 并构建new_dataset，new_dataset是一个二维列表，new_dataset[0]表示第一个任务中的所有事件流
 
-#### 3.4.6 检查循环事件并输出最终结果
+#### 检查循环事件并输出最终结果
 
 对应函数为：
 
