@@ -14,6 +14,7 @@
 * scipy==1.1.0
 * tensorboardX==1.9
 * pytorch==1.2.0
+* node.js>=8.11.3
 
 #### 2.2 获取项目
 git@github.com:XLab-Tongji/LogAnalysis.git
@@ -27,6 +28,10 @@ Open folder "LogAnalysis" with your IDE
 * python app.py
 
 ##### 3.2 前端运行
+
+- cd {project folder}/Frontend
+- npm install
+- npm run serve
 
 ### 4. 项目基本功能
 * 日志清洗
