@@ -63,9 +63,17 @@ Open folder "LogAnalysis" with your IDE
 > > variable_LSTM_train.py  模型二训练
 >
 > Frontend
-> > 
+> > src 前端vue.js代码
 > >
-> > 
+> > > views 前端页面
+> > >
+> > > router 前端路由
+> >
+> > package.json 前端node.js配置文件
+> >
+> > public 公共资源
+> >
+> > babel.configure.js 前端babel配置文件
 >
 > Backend
 > > app.py  后端运行
