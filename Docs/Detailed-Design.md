@@ -17,25 +17,25 @@
 ### 3.1 聚类算法
 
 #### 3.1.1 LogCluster
+
 以下为LogCluster的介绍，关于LogCluster的具体使用，注意事项等详见[LogCluster说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/LogCluster.pdf) 
 
 - LogCluster简介<br>
-&emsp;&emsp;LogCluster是一个开源的基于perl语言的命令行日志分析工具，能够从大量的蕴含了事件的日志数据文件中挖掘出有意义的日志模式并对日志进行聚类，通过传入一系列的参数和参数值，来改变LogCluster的聚类算法分析效果。
-
+  &emsp;&emsp;LogCluster是一个开源的基于perl语言的命令行日志分析工具，能够从大量的蕴含了事件的日志数据文件中挖掘出有意义的日志模式并对日志进行聚类，通过传入一系列的参数和参数值，来改变LogCluster的聚类算法分析效果。
 - LogCluster算法流程图
 
 ![img](<https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/logcluster/LogCluster.png>)
 
 #### 3.1.2 Sequence
+
 以下为Sequence的介绍，关于Sequence的具体使用，注意事项等详见[Sequence说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Sequence.md) 
 
 - 算法简介<br><br>
-它基于一个基本概念，对于多个日志消息，如果同一个位置共享一个相同的父节点和一个相同的子节点，然后在这个位置可能是变量字符串，这意味着我们可以提取它。<br><br>
-例如，查看以下两条messages：<br><br>
-Jan 12 06:49:42 irc sshd[7034]: Accepted password for root from 218.161.81.238 port 4228 ssh2<br>
-Jan 12 14:44:48 jlz sshd[11084]: Accepted publickey for jlz from 76.21.0.16 port 36609 ssh2<br><br>
-每条message的第一个token是一个时间戳，并且第三个token是一个字面量sshd,对于字面量irz和jlz他们共享同一个父节点时间戳，共享同一个孩子节点sshd, 这意味着在这两者之间的token也就是每个消息中的第二个令牌，可能表示此message类型中的变量token。在这种情况下，“irc”和“jlz”碰巧表示系统日志主机。
-
+  它基于一个基本概念，对于多个日志消息，如果同一个位置共享一个相同的父节点和一个相同的子节点，然后在这个位置可能是变量字符串，这意味着我们可以提取它。<br><br>
+  例如，查看以下两条messages：<br><br>
+  Jan 12 06:49:42 irc sshd[7034]: Accepted password for root from 218.161.81.238 port 4228 ssh2<br>
+  Jan 12 14:44:48 jlz sshd[11084]: Accepted publickey for jlz from 76.21.0.16 port 36609 ssh2<br><br>
+  每条message的第一个token是一个时间戳，并且第三个token是一个字面量sshd,对于字面量irz和jlz他们共享同一个父节点时间戳，共享同一个孩子节点sshd, 这意味着在这两者之间的token也就是每个消息中的第二个令牌，可能表示此message类型中的变量token。在这种情况下，“irc”和“jlz”碰巧表示系统日志主机。
 - 程序命令analyze算法流程图
 
 ![img](<https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/sequence.png>)
@@ -99,37 +99,38 @@ Jan 12 14:44:48 jlz sshd[11084]: Accepted publickey for jlz from 76.21.0.16 port
 <br><br>
 
 #### 3.1.4 Drain
+
 以下为Drain的介绍，关于Sequence的具体使用，注意事项等详见[Drain说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Drain.md)
 Drain是一个日志解析工具，主要用于web service management  可以将raw log message 解析为log event
 
 下面是完整的Drain流程
-  - 预处理 <br>
-    &emsp;&emsp;新到来的log message用domain knowledge进行预处理.就是用简单的正则表达式，将log message 中的诸如IP address的token移除。
-  - 通过log message length进行搜索<br>
-​    &emsp;&emsp;得到预处理之后的log message 之后，计算token数作为log Length进入第二层节点   
-  - 通过log message前几个token进行搜索  穿过depth-2层<br>
-​    &emsp;&emsp;比如“Receive from node  4”会进入上图中的Receive节点<br>
-​    &emsp;&emsp;为了防止分支爆炸，将所有数字匹配到一个独特的节点“*”中   并且当达到maxChild之后，其他未能匹配的log message全部去匹配“*”  <br>
-​    &emsp;&emsp;如果未匹配且未达到maxChild   创建对应节点
-  - 通过相同的token搜索<br>
-    &emsp;&emsp;​经过之前的步骤，现在已经到了一个叶子节点<br>
-    &emsp;&emsp;这一步要去从log group list中选择要将message归于那个group<br>
-    &emsp;&emsp;计算simSeq<br>
-    ![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/Drain1.png) <br>
-    &emsp;&emsp;Seq1(i)和seq2(i)分别代表log message和log event的第i个token<br>
-    &emsp;&emsp;Log event 应该是指每个group的pattern   n为log length比较log message和每个group的log event的token是否一样<br>
-​       ![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/Drain2.png)<br>
-     &emsp;&emsp;比较simSeq是否超过阈值st<br>
-     &emsp;&emsp;若超过，返回simSeq最高的group<br>
-     &emsp;&emsp;若没有超过 返回一个flag(eg None in python)<br>
 
-  - 更新解析树
-    - 如果在第四步中匹配成功<br>
-​        &emsp;&emsp;将log ID加入group的log IDs,更新log event 扫描log message和log event，如果相同位置的token相同，则不做修改，如果不同，用通配符(wildcard)即”*”更新那个位置
-    - 如果在第四步中没匹配成功<br>
-       &emsp;&emsp;创建一个新的log group  log IDs仅仅包含这个message logID <br>
-       &emsp;&emsp;Log event 就是log message 
-<br><br>
+- 预处理 <br>
+  &emsp;&emsp;新到来的log message用domain knowledge进行预处理.就是用简单的正则表达式，将log message 中的诸如IP address的token移除。
+- 通过log message length进行搜索<br>
+  &emsp;&emsp;得到预处理之后的log message 之后，计算token数作为log Length进入第二层节点   
+- 通过log message前几个token进行搜索  穿过depth-2层<br>
+  &emsp;&emsp;比如“Receive from node  4”会进入上图中的Receive节点<br>
+  &emsp;&emsp;为了防止分支爆炸，将所有数字匹配到一个独特的节点“*”中   并且当达到maxChild之后，其他未能匹配的log message全部去匹配“*”  <br>
+  &emsp;&emsp;如果未匹配且未达到maxChild   创建对应节点
+- 通过相同的token搜索<br>
+  &emsp;&emsp;经过之前的步骤，现在已经到了一个叶子节点<br>
+  &emsp;&emsp;这一步要去从log group list中选择要将message归于那个group<br>
+  &emsp;&emsp;计算simSeq<br>
+  ![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/Drain1.png) <br>
+  &emsp;&emsp;Seq1(i)和seq2(i)分别代表log message和log event的第i个token<br>
+  &emsp;&emsp;Log event 应该是指每个group的pattern   n为log length比较log message和每个group的log event的token是否一样<br>
+     ![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/Drain2.png)<br>
+   &emsp;&emsp;比较simSeq是否超过阈值st<br>
+   &emsp;&emsp;若超过，返回simSeq最高的group<br>
+   &emsp;&emsp;若没有超过 返回一个flag(eg None in python)<br>
+- 更新解析树
+  - 如果在第四步中匹配成功<br>
+    &emsp;&emsp;将log ID加入group的log IDs,更新log event 扫描log message和log event，如果相同位置的token相同，则不做修改，如果不同，用通配符(wildcard)即”*”更新那个位置
+  - 如果在第四步中没匹配成功<br>
+    &emsp;&emsp;创建一个新的log group  log IDs仅仅包含这个message logID <br>
+    &emsp;&emsp;Log event 就是log message 
+    <br><br>
 
 #### 3.1.5 Louvain社区发现算法
 
@@ -146,24 +147,40 @@ Louvain社区发现算法是一种基于图论的聚类算法，Louvain算法思
 模型一是通过每条log的key值来对日志的异常与否进行判断。该模型的训练数据是从日志文件中提取出来的每条日志的key值数字化以后的一系列数字流，每个key值都有对应的正常（1）或异常（0）标签。我们选取正常日志的key值流来对模型一进行训练。
 
 - 原理<br>
-&emsp;&emsp;该模型可被视作一个多分类模型，每一个不同的log key代表了不同的类。令K={k1, k2, …, kn}，代表的是从日志中提取出来的不同的log key值的集合。<br>
-&emsp;&emsp;原始日志的key值流反映了被测系统的特定的事件执行顺序和状态，利用这个特点可以基于LSTM神经网络训练一个基于上下文的异常日志检测模型。设mi是日志的key值流中出现在i位置的log key，则miK，且mi的值对之前出现的key值流有很强的依赖性，设mt为我们要进行异常检测的log key，我们取一个长度为h的窗口，w = {mt-h, …, mt-2, mt-1}，则mt的值可以由w中的值来进行预测，将预测结果与mt的实际值进行比对，便能判断mt是否正常。
+  &emsp;&emsp;该模型可被视作一个多分类模型，每一个不同的log key代表了不同的类。令K={k1, k2, …, kn}，代表的是从日志中提取出来的不同的log key值的集合。<br>
+  &emsp;&emsp;原始日志的key值流反映了被测系统的特定的事件执行顺序和状态，利用这个特点可以基于LSTM神经网络训练一个基于上下文的异常日志检测模型。设mi是日志的key值流中出现在i位置的log key，则miK，且mi的值对之前出现的key值流有很强的依赖性，设mt为我们要进行异常检测的log key，我们取一个长度为h的窗口，w = {mt-h, …, mt-2, mt-1}，则mt的值可以由w中的值来进行预测，将预测结果与mt的实际值进行比对，便能判断mt是否正常。
 
 - 模型结构<br>
-&emsp;&emsp;模型一为多层Lstm结构，下面是模型结构图：<br>
-![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/model1/model1_structure.png)
+  &emsp;&emsp;模型一为多层Lstm结构，下面是模型结构图：<br>
+  ![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/model1/model1_structure.png)
+
+  ```python
+  class Model(nn.Module):
+      def __init__(self, input_size, hidden_size, num_of_layers, num_of_keys):
+          super(Model, self).__init__()
+          self.hidden_size = hidden_size
+          self.num_of_layers = num_of_layers
+          self.lstm = nn.LSTM(input_size, hidden_size, num_of_layers, batch_first=True)
+          self.fc = nn.Linear(hidden_size, num_of_keys)
+  ```
 
 - 训练阶段<br>
-&emsp;&emsp;供训练的log key值流会被分成长度为h的子流，每个子流包含两部分含义：历史log key值流和当前log key值。例如，有一个正常的log key值流为{k23, k6, k12, k5, k26, k12}，设窗口长度h=3，则训练数据将被分成如下形式：{k23, k6, k12 -> k5}, {k6, k12, k5 -> k26}, {k12, k5, k26 -> k12}。
+  &emsp;&emsp;供训练的log key值流会被分成长度为h的子流，每个子流包含两部分含义：历史log key值流和当前log key值。例如，有一个正常的log key值流为{k23, k6, k12, k5, k26, k12}，设窗口长度h=3，则训练数据将被分成如下形式：{k23, k6, k12 -> k5}, {k6, k12, k5 -> k26}, {k12, k5, k26 -> k12}。
+
+  对应训练的数据处理的函数为
+
+  ```python
+  def generate_logkey_label(file_path):
+  ```
 
 - 检测阶段<br>
-&emsp;&emsp;为了检测一个log key （mt）是否异常，将向模型输入mt之前的h个log值流w={mt-h, …, mt-1}，输出输出是一个条件概率分布结果<br>
-&emsp;&emsp; Pr[mt = ki | w ] = { k1: p1, k2: p2, …, kn: pn }，ki属于K( I = 1, …, n )<br>
-&emsp;&emsp;若概率最高的前g个候选值中包含了mt，则mt被视为正常，否则为异常。
+  &emsp;&emsp;为了检测一个log key （mt）是否异常，将向模型输入mt之前的h个log值流w={mt-h, …, mt-1}，输出输出是一个条件概率分布结果<br>
+  &emsp;&emsp; Pr[mt = ki | w ] = { k1: p1, k2: p2, …, kn: pn }，ki属于K( I = 1, …, n )<br>
+  &emsp;&emsp;若概率最高的前g个候选值中包含了mt，则mt被视为正常，否则为异常。
 
 - 模型一的工作过程如下图所示：<br>
-![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/model1/model1_flow.png)
-<br><br>
+  ![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/model1/model1_flow.png)
+  <br><br>
 
 ### 3.3 Model2：parameter value anomaly detection model for each log key 算法设计
 
@@ -173,16 +190,31 @@ Louvain社区发现算法是一种基于图论的聚类算法，Louvain算法思
 
 ![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/model2/model2_value.png)
 
-
 - 模型结构<br>
-&emsp;&emsp;模型二为多层Lstm结构，下面是模型结构图：<br>
-![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/model2/model2_structure.png)
+  &emsp;&emsp;模型二为多层Lstm结构，下面是模型结构图：<br>
+  ![img](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/pics/model2/model2_structure.png)
+
+  ```python
+  class Model(nn.Module):
+      def __init__(self, input_size, hidden_size, num_of_layers, out_size):
+          super(Model, self).__init__()
+          self.hidden_size = hidden_size
+          self.num_of_layers = num_of_layers
+          self.lstm = nn.LSTM(input_size, hidden_size, num_of_layers, batch_first=True)
+          self.fc = nn.Linear(hidden_size, out_size)
+  ```
 
 - 训练阶段<br>
-&emsp;&emsp;由于针对于每个log key，其parameter value vector同时间序列有关，例如，对于k2，构造出来的用于训练的向量集可表示如下：{[t2 – t1, 0.2], [t2’ – t1’, 0.7], … … }，因此我们可以再次利用LSTM来搭建用于训练的神经网络。在对训练数据进行预处理的时候，需要对数据进行归一化处理，我们的处理办法是：对于属于同一个log key的所有参数值向量，将在同一位置出现的参数值（parameter value），通过计算均值和标准差，用Z-score标准化方法对数据进行归一化处理。模型二的输出是一个对于下一个参数值向量的预测。该预测结果以之前的历史日志数据为基础，是一个向量。这里我们也能用到模型一中窗口长度的思想来对模型进行训练。
+  &emsp;&emsp;由于针对于每个log key，其parameter value vector同时间序列有关，例如，对于k2，构造出来的用于训练的向量集可表示如下：{[t2 – t1, 0.2], [t2’ – t1’, 0.7], … … }，因此我们可以再次利用LSTM来搭建用于训练的神经网络。在对训练数据进行预处理的时候，需要对数据进行归一化处理，我们的处理办法是：对于属于同一个log key的所有参数值向量，将在同一位置出现的参数值（parameter value），通过计算均值和标准差，用Z-score标准化方法对数据进行归一化处理。模型二的输出是一个对于下一个参数值向量的预测。该预测结果以之前的历史日志数据为基础，是一个向量。这里我们也能用到模型一中窗口长度的思想来对模型进行训练。
+
+  ​	对应训练的数据处理的函数为
+
+  ```python
+  def generate_value_label(file_path):
+  ```
 
 - 检测阶段<br>
-&emsp;&emsp;在利用模型二对日志的异常与否进行检测的时候，我们采用均方误差(Mean square error, MSE)的方法来计算预测出来的向量和真实的向量之间的差异。在这里判断一条日志是否是异常的时候，我们并没有设置阈值来判断。我们的方法是：将训练数据分为训练集（training set）和验证集 (validation set)两部分，用训练集来训练我们的模型，而对于验证集中的每个参数值向量v，利用训练出来的模型计算预测出的参数值向量（该预测结果需要用到该验证集中位于每个v之前的向量）和v之间的MSE。在每一个时间步中，使用验证集得到的这些MSE服从高斯分布。于是，在进行异常检测的时候，如果预测参数值向量和真实参数值向量之间的MSE位于得到的高斯分布的置信区间内，则该日志是正常的，否则被视为异常。
+  &emsp;&emsp;在利用模型二对日志的异常与否进行检测的时候，我们采用均方误差(Mean square error, MSE)的方法来计算预测出来的向量和真实的向量之间的差异。在这里判断一条日志是否是异常的时候，我们并没有设置阈值来判断。我们的方法是：将训练数据分为训练集（training set）和验证集 (validation set)两部分，用训练集来训练我们的模型，而对于验证集中的每个参数值向量v，利用训练出来的模型计算预测出的参数值向量（该预测结果需要用到该验证集中位于每个v之前的向量）和v之间的MSE。在每一个时间步中，使用验证集得到的这些MSE服从高斯分布。于是，在进行异常检测的时候，如果预测参数值向量和真实参数值向量之间的MSE位于得到的高斯分布的置信区间内，则该日志是正常的，否则被视为异常。
 
 综上，综合模型一和模型二，异常检测的作过程如下图所示：
 
@@ -190,8 +222,8 @@ Louvain社区发现算法是一种基于图论的聚类算法，Louvain算法思
 
 <br><br>
 
-
 ### 3.4 Workflow算法设计
+
 以下为Workflow算法介绍，关于Workflow的具体使用，注意事项等详见[Workflow说明文档](https://github.com/XLab-Tongji/LogAnalysis/blob/master/Docs/Workflow.md)
 
 #### 3.4.1 将数据从文件读取到dataset中
@@ -256,7 +288,7 @@ data_tree则是由多个Node组成的一个列表。
 
   我们将会使用next_pattern3进行并发事件检查，使用next_pattern进行新任务检查
 
-####  3.4.3 检查并发事件
+#### 3.4.3 检查并发事件
 
 对应函数为：
 
@@ -268,7 +300,9 @@ def checkConcurrency(window_size,type_num):
 
 遍历data_tree中每一个结点data_tree[i]:
 
-	若data_tree[i]的next_pattern3为[[1,2,3],[3,2,4],[2,1,3]]，则[1,2,3]与[2,1,3]中的事件2与事件1就是一组并发事件，即存在j，k满足：
+```
+若data_tree[i]的next_pattern3为[[1,2,3],[3,2,4],[2,1,3]]，则[1,2,3]与[2,1,3]中的事件2与事件1就是一组并发事件，即存在j，k满足：
+```
 
 ```
 if (data_tree[i].next_pattern3[j][0] == data_tree[i].next_pattern3[k][1]) and \
@@ -298,7 +332,7 @@ def checkNewTask(window_size,type_num):
 
 所以对dataset中所有data_tree[0].base_pattern后跟随2 3 4 7的模式，在2 3 4 7前作截断。对dataset中所有data_tree[0].base_pattern后跟随1 5 6的模式，认为这是一个正常任务流，不做处理。
 
-####  3.4.5 输出，重构dataset
+#### 3.4.5 输出，重构dataset
 
 对应函数为：
 
