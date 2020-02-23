@@ -1,12 +1,10 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
 import torch
-import torch.nn as nn
 import time
 from enum import Enum
-from Model1.log_key_LSTM_train import Model as Model1
-from Model2.variable_LSTM_train import Model as Model2
-import argparse
+from anomalydetection.deeplog.Model1.log_key_LSTM_train import Model as Model1
+from anomalydetection.deeplog.Model2.variable_LSTM_train import Model as Model2
 import torch.nn as nn
 import os
 import matplotlib.pyplot as plt
