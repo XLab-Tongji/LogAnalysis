@@ -307,12 +307,12 @@ sub find_frequent_words {
     $fh = open_input_file($ifile);
 
     while (<$fh>) {
-      $line = process_line($_);
+      $line = process_line($_);      #读取一行日志
       if (!defined($line)) { next; }
-      ++$i;
-      @words = split(/$sepregexp/, $line);
-      %words = map { $_ => 1 } @words;
-      @words = keys %words;
+      ++$i;                           #i记录行数
+      @words = split(/$sepregexp/, $line); #用正则表达式拆分
+      %words = map { $_ => 1 } @words;  #把所有word 次数记为1放到%word哈希 
+      @words = keys %words;    #将words所有的键读取到words数组中
       if (defined($wsize)) {
         foreach $word (@words) {
           $index = hash_string($word);
@@ -332,7 +332,7 @@ sub find_frequent_words {
         }
       } else {
         foreach $word (@words) { 
-          ++$fwords{$word}; 
+          ++$fwords{$word};   #fword记录高频词    找到word索引然后加加
           if (defined($wfilter) && $word =~ /$wordregexp/) {
             $word =~ s/$searchregexp/$wreplace/g;
             ++$fwords{$word};
@@ -350,7 +350,7 @@ sub find_frequent_words {
     close($fh);
   }
 
-  if (!defined($support)) { 
+  if (!defined($support)) {     #support 不为空  ！defined为假
     $support = int($rsupport * $i / 100); 
     log_msg("info", "Total $i lines read from input sources, using absolute support $support (relative support $rsupport percent)");
   }
@@ -461,7 +461,7 @@ sub build_candidate_sketch {
 
       ++$i;
 
-      @words = split(/$sepregexp/, $line);
+      @words = split(/$sepregexp/, $line);    #用正则表达式拆分
       @candidate = ();
 
       foreach $word (@words) {
@@ -602,7 +602,7 @@ sub find_candidates {
 
       if (scalar(@candidate)) {
 
-        $candidate = join("\n", @candidate);
+        $candidate = join("\n", @candidate); #把 句式用回车练成一个字符串
 
         # if the candidate sketch has been created previously, check the
         # sketch bucket that corresponds to the candidate, and if it is
@@ -627,9 +627,9 @@ sub find_candidates {
         # if the given candidate already exists, increase its support and
         # adjust its wildcard information, otherwise create a new candidate
 
-        if (!exists($candidates{$candidate})) {
+        if (!exists($candidates{$candidate})) {#如果不存在  创建新的
           $candidates{$candidate} = {};
-          $candidates{$candidate}->{"Words"} = [ @candidate ];
+          $candidates{$candidate}->{"Words"} = [ @candidate ];  #Words代表高频词序列
           $candidates{$candidate}->{"WordCount"} = scalar(@candidate);
           $candidates{$candidate}->{"Vars"} = [];
           for $varnum (@vars) {
@@ -637,7 +637,7 @@ sub find_candidates {
           }
           $candidates{$candidate}->{"Count"} = 1;
           $candidates{$candidate}->{"Log"} = {};
-          $candidates{$candidate}->{"Log"}->{$linecount} = {"filecount"=>$filecount,"infile_linecount"=>$infile_linecount};
+          $candidates{$candidate}->{"Log"}->{$linecount} = {"filecount"=>$filecount,"infile_linecount"=>$infile_linecount};  #输入每个句式所对应的文件内行数
         } else {
           $total = scalar(@vars);
           for ($index = 0; $index < $total; ++$index) {
@@ -705,7 +705,7 @@ sub find_candidates {
 
   if ($debug) {
     foreach $candidate (sort { $candidates{$b}->{"Count"} <=>
-                               $candidates{$a}->{"Count"} } keys %candidates) {
+                               $candidates{$a}->{"Count"} } keys %candidates) {       #按照Count数目排序
       print_candidate($candidate);
     }
   }
@@ -848,7 +848,7 @@ sub find_more_specific {
 
 sub aggregate_supports {
 
-  my(@keys, @keys2, $cand, $cand2,$log);
+  my(@keys, @keys2, $cand, $cand2,$log,@keys3,$max,$len,$k2,$k,$new_size);
 
   @keys = keys %candidates;
 
@@ -858,10 +858,21 @@ sub aggregate_supports {
     $candidates{$cand}->{"Count2"} = $candidates{$cand}->{"Count"};
     $candidates{$cand}->{"SubClusters"} = {};
 
-    find_more_specific($ptree, $cand, 0, 0, 0);
+    find_more_specific($ptree, $cand, 0, 0, 0);  #找到特例情况
     @keys2 = keys %{$candidates{$cand}->{"SubClusters"}};
 
-    foreach $cand2 (@keys2) {
+    $max=0;
+    foreach $k(@keys2){
+      $len=$candidates{$k}->{"WordCount"};
+      if($len>$max){
+        $max=$len;
+        $k2=$k;
+      }
+    }
+    $keys3[0]=$k2;
+    $new_size=@keys3;
+    #log_msg("info", "new_size is ",$new_size);
+    foreach $cand2 (@keys3) {
       $candidates{$cand}->{"Count2"} += $candidates{$cand2}->{"Count"};
     }
   }
@@ -870,6 +881,18 @@ sub aggregate_supports {
 
     $candidates{$cand}->{"Count"} = $candidates{$cand}->{"Count2"};
     @keys2 = keys %{$candidates{$cand}->{"SubClusters"}};
+    $max=0;
+    foreach $k(@keys2){
+      $len=$candidates{$k}->{"WordCount"};
+      if($len>$max){
+        $max=$len;
+        $k2=$k;
+      }
+    }
+    $keys3[0]=$k2;
+    $new_size=@keys3;
+    #log_msg("info", "new_size is ",$new_size);
+    @keys2=@keys3;
 
     if (scalar(@keys2)) {
 
