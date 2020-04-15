@@ -124,7 +124,7 @@ def preprocessor_hdfs_ft(cluster_directory, anomaly_file_path, wordvec_path, out
                 for f in log_cluster[i]:
                     train_file_obj.write(str(f))
                     train_file_obj.write(' ')
-                if count % 10 == 0:
+                if count % 200 == 0:
                     train_file_obj.write('\n')
                 else:
                     train_file_obj.write(', ')
@@ -138,7 +138,7 @@ def preprocessor_hdfs_ft(cluster_directory, anomaly_file_path, wordvec_path, out
                 for f in log_cluster[i]:
                     test_file_obj.write(str(f))
                     test_file_obj.write(' ')
-                if count % 10 == 0:
+                if count % 200 == 0:
                     test_file_obj.write('\n')
                 else:
                     test_file_obj.write(', ')

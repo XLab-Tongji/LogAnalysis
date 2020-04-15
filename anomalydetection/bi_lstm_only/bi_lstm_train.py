@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+# -*- coding: UTF-8 -*-
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -18,31 +19,16 @@ class Model(nn.Module):
         self.hidden_size = hidden_size
         self.num_of_layers = num_of_layers
         self.lstm = nn.LSTM(input_size, hidden_size, num_of_layers, batch_first=True, bidirectional=if_bidirectional)
+        self.fc = nn.Linear(hidden_size*2, out_size)
+        self.batch_size = batch_size
         if if_bidirectional:
             self.num_of_directions = 2
         else:
             self.num_of_directions = 1
-        self.fc = nn.Linear(hidden_size*self.num_of_directions, out_size)
-        self.batch_size = batch_size
 
-        self.att_weight = nn.Parameter(torch.randn(1, 1, self.hidden_size*self.num_of_directions))
 
         # self.out = nn.Linear(in_features=in_features, out_features=out_features)
 
-# att BiLSTM paper actually H is different from the paper in paper H = hf + hb
-    def attention_net(self, H):
-        # print(H.size()) = [batch, numdirec*hidden, seqlen]
-        M = F.tanh(H)
-        a = F.softmax(torch.matmul(self.att_weight, M), 2)
-        a = torch.transpose(a, 1, 2)
-        return torch.bmm(H, a)
-
-    def robust_attention_net(self, H):
-        # print(H.size()) = [batch, numdirec*hidden, seqlen]
-        M = torch.matmul(self.att_weight, H)
-        a = F.tanh(M)
-        a = torch.transpose(a, 1, 2)
-        return torch.bmm(H, a)
 
     def init_hidden(self, size):
         # size self.batch_size same
@@ -54,14 +40,10 @@ class Model(nn.Module):
         # h_n: hidden state h of last time step
         # c_n: hidden state c of last time step
         out, _ = self.lstm(input, self.init_hidden(input.size(0)))
-
-        # out = torch.transpose(out, 0, 1)
         # out shape [batch, seqlen, numdirec*hidden]
-        out = torch.transpose(out, 1, 2)
-        # out shape [batch, numdirec*hidden, seqlen]
-        att_out = self.robust_attention_net(out)
-
-        out = self.fc(att_out[:, :, 0])
+        out = out[:, -1, :]
+        # tmp1, tmp2 = out.split(self.hidden_size, 1)
+        out = self.fc(out)
         # print('out[:, -1, :]:')
         # print(out)
         return out
