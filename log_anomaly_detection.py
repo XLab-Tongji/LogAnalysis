@@ -1,5 +1,4 @@
-from extractfeature.k8s import log_preprocessor
-from extractfeature.k8s import value_extract
+
 import os
 from logparsing.fttree import fttree
 from extractfeature import hdfs_ft_preprocessor
@@ -79,9 +78,9 @@ def test_model():
     #log_anomaly_sequential_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, window_length, model_out_path + 'Adam_batch_size=200;epoch=200.pt', sequential_directory + label_file_name, sequential_directory + test_file_name, 3, pattern_vec_file)
     bi_lstm_att_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, window_length, model_out_path + 'Adam_batch_size=200;epoch=200.pt', sequential_directory + label_file_name, sequential_directory + test_file_name, 3, pattern_vec_file)
 
-
-#extract_feature()
-#train_model()
+pattern_extract()
+extract_feature()
+train_model()
 test_model()
 
 # deep log

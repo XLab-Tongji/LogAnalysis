@@ -3,29 +3,10 @@ import torch.nn as nn
 import torch.optim as optim
 from tensorboardX import SummaryWriter
 from torch.utils.data import TensorDataset, DataLoader
-import argparse
 import os
-from . import *
 
 # use cuda if available  otherwise use cpu
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-# train parameters
-window_length = 4
-input_size = 1
-hidden_size = 20
-num_of_layers = 3
-root_path = "../Data/LogClusterResult-k8s/"
-
-model_output_directory = root_path + 'output/model1'
-log_directory = root_path + 'output/log1'
-
-num_epochs = 1000  # 300
-batch_size = 200  # 2048
-log_template = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs)
-train_file_name = 'logkey/logkey_train'
-data_file = root_path + train_file_name
-
 
 class Model(nn.Module):
     def __init__(self, input_size, hidden_size, num_of_layers, num_of_keys):
@@ -45,7 +26,7 @@ class Model(nn.Module):
         return out
 
 
-def generate_seq_label(file_path):
+def generate_seq_label(file_path,window_length):
     num_of_sessions = 0
     input_data, output_data = [], []
     with open(file_path, 'r') as file:
@@ -59,24 +40,16 @@ def generate_seq_label(file_path):
     return data_set
 
 
-if __name__ == '__main__':
-
-    parser = argparse.ArgumentParser()
-
-    parser.add_argument('-num_of_layers', default=num_of_layers, type=int)
-    parser.add_argument('-hidden_size', default=hidden_size, type=int)
-    parser.add_argument('-window_length', default=window_length, type=int)
-
-    args = parser.parse_args()
-
-    num_of_layers = args.num_of_layers
-    hidden_size = args.hidden_size
-    window_length = args.window_length
-
-    num_classes = len(os.listdir(root_path + 'clusters/')) + 2
+def train_model1(model_dir,log_preprocessor_dir,log_fttree_out_dir,num_epochs,batch_size,window_length,input_size,hidden_size,num_of_layers):
+    model_output_directory = model_dir + 'model1'
+    log_directory = model_dir + 'log1'
+    log_template = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs)
+    train_file_name = log_preprocessor_dir+'logkey/logkey_train'
+    data_file = train_file_name
+    num_classes = len(os.listdir(log_fttree_out_dir)) + 2
     print("Train num_classes: ", num_classes)
     model = Model(input_size, hidden_size, num_of_layers, num_classes).to(device)
-    sequence_data_set = generate_seq_label(data_file)
+    sequence_data_set = generate_seq_label(data_file,window_length)
     data_loader = DataLoader(sequence_data_set, batch_size=batch_size, shuffle=True, pin_memory=True)
     writer = SummaryWriter(logdir = log_directory + '/' + log_template)
 

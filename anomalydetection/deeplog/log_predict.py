@@ -12,18 +12,7 @@ import matplotlib.pyplot as plt
 # use cuda if available  otherwise use cpu
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# store the value vector of all logs as a two-dimensional array. The first dimension is the number of log_key, and the second dimension is the index.
-# For example, pattern2value [1] [2] represents the value vector of the second log of the first log_key
 pattern2value = []
-window_length = 4
-input_size1 = 1
-num_candidates = 3
-
-RootPath = "./Data/LogClusterResult-k8s/"
-log_address = "./k8s/k8s_abnormal.log"
-abnormal_label_file = './k8s/k8s_label.txt'
-mse_threshold = 0.1
-
 
 # 继承枚举类
 class LineNumber(Enum):
@@ -31,7 +20,7 @@ class LineNumber(Enum):
     NUMBERS_LINE = 3
 
 
-def generate(name):
+def generate(name,window_length):
     log_keys_sequences = list()
     with open(name, 'r') as f:
         for line in f.readlines():
@@ -43,45 +32,40 @@ def generate(name):
     return log_keys_sequences
 
 
-def value_log_cluster():
-    log_value_folder_cluster = RootPath + 'logvalue/logvalue_abnormal/'
+def value_log_cluster(log_preprocessor_dir):
+    log_value_folder_cluster = log_preprocessor_dir + 'logvalue_test/'
     file_names = os.listdir(log_value_folder_cluster)
-    pattern_key = 0
     pattern2value.append([])
     for i in range(len(file_names)):
         pattern2value.append([])
-        with open(log_value_folder_cluster + str(i+1) + ".log", 'r') as in_text:
+        with open(log_value_folder_cluster + str(i+1) + ".txt", 'r') as in_text:
             for line in in_text.readlines():
                 line = list(map(lambda n: n, map(float, line.strip().split())))
                 pattern2value[i+1].append(line)
 
 
-def load_model1():
-    hidden_size = 20
-    num_layers = 3
+def load_model1(model_dir,input_size, hidden_size, num_layers):
     num_classes = len(pattern2value) + 1
     print("Model1 num_classes: ", num_classes)
-    model_dir = RootPath + 'output/model1/'
-    model_path = model_dir + 'Adam_batch_size=200;epoch=1000.pt'
-    model1 = Model1(input_size1, hidden_size, num_layers, num_classes).to(device)
+    model1_dir = model_dir + 'model1/'
+    model_path = model1_dir + 'Adam_batch_size=200;epoch=300.pt'
+    model1 = Model1(input_size, hidden_size, num_layers, num_classes).to(device)
     model1.load_state_dict(torch.load(model_path, map_location='cpu'))
     model1.eval()
     print('model_path: {}'.format(model_path))
     return model1
 
 
-def load_model2():
-    model2_dir = RootPath + 'output/model2/'
+def load_model2(model_dir,input_size, hidden_size, num_layers):
+    model2_dir = model_dir+ 'model2/'
     model2 = []
     for i in range(len(pattern2value)):
-        hidden_size = 20  # 64
-        num_layers = 3  # 2
         if len(pattern2value[i]) == 0:
             model2.append(None)
             continue
         input_size = len(pattern2value[i][0])
         out_size = input_size
-        model_name = str(i+1) + '_epoch=300.pt'
+        model_name = str(i+1) + '_epoch=50.pt'
         model_path = model2_dir + str(i+1) + '/' + model_name
         if not os.path.exists(model_path):
             model2.append(None)
@@ -106,11 +90,12 @@ def draw_evaluation(title, indexs, values, xlabel, ylabel):
     plt.show()
 
 
-if __name__ == '__main__':
+def do_predict(log_preprocessor_dir,model_dir,window_length,input_size, hidden_size, num_layers,num_candidates,mse_threshold):
+    abnormal_label_file = log_preprocessor_dir + 'HDFS_abnormal_label.txt'
 
-    value_log_cluster()
-    model1 = load_model1()
-    model2 = load_model2()
+    value_log_cluster(log_preprocessor_dir)
+    model1 = load_model1(model_dir,input_size, hidden_size, num_layers)
+    model2 = load_model2(model_dir,input_size, hidden_size, num_layers)
 
     # for Model2's prediction, store which log currently predicts for each log_key.
     # When model one predicts normal, model2 makes predictions.
@@ -124,7 +109,7 @@ if __name__ == '__main__':
     TN = 0
     FN = 0
     ALL = 0
-    abnormal_loader = generate(RootPath + 'logkey/logkey_abnormal')
+    abnormal_loader = generate(log_preprocessor_dir+ 'logkey/logkey_test',window_length)
     abnormal_label = []
     with open(abnormal_label_file) as f:
         abnormal_label = [int(x) for x in f.readline().strip().split()]
@@ -143,7 +128,7 @@ if __name__ == '__main__':
                 count_num += 1
                 seq = line[i:i + window_length]
                 label = line[i + window_length]
-                seq = torch.tensor(seq, dtype=torch.float).view(-1, window_length, input_size1).to(device)
+                seq = torch.tensor(seq, dtype=torch.float).view(-1, window_length, input_size).to(device)
                 label = torch.tensor(label).view(-1).to(device)
                 output = model1(seq)
                 predicted = torch.argsort(output, 1)[0][-num_candidates:]
@@ -165,6 +150,11 @@ if __name__ == '__main__':
                         TN += 1
                     else:
                         FN += 1
+                # else:
+                #     if lineNum in abnormal_label:
+                #         FP += 1
+                #     else:
+                #         TP += 1
                 else:
                     # When model one predicts normal, model2 makes predictions.
                     # values：all log's value vector belongs to log_key（whose id is pattern_id）
@@ -182,7 +172,7 @@ if __name__ == '__main__':
                             # Calculate the MSE of the prediction result and the original result.
                             # If the MSE is within the confidence interval of the Gaussian distribution, the log is a normal log
                             mse = criterion(output[0], label2.to(device))
-                        
+
                         if mse < mse_threshold:
                             print(mse, mse_threshold)
                             if lineNum in abnormal_label:

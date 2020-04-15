@@ -6,33 +6,10 @@ import torch.nn as nn
 import torch.optim as optim
 from tensorboardX import SummaryWriter
 from torch.utils.data import TensorDataset, DataLoader
-import argparse
 import os
-import random
-import numpy as np
-import matplotlib.mlab as mlab
-import matplotlib.pyplot as plt
 
 # use cuda if available  otherwise use cpu
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-# Hyper parameters
-window_length = 4
-hidden_size = 20
-num_of_layers = 3
-# For variable model，input size is the length of each log key's variable vector
-# input_size = 2
-num_epochs = 300
-batch_size = 20  # 2048
-# in_features = 10
-# out_features = in_features
-
-learning_rate = 0.01
-root_path = '../Data/LogClusterResult-k8s/'
-log_value_folder = root_path + 'logvalue/logvalue_train/'
-model_output_directory = root_path + 'output/model2/'
-log_template = 'model2_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs)
-
 
 class Model(nn.Module):
     def __init__(self, input_size, hidden_size, num_of_layers, out_size):
@@ -58,13 +35,15 @@ class Model(nn.Module):
         return out
 
 
-def generate_seq_label(file_path):
+def generate_seq_label(file_path,num_of_layers,window_length):
     num_sessions = 0
     inputs = []
     outputs = []
     vectors = []
+    flag = 0
     with open(file_path, 'r') as f:
-        for line in f.readlines():
+        x = f.readlines()
+        for line in x:
             num_sessions += 1
             line = tuple(map(lambda n: n, map(float, line.strip().split())))
             vectors.append(line)
@@ -72,43 +51,41 @@ def generate_seq_label(file_path):
             # eg: [log_vector1, log_vector2, log_vector3] --> log_vector4
             # so each element of inputs is a sequence，and each element of that sequence is a sequence too
             # nn's output is the prediction of parameter value vector
+        if len(x) < 2*num_of_layers:
+            flag = 1
     for i in range(len(vectors) - window_length):
         inputs.append(vectors[i: i + window_length])
         outputs.append(vectors[i + window_length])
     # print(inputs)
     # print(inputs[0])
     data_set = TensorDataset(torch.tensor(inputs, dtype=torch.float), torch.tensor(outputs))
-    if len(vectors) > 0:
+    if len(vectors) > 0 and flag==0:
         return data_set, len(vectors[0])
     else:
         return None, 0
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-num_layers', default=3, type=int)
-    parser.add_argument('-hidden_size', default=20, type=int)
-    parser.add_argument('-window_size', default=2, type=int)
-    args = parser.parse_args()
-    num_of_layers = args.num_layers
-    hidden_size = args.hidden_size
-    window_length = args.window_size
+def train_model2(model_dir,log_preprocessor_dir,num_epochs,batch_size,window_length,num_of_layers,learning_rate,hidden_size):
+    log_value_folder = log_preprocessor_dir + 'logvalue_train/'
+    model_output_directory = model_dir + 'model2/'
+    log_template = 'model2_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs)
     file_names = os.listdir(log_value_folder)
     for i in range(len(file_names)):
-        file_name = str(i+1) + ".log"
+        print(i)
+        file_name = str(i+1) + ".txt"
         train_data_set_name = log_value_folder + file_name
         validation_data_set_name = train_data_set_name
 
-        train_data_set, input_size = generate_seq_label(train_data_set_name)
+        train_data_set, input_size = generate_seq_label(train_data_set_name,num_of_layers,window_length)
         if input_size == 0:
             continue
         train_data_loader = DataLoader(train_data_set, batch_size=batch_size, shuffle=True, pin_memory=True)
-        validation_data_set, _ = generate_seq_label(validation_data_set_name)
+        validation_data_set, _ = generate_seq_label(validation_data_set_name,num_of_layers,window_length)
         validation_data_loader = DataLoader(validation_data_set, batch_size=batch_size, shuffle=True, pin_memory=True)
         out_size = input_size
         model = Model(input_size, hidden_size, num_of_layers, out_size).to(device)
         
-        writer = SummaryWriter(logdir =root_path + '/output/log2/' + str(i + 1) + '_' + log_template)
+        writer = SummaryWriter(logdir =model_dir + 'log2/' + str(i + 1) + '_' + log_template)
 
         # Loss and optimizer
         criterion = nn.MSELoss()  # use to predict
@@ -143,8 +120,8 @@ if __name__ == '__main__':
                 loss_list.append(loss.item())
             print('Epoch [{}/{}], training_loss: {:.4f}'.format(epoch + 1, num_epochs, train_loss / len(train_data_loader.dataset)))
             writer.add_scalar('train_loss', train_loss / len(train_data_loader.dataset), epoch + 1)
-            # save every 100 epoch
-            if (epoch + 1) % 100 == 0:
+            # save every 50 epoch
+            if (epoch + 1) % 50 == 0:
                 save_path = model_output_directory + str(i + 1)
                 if not os.path.isdir(save_path):
                     os.makedirs(save_path)
