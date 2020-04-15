@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 from extractfeature.k8s import log_preprocessor
 from extractfeature.k8s import value_extract
 import os
@@ -5,8 +6,8 @@ from logparsing.fttree import fttree
 from extractfeature import hdfs_ft_preprocessor
 from anomalydetection.loganomaly import log_anomaly_sequential_train
 from anomalydetection.loganomaly import log_anomaly_sequential_predict
-from anomalydetection.robust import bi_lstm_att_train
-from anomalydetection.robust import bi_lstm_att_predict
+from anomalydetection.bi_lstm_only import bi_lstm_train
+from anomalydetection.bi_lstm_only import bi_lstm_predict
 
 # parameters for early prepare
 log_file_dir = './Data/log/hdfs/'
@@ -24,7 +25,7 @@ split_degree = 0.2
 # log file line used  which is also used in ./Data/log/file_split
 log_line_num = 200000
 
-# log anomaly sequential model parameters some parameter maybe changed to train similar models
+# bi lstm only model parameters
 window_length = 4
 input_size = 300
 hidden_size = 30
@@ -32,12 +33,9 @@ num_of_layers = 2
 num_of_classes = 61
 num_epochs = 200
 batch_size = 200
-# for log anomaly
-#train_root_path = './Data/FTTreeResult-HDFS/model_train/'
-#model_out_path = train_root_path + 'model_out/'
-# for robust attention bi
-train_root_path = './Data/FTTreeResult-HDFS/att_bi_model_train/'
-model_out_path = train_root_path + 'att_bi_model_out/'
+# for bi lstm only
+train_root_path = './Data/FTTreeResult-HDFS/bi_model_train/'
+model_out_path = train_root_path + 'bi_model_out/'
 data_file = sequential_directory + train_file_name
 pattern_vec_file = pattern_vec_out_path
 
@@ -71,13 +69,13 @@ def extract_feature_test():
 
 def train_model():
     #log_anomaly_sequential_train.train_model(window_length, input_size, hidden_size, num_of_layers, num_of_classes, num_epochs, batch_size, train_root_path, model_out_path, data_file, pattern_vec_file)
-    bi_lstm_att_train.train_model(window_length, input_size, hidden_size, num_of_layers, num_of_classes, num_epochs, batch_size, train_root_path, model_out_path, data_file, pattern_vec_file)
+    bi_lstm_train.train_model(window_length, input_size, hidden_size, num_of_layers, num_of_classes, num_epochs, batch_size, train_root_path, model_out_path, data_file, pattern_vec_file)
 
 
 def test_model():
     # do something
     #log_anomaly_sequential_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, window_length, model_out_path + 'Adam_batch_size=200;epoch=200.pt', sequential_directory + label_file_name, sequential_directory + test_file_name, 3, pattern_vec_file)
-    bi_lstm_att_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, window_length, model_out_path + 'Adam_batch_size=200;epoch=200.pt', sequential_directory + label_file_name, sequential_directory + test_file_name, 3, pattern_vec_file)
+    bi_lstm_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, window_length, model_out_path + 'Adam_batch_size=200;epoch=200.pt', sequential_directory + label_file_name, sequential_directory + test_file_name, 3, pattern_vec_file)
 
 
 #extract_feature()

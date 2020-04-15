@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+# regularization waiting for heliren sparse
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -13,7 +14,7 @@ from torch.autograd import Variable
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 class Model(nn.Module):
-    def __init__(self, input_size, hidden_size, num_of_layers, out_size, if_bidirectional, batch_size):
+    def __init__(self, input_size, hidden_size, num_of_layers, out_size, if_bidirectional, sequen_len):
         super(Model, self).__init__()
         self.hidden_size = hidden_size
         self.num_of_layers = num_of_layers
@@ -23,24 +24,16 @@ class Model(nn.Module):
         else:
             self.num_of_directions = 1
         self.fc = nn.Linear(hidden_size*self.num_of_directions, out_size)
-        self.batch_size = batch_size
 
         self.att_weight = nn.Parameter(torch.randn(1, 1, self.hidden_size*self.num_of_directions))
+        self.att_bias = nn.Parameter(torch.randn(1, 1, sequen_len))
 
         # self.out = nn.Linear(in_features=in_features, out_features=out_features)
 
-# att BiLSTM paper actually H is different from the paper in paper H = hf + hb
+# l1 regularization will add later
     def attention_net(self, H):
         # print(H.size()) = [batch, numdirec*hidden, seqlen]
-        M = F.tanh(H)
-        a = F.softmax(torch.matmul(self.att_weight, M), 2)
-        a = torch.transpose(a, 1, 2)
-        return torch.bmm(H, a)
-
-    def robust_attention_net(self, H):
-        # print(H.size()) = [batch, numdirec*hidden, seqlen]
-        M = torch.matmul(self.att_weight, H)
-        a = F.tanh(M)
+        a = F.softmax(torch.matmul(self.att_weight, H) + self.att_bias, 2)
         a = torch.transpose(a, 1, 2)
         return torch.bmm(H, a)
 
@@ -59,7 +52,7 @@ class Model(nn.Module):
         # out shape [batch, seqlen, numdirec*hidden]
         out = torch.transpose(out, 1, 2)
         # out shape [batch, numdirec*hidden, seqlen]
-        att_out = self.robust_attention_net(out)
+        att_out = self.attention_net(out)
 
         out = self.fc(att_out[:, :, 0])
         # print('out[:, -1, :]:')
@@ -98,7 +91,7 @@ def train_model(window_length, input_size, hidden_size, num_of_layers, num_of_cl
     log_template = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs)
 
     print("Train num_classes: ", num_of_classes)
-    model = Model(input_size, hidden_size, num_of_layers, num_of_classes, True, batch_size).to(device)
+    model = Model(input_size, hidden_size, num_of_layers, num_of_classes, False, window_length).to(device)
     # create data set
     sequence_data_set = generate_seq_label(data_file, window_length, pattern_vec_file)
     # create data_loader
