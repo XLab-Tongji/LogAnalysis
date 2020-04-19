@@ -62,7 +62,7 @@ def do_predict(input_size, hidden_size, num_layers, num_classes, window_length, 
             i = 0
             # first traverse [0, window_size)
             while i < len(line) - window_length:
-                lineNum = current_file_line * 10 + i + window_length + 1
+                lineNum = current_file_line * 200 + i + window_length + 1
                 count_num += 1
                 seq = line[i:i + window_length]
                 label = line[i + window_length]
@@ -70,7 +70,6 @@ def do_predict(input_size, hidden_size, num_layers, num_classes, window_length, 
                 #label = torch.tensor(label).view(-1).to(device)
                 output = sequential_model(seq)
                 predicted = torch.argsort(output, 1)[0][-num_candidates:]
-                #print('{} - predict result: {}, true label: {}'.format(count_num, predicted, vec_to_class_type[tuple(label)]))
                 if lineNum in abnormal_label:  ## 若出现异常日志，则接下来的预测跳过异常日志，保证进行预测的日志均为正常日志
                     i += window_length + 1
                 else:
@@ -78,14 +77,18 @@ def do_predict(input_size, hidden_size, num_layers, num_classes, window_length, 
                 ALL += 1
                 if vec_to_class_type[tuple(label)] not in predicted:
                     if lineNum in abnormal_label:
-                        TN += 1
+                        TP += 1
+                        print('TP {} - predict result: {}, true label: {}'.format(lineNum, predicted,
+                                                                               vec_to_class_type[tuple(label)]))
                     else:
-                        FN += 1
+                        FP += 1
+                        print('Fp {} - predict result: {}, true label: {}'.format(lineNum, predicted,
+                                                                               vec_to_class_type[tuple(label)]))
                 else:
                     if lineNum in abnormal_label:
-                        FP += 1
+                        FN += 1
                     else:
-                        TP += 1
+                        TN += 1
             current_file_line += 1
     # Compute precision, recall and F1-measure
     if TP + FP == 0:

@@ -117,7 +117,7 @@ def train_model(window_length, input_size, hidden_size, num_of_layers, num_of_cl
             train_loss += loss.item()
             optimizer.step()
         print('Epoch [{}/{}], training_loss: {:.4f}'.format(epoch + 1, num_epochs, train_loss / len(data_loader.dataset)))
-        if (epoch + 1) % 100 == 0:
+        if (epoch + 1) % 10 == 0:
             if not os.path.isdir(model_output_directory):
                 os.makedirs(model_output_directory)
             e_log = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(epoch+1)

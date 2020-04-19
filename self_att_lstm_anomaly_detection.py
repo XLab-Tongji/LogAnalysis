@@ -19,18 +19,18 @@ train_file_name = 'train_file'
 test_file_name = 'test_file'
 label_file_name = 'label_file'
 pattern_vec_out_path = './Data/FTTreeResult-HDFS/pattern_vec'
-split_degree = 0.2
+split_degree = 0.8
 # log file line used  which is also used in ./Data/log/file_split
 log_line_num = 200000
 
 # bi lstm only model parameters
-window_length = 5
+window_length = 20
 input_size = 300
-hidden_size = 40
-num_of_layers = 3
-num_of_classes = 61
-num_epochs = 100
-batch_size = 200
+hidden_size = 128
+num_of_layers = 2
+num_of_classes = 21
+num_epochs = 10
+batch_size = 50
 # for self att lstm
 train_root_path = './Data/FTTreeResult-HDFS/self_att_lstm_model_train/'
 model_out_path = train_root_path + 'sa_lstm_model_out/'
@@ -38,7 +38,7 @@ data_file = sequential_directory + train_file_name
 pattern_vec_file = pattern_vec_out_path
 
 # predict parameters
-num_of_candidates = 3
+num_of_candidates = 2
 # log anomaly sequential model parameters
 
 if not os.path.exists(log_fttree_out_directory):
@@ -73,10 +73,11 @@ def train_model():
 def test_model():
     # do something
     #log_anomaly_sequential_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, window_length, model_out_path + 'Adam_batch_size=200;epoch=200.pt', sequential_directory + label_file_name, sequential_directory + test_file_name, 3, pattern_vec_file)
-    self_att_lstm_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, window_length, model_out_path + 'Adam_batch_size=200;epoch=' + str(num_epochs) + '.pt', sequential_directory + label_file_name, sequential_directory + test_file_name, num_of_candidates, pattern_vec_file)
+    self_att_lstm_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, window_length, model_out_path + 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs) + '.pt', sequential_directory + label_file_name, sequential_directory + test_file_name, num_of_candidates, pattern_vec_file)
 
 
-#extract_feature()
+#pattern_extract()
+extract_feature()
 train_model()
 test_model()
 

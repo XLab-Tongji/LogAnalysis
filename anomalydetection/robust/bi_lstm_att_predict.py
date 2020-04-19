@@ -50,8 +50,8 @@ def do_predict(input_size, hidden_size, num_layers, num_classes, window_length, 
     TN = 0
     FN = 0
     ALL = 0
+    
     abnormal_loader = generate(test_file_path, window_length)
-    abnormal_label = []
     with open(anomaly_test_line_path) as f:
         abnormal_label = [int(x) for x in f.readline().strip().split()]
     print('predict start')

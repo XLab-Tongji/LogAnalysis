@@ -49,6 +49,7 @@ def do_predict(input_size, hidden_size, num_layers, num_classes, window_length, 
     TN = 0
     FN = 0
     ALL = 0
+    skip_count = 0
     abnormal_loader = generate(test_file_path, window_length)
     abnormal_label = []
     with open(anomaly_test_line_path) as f:
@@ -72,6 +73,7 @@ def do_predict(input_size, hidden_size, num_layers, num_classes, window_length, 
                 print('{} - predict result: {}, true label: {}'.format(count_num, predicted, vec_to_class_type[tuple(label)]))
                 if lineNum in abnormal_label:  ## 若出现异常日志，则接下来的预测跳过异常日志，保证进行预测的日志均为正常日志
                     i += window_length + 1
+                    skip_count += 1
                 else:
                     i += 1
                 ALL += 1
@@ -109,5 +111,5 @@ def do_predict(input_size, hidden_size, num_layers, num_classes, window_length, 
     print('Finished Predicting')
     elapsed_time = time.time() - start_time
     print('elapsed_time: {}'.format(elapsed_time))
-
+    print('skip_count: {}'.format(skip_count))
     #draw_evaluation("Evaluations", ['Acc', 'Precision', 'Recall', 'F1-measure'], [Acc, P, R, F1], 'evaluations', '%')
