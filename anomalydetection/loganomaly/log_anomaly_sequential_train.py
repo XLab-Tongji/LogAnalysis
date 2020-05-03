@@ -27,8 +27,9 @@ def generate_seq_label(file_path, window_length, pattern_vec_file):
         for line in file.readlines():
             num_of_sessions += 1
             line = tuple(map(lambda n: tuple(map(float, n.strip().split())), [x for x in line.strip().split(',') if len(x) > 0]))
-            if len(line) < 10:
-                print(line)
+            if len(line) < window_length:
+                #print(line)
+                continue
             for i in range(len(line) - window_length):
                 input_data.append(line[i:i + window_length])
                 # line[i] is a list need to read file form a dic{vec:log_key} to get log key
@@ -69,7 +70,7 @@ def train_model(window_length, input_size, hidden_size, num_of_layers, num_of_cl
             train_loss += loss.item()
             optimizer.step()
         print('Epoch [{}/{}], training_loss: {:.4f}'.format(epoch + 1, num_epochs, train_loss / len(data_loader.dataset)))
-        if (epoch + 1) % 100 == 0:
+        if (epoch + 1) % num_epochs == 0:
             if not os.path.isdir(model_output_directory):
                 os.makedirs(model_output_directory)
             e_log = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(epoch+1)
@@ -83,7 +84,7 @@ class Model(nn.Module):
         super(Model, self).__init__()
         self.hidden_size = hidden_size
         self.num_of_layers = num_of_layers
-        self.lstm = nn.LSTM(input_size, hidden_size, num_of_layers, batch_first=True)
+        self.lstm = nn.LSTM(input_size, hidden_size, num_of_layers, batch_first=True, dropout=0.5)
         self.fc = nn.Linear(hidden_size, out_size)
         # self.out = nn.Linear(in_features=in_features, out_features=out_features)
 

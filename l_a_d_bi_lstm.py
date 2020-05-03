@@ -26,13 +26,13 @@ split_degree = 0.2
 log_line_num = 200000
 
 # bi lstm only model parameters
-window_length = 4
+window_length = 20
 input_size = 300
-hidden_size = 30
+hidden_size = 128
 num_of_layers = 2
-num_of_classes = 61
-num_epochs = 200
-batch_size = 200
+num_of_classes = 26
+num_epochs = 10
+batch_size = 1000
 # for bi lstm only
 train_root_path = './Data/FTTreeResult-HDFS/bi_model_train/'
 model_out_path = train_root_path + 'bi_model_out/'
@@ -75,7 +75,7 @@ def train_model():
 def test_model():
     # do something
     #log_anomaly_sequential_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, window_length, model_out_path + 'Adam_batch_size=200;epoch=200.pt', sequential_directory + label_file_name, sequential_directory + test_file_name, 3, pattern_vec_file)
-    bi_lstm_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, window_length, model_out_path + 'Adam_batch_size=200;epoch=200.pt', sequential_directory + label_file_name, sequential_directory + test_file_name, 3, pattern_vec_file)
+    bi_lstm_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, window_length, model_out_path + 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs) + '.pt', sequential_directory + label_file_name, sequential_directory + test_file_name, 10, pattern_vec_file)
 
 
 #extract_feature()
