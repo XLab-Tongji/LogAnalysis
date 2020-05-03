@@ -18,7 +18,7 @@ class Model(nn.Module):
         super(Model, self).__init__()
         self.hidden_size = hidden_size
         self.num_of_layers = num_of_layers
-        self.lstm = nn.LSTM(input_size, hidden_size, num_of_layers, batch_first=True, bidirectional=if_bidirectional)
+        self.lstm = nn.LSTM(input_size, hidden_size, num_of_layers, batch_first=True, bidirectional=if_bidirectional, dropout=0.5)
         if if_bidirectional:
             self.num_of_directions = 2
         else:
@@ -53,10 +53,10 @@ class Model(nn.Module):
         out = torch.transpose(out, 1, 2)
         # out shape [batch, numdirec*hidden, seqlen]
         att_out = self.attention_net(out)
-
+        # att_out shape[batch, num_direc*hidden_size, 1]
+        # att_out[:, :, 0] shape[batch, num_direc*hidden_size]
         out = self.fc(att_out[:, :, 0])
-        # print('out[:, -1, :]:')
-        # print(out)
+        # out shape[batch, num_of_class]
         return out
 
 
@@ -75,12 +75,26 @@ def generate_seq_label(file_path, window_length, pattern_vec_file):
         for line in file.readlines():
             num_of_sessions += 1
             line = tuple(map(lambda n: tuple(map(float, n.strip().split())), [x for x in line.strip().split(',') if len(x) > 0]))
-            if len(line) < 10:
-                print(line)
+            if len(line) < window_length + 1:
+                continue
             for i in range(len(line) - window_length):
                 input_data.append(line[i:i + window_length])
                 # line[i] is a list need to read file form a dic{vec:log_key} to get log key
                 output_data.append(vec_to_class_type[line[i + window_length]])
+    data_set = TensorDataset(torch.tensor(input_data, dtype=torch.float), torch.tensor(output_data))
+    return data_set
+
+def generate_logdeep_seq_label(file_path, window_length):
+    input_data, output_data = [], []
+    with open(file_path, 'r') as file:
+        for line in file.readlines():
+            line = tuple(map(lambda n: n-1, map(int, line.strip().split())))
+            if len(line) < window_length + 1:
+                continue
+            for i in range(len(line) - window_length):
+                input_data.append(line[i:i + window_length])
+                # line[i] is a list need to read file form a dic{vec:log_key} to get log key
+                output_data.append(line[i + window_length])
     data_set = TensorDataset(torch.tensor(input_data, dtype=torch.float), torch.tensor(output_data))
     return data_set
 
@@ -100,7 +114,7 @@ def train_model(window_length, input_size, hidden_size, num_of_layers, num_of_cl
 
     # Loss and optimizer  classify job
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters())
+    optimizer = optim.Adam(model.parameters(), weight_decay=0.0001)
 
     # Training
     for epoch in range(num_epochs):
@@ -117,7 +131,7 @@ def train_model(window_length, input_size, hidden_size, num_of_layers, num_of_cl
             train_loss += loss.item()
             optimizer.step()
         print('Epoch [{}/{}], training_loss: {:.4f}'.format(epoch + 1, num_epochs, train_loss / len(data_loader.dataset)))
-        if (epoch + 1) % 100 == 0:
+        if (epoch + 1) % num_epochs == 0:
             if not os.path.isdir(model_output_directory):
                 os.makedirs(model_output_directory)
             e_log = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(epoch+1)

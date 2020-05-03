@@ -33,6 +33,13 @@ def load_sequential_model(input_size, hidden_size, num_layers, num_classes, mode
     return model1
 
 
+def filter_small_top_k(predicted, output):
+    filter = []
+    for p in predicted:
+        if output[0][p] > 0.001:
+            filter.append(p)
+    return filter
+
 def do_predict(input_size, hidden_size, num_layers, num_classes, window_length, model_path, anomaly_test_line_path, test_file_path, num_candidates, pattern_vec_file):
     vec_to_class_type = {}
     with open(pattern_vec_file, 'r') as pattern_file:
@@ -63,14 +70,19 @@ def do_predict(input_size, hidden_size, num_layers, num_classes, window_length, 
             i = 0
             # first traverse [0, window_size)
             while i < len(line) - window_length:
-                lineNum = current_file_line * 10 + i + window_length + 1
+                lineNum = current_file_line * 200 + i + window_length + 1
                 count_num += 1
                 seq = line[i:i + window_length]
                 label = line[i + window_length]
+                for n in range(len(seq)):
+                    if current_file_line * 200 + i + n + 1 in abnormal_label:
+                        i = i + n + 1
+                        continue
                 seq = torch.tensor(seq, dtype=torch.float).view(-1, window_length, input_size).to(device)
                 #label = torch.tensor(label).view(-1).to(device)
                 output = sequential_model(seq)
                 predicted = torch.argsort(output, 1)[0][-num_candidates:]
+                predicted = filter_small_top_k(predicted, output)
                 print('{} - predict result: {}, true label: {}'.format(count_num, predicted, vec_to_class_type[tuple(label)]))
                 if lineNum in abnormal_label:  ## 若出现异常日志，则接下来的预测跳过异常日志，保证进行预测的日志均为正常日志
                     i += window_length + 1
@@ -79,14 +91,14 @@ def do_predict(input_size, hidden_size, num_layers, num_classes, window_length, 
                 ALL += 1
                 if vec_to_class_type[tuple(label)] not in predicted:
                     if lineNum in abnormal_label:
-                        TN += 1
+                        TP += 1
                     else:
-                        FN += 1
+                        FP += 1
                 else:
                     if lineNum in abnormal_label:
-                        FP += 1
+                        FN += 1
                     else:
-                        TP += 1
+                        TN += 1
             current_file_line += 1
     # Compute precision, recall and F1-measure
     if TP + FP == 0:

@@ -21,7 +21,7 @@ window_length = 4
 input_size = 1
 hidden_size = 20
 num_of_layers = 3
-model1_num_epochs = 300
+model1_num_epochs = 100
 model1_batch_size = 200
 model2_num_epochs = 50
 model2_batch_size = 20
@@ -63,13 +63,13 @@ def train_model2():
 
 # 测试
 def test_model():
-    log_predict.do_predict(log_preprocessor_dir,model_dir,window_length,input_size, hidden_size, num_of_layers,num_candidates,mse_threshold)
+    log_predict.do_predict(log_preprocessor_dir,model_dir,window_length, input_size, hidden_size, num_of_layers, num_candidates, mse_threshold)
 
 
-# pattern_extract()
-# log_split()
-# generate_log_key()
-# generate_log_value()
-# train_model1()
+#pattern_extract()
+#log_split()
+#generate_log_key()
+ #generate_log_value()
+#train_model1()
 # train_model2()
 test_model()

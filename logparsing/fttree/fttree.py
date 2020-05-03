@@ -23,10 +23,10 @@ def pattern_extract(log_file_dir, log_file_name, log_fttree_out_directory, detai
     if message_type_number == -1:
         log_type.append('NO_TYPE')
         log_type_index.append([])
-        for i in range(1, len(log_list)):
+        for i in range(0, len(log_list)):
             log_type_index[0].append(i)
     else:
-        for i in range(1, len(log_list)):
+        for i in range(0, len(log_list)):
             log = []
             for word in log_list[i].split(' '):
                 log.append(word)
@@ -79,7 +79,7 @@ def pattern_extract(log_file_dir, log_file_name, log_fttree_out_directory, detai
         FT_tree.append(log_type[i])
         for j in range(0, len(log_type_index[i])):
             sub_word_support = {}
-            for word in log_message[log_type_index[i][j] - 1]:
+            for word in log_message[log_type_index[i][j]]:
                 support = word_support[word]
                 sub_word_support[word] = support
             sub_word_list = sorted(sub_word_support, key=sub_word_support.__getitem__, reverse=True)
@@ -123,7 +123,7 @@ def pattern_extract(log_file_dir, log_file_name, log_fttree_out_directory, detai
     for i in range(0, len(log_type)):
         for j in range(0, len(log_type_index[i])):
             sub_word_support = {}
-            for word in log_message[log_type_index[i][j] - 1]:
+            for word in log_message[log_type_index[i][j]]:
                 support = word_support[word]
                 sub_word_support[word] = support
             sub_word_list = sorted(sub_word_support, key=sub_word_support.__getitem__, reverse=True)

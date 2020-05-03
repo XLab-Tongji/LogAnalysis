@@ -45,10 +45,11 @@ def value_log_cluster(log_preprocessor_dir):
 
 
 def load_model1(model_dir,input_size, hidden_size, num_layers):
-    num_classes = len(pattern2value) + 1
+    #num_classes = len(pattern2value) + 1
+    num_classes = 63
     print("Model1 num_classes: ", num_classes)
     model1_dir = model_dir + 'model1/'
-    model_path = model1_dir + 'Adam_batch_size=200;epoch=300.pt'
+    model_path = model1_dir + 'Adam_batch_size=200;epoch=100.pt'
     model1 = Model1(input_size, hidden_size, num_layers, num_classes).to(device)
     model1.load_state_dict(torch.load(model_path, map_location='cpu'))
     model1.eval()
@@ -93,15 +94,16 @@ def draw_evaluation(title, indexs, values, xlabel, ylabel):
 def do_predict(log_preprocessor_dir,model_dir,window_length,input_size, hidden_size, num_layers,num_candidates,mse_threshold):
     abnormal_label_file = log_preprocessor_dir + 'HDFS_abnormal_label.txt'
 
-    value_log_cluster(log_preprocessor_dir)
-    model1 = load_model1(model_dir,input_size, hidden_size, num_layers)
-    model2 = load_model2(model_dir,input_size, hidden_size, num_layers)
+    #value_log_cluster(log_preprocessor_dir)
+    model1 = load_model1(model_dir, input_size, hidden_size, num_layers)
+    #model2 = load_model2(model_dir,input_size, hidden_size, num_layers)
 
     # for Model2's prediction, store which log currently predicts for each log_key.
     # When model one predicts normal, model2 makes predictions.
     # At this time, the forward few logs with the same log_key are needed to be predicted
     # so the pattern_index is used to record the log_key to be predicted.
-    pattern_index = [0]*len(pattern2value)
+    #pattern_index = [0]*len(pattern2value)
+    pattern_index = [0] * 63
     start_time = time.time()
     criterion = nn.MSELoss()
     TP = 0
@@ -127,6 +129,10 @@ def do_predict(log_preprocessor_dir,model_dir,window_length,input_size, hidden_s
                 lineNum = current_file_line * 10 + i + window_length + 1
                 count_num += 1
                 seq = line[i:i + window_length]
+                for n in range(len(seq)):
+                    if current_file_line * 10 + i + n + 1 in abnormal_label:
+                        i = i + n + 1
+                        continue
                 label = line[i + window_length]
                 seq = torch.tensor(seq, dtype=torch.float).view(-1, window_length, input_size).to(device)
                 label = torch.tensor(label).view(-1).to(device)
@@ -147,15 +153,15 @@ def do_predict(log_preprocessor_dir,model_dir,window_length,input_size, hidden_s
                 ALL += 1
                 if label not in predicted:
                     if lineNum in abnormal_label:
-                        TN += 1
+                        TP += 1
                     else:
-                        FN += 1
-                # else:
-                #     if lineNum in abnormal_label:
-                #         FP += 1
-                #     else:
-                #         TP += 1
+                        FP += 1
                 else:
+                    if lineNum in abnormal_label:
+                        FN += 1
+                    else:
+                        TN += 1
+                '''else:
                     # When model one predicts normal, model2 makes predictions.
                     # values：all log's value vector belongs to log_key（whose id is pattern_id）
                     values = pattern2value[label]
@@ -189,6 +195,7 @@ def do_predict(log_preprocessor_dir,model_dir,window_length,input_size, hidden_s
                             FP += 1
                         else:
                             TP += 1
+                    '''
             current_file_line += 1
     # Compute precision, recall and F1-measure
     if TP + FP == 0:
