@@ -27,6 +27,7 @@ class Model(nn.Module):
         out = self.fc(out[:, -1, :])
         return out
 
+
 def generate_quantitive_label(logkey_path, window_length,num_of_classes):
     f = open(logkey_path,'r')
     keys = f.readline().split()

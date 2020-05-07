@@ -14,16 +14,17 @@ def generate_test_label(logkey_path, window_length,num_of_classes):
     keys = list(map(int, keys))
     print(keys)
     length = len(keys)
-    input_1 = np.zeros((length -window_length,1))
+    input_1 = np.zeros((length -window_length,num_of_classes))
     output_1 = np.zeros(length -window_length,dtype=np.int)
     input_2 = np.zeros((length -window_length,num_of_classes))
     output = np.zeros(length -window_length,dtype=np.int)
     for i in range(0,length -window_length):
+        for t in range(0,num_of_classes):
+            input_1[i][t] = keys[i]
         for j in range(i,i+window_length):
-            input_1[i][0] = keys[j]
             input_2[i][keys[j]-1] += 1
         output[i] = keys[i+window_length]-1
-    new_input_1 = np.zeros((length -2*window_length+1,window_length,1))
+    new_input_1 = np.zeros((length -2*window_length+1,window_length,num_of_classes))
     new_input_2 = np.zeros((length - 2 * window_length + 1, window_length, num_of_classes))
     for i in range(0,length -2*window_length+1):
         for j in range(i,i+window_length):
@@ -38,6 +39,13 @@ def load_model(input_size_1,input_size_2, hidden_size, num_layers, num_classes, 
     model.eval()
     print('model_path: {}'.format(model_path))
     return model
+
+def filter_small_top_k(predicted, output):
+    filter = []
+    for p in predicted:
+        if output[0][p] > 0.001:
+            filter.append(p)
+    return filter
 
 def do_predict(input_size_1,input_size_2, hidden_size, num_layers, num_classes, window_length, model_path, anomaly_test_line_path, num_candidates, logkey_path):
     model = load_model(input_size_1,input_size_2 ,hidden_size, num_layers, num_classes, model_path)
@@ -64,6 +72,7 @@ def do_predict(input_size_1,input_size_2, hidden_size, num_layers, num_classes, 
             quan = torch.tensor(quan, dtype=torch.float).view(-1, window_length, input_size_2).to(device)
             test_output = model(seq,quan)
             predicted = torch.argsort(test_output , 1)[0][-num_candidates:]
+            predicted = filter_small_top_k(predicted, test_output)
             print('{} - predict result: {}, true label: {}'.format(lineNum, predicted,label))
             if lineNum in abnormal_label:  ## 若出现异常日志，则接下来的预测跳过异常日志，保证进行预测的日志均为正常日志
                 i += 2*window_length + 1
@@ -104,7 +113,7 @@ def do_predict(input_size_1,input_size_2, hidden_size, num_layers, num_classes, 
     print('elapsed_time: {}'.format(elapsed_time))
 
 if __name__=='__main__':
-    input_size_1 = 1
+    input_size_1 = 61
     input_size_2 = 61
     hidden_size = 30
     num_of_layers = 2
@@ -119,4 +128,4 @@ if __name__=='__main__':
     model_out_path = train_root_path + 'model_out/'
 
     do_predict(input_size_1,input_size_2, hidden_size, num_of_layers, num_of_classes, window_length,
-               model_out_path + 'Adam_batch_size=200;epoch=100.pt', label_file_name, 9, test_logkey_path)
+               model_out_path + 'Adam_batch_size=200;epoch=100.pt', label_file_name, 5, test_logkey_path)

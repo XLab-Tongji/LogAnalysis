@@ -3,40 +3,36 @@ import os
 import torch.nn as nn
 import time
 import numpy as np
-from anomalydetection.loganomaly.log_anomaly_quantitive_train import Model
-from anomalydetection.loganomaly.log_anomaly_quantitive_train import train_model
+from anomalydetection.loganomaly.log_anomaly_sequence_train import Model
+from anomalydetection.loganomaly.log_anomaly_sequence_train import train_model
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-def generate_test_label(logkey_path, window_length):
+def generate_test_label(logkey_path, window_length,num_of_classes):
     f = open(logkey_path,'r')
     keys = f.readline().split()
     keys = list(map(int, keys))
     print(keys)
     length = len(keys)
-    input = np.zeros((length -window_length,num_of_classes))
+    input_1 = np.zeros((length -window_length,1))
     output = np.zeros(length -window_length,dtype=np.int)
     for i in range(0,length -window_length):
         for j in range(i,i+window_length):
-            input[i][keys[j]-1] += 1
+            input_1[i][0] = keys[j]
         output[i] = keys[i+window_length]-1
-    new_input = np.zeros((length -2*window_length+1,window_length,num_of_classes))
+    new_input_1 = np.zeros((length -2*window_length+1,window_length,1))
     for i in range(0,length -2*window_length+1):
         for j in range(i,i+window_length):
-            new_input[i][j-i] = input[j]
+            new_input_1[i][j - i] = input_1[j]
     new_output = output[window_length-1:]
-    print(new_input.shape)
-    print(new_output.shape)
-    print(new_input[0])
-    print(new_output[0])
-    return length,new_input,new_output
+    return length,new_input_1,new_output
 
-def load_quantitive_model(input_size, hidden_size, num_layers, num_classes, model_path):
-    model2 = Model(input_size, hidden_size, num_layers, num_classes).to(device)
-    model2.load_state_dict(torch.load(model_path, map_location='cpu'))
-    model2.eval()
+def load_model(input_size_1,input_size_2, hidden_size, num_layers, num_classes, model_path):
+    model = Model(input_size_1,input_size_2,hidden_size, num_layers, num_classes).to(device)
+    model.load_state_dict(torch.load(model_path, map_location='cpu'))
+    model.eval()
     print('model_path: {}'.format(model_path))
-    return model2
+    return model
 
 def filter_small_top_k(predicted, output):
     filter = []
@@ -45,15 +41,15 @@ def filter_small_top_k(predicted, output):
             filter.append(p)
     return filter
 
-def do_predict(input_size, hidden_size, num_layers, num_classes, window_length, model_path, anomaly_test_line_path, num_candidates, logkey_path):
-    quantitive_model = load_quantitive_model(input_size, hidden_size, num_layers, num_classes, model_path)
+def do_predict(input_size_1,input_size_2, hidden_size, num_layers, num_classes, window_length, model_path, anomaly_test_line_path, num_candidates, logkey_path):
+    model = load_model(input_size_1,input_size_2 ,hidden_size, num_layers, num_classes, model_path)
     start_time = time.time()
     TP = 0
     FP = 0
     TN = 0
     FN = 0
     ALL = 0
-    length,input,output = generate_test_label(logkey_path, window_length)
+    length,input_1,output = generate_test_label(logkey_path, window_length,num_classes)
     abnormal_label = []
     with open(anomaly_test_line_path) as f:
         abnormal_label = [int(x) for x in f.readline().strip().split()]
@@ -63,10 +59,10 @@ def do_predict(input_size, hidden_size, num_layers, num_classes, window_length, 
         current_file_line = 0
         for i in range(0,length-2*window_length+1):
             lineNum = i + 2*window_length
-            quan = input[i]
+            seq = input_1[i]
             label = output[i]
-            quan = torch.tensor(quan, dtype=torch.float).view(-1, window_length, input_size).to(device)
-            test_output = quantitive_model(quan)
+            seq = torch.tensor(seq, dtype=torch.float).view(-1, window_length, input_size_1).to(device)
+            test_output = model(seq)
             predicted = torch.argsort(test_output , 1)[0][-num_candidates:]
             predicted = filter_small_top_k(predicted, test_output)
             print('{} - predict result: {}, true label: {}'.format(lineNum, predicted,label))
@@ -108,9 +104,9 @@ def do_predict(input_size, hidden_size, num_layers, num_classes, window_length, 
     elapsed_time = time.time() - start_time
     print('elapsed_time: {}'.format(elapsed_time))
 
-
-if __name__ == '__main__':
-    input_size = 61
+if __name__=='__main__':
+    input_size_1 = 1
+    input_size_2 = 61
     hidden_size = 30
     num_of_layers = 2
     num_of_classes = 61
@@ -121,12 +117,7 @@ if __name__ == '__main__':
     test_logkey_path = '../../Data/FTTreeResult-HDFS/deeplog_files/logkey/logkey_test'
     train_root_path = '../../Data/FTTreeResult-HDFS/model_train/'
     label_file_name = '../../Data/FTTreeResult-HDFS/deeplog_files/HDFS_abnormal_label.txt'
-    model_out_path = train_root_path + 'quantitive_model_out/'
+    model_out_path = train_root_path + 'sequence_model_out/'
 
-    train_model(window_length, input_size, hidden_size,
-                num_of_layers, num_of_classes, num_epochs, batch_size, train_root_path,
-                model_out_path, train_logkey_path)
-
-    do_predict(input_size, hidden_size, num_of_layers, num_of_classes, window_length,
+    do_predict(input_size_1,input_size_2, hidden_size, num_of_layers, num_of_classes, window_length,
                model_out_path + 'Adam_batch_size=200;epoch=100.pt', label_file_name, 3, test_logkey_path)
-
