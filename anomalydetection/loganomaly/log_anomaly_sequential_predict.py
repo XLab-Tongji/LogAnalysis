@@ -65,9 +65,12 @@ def do_predict(input_size, hidden_size, num_layers, num_classes, window_length, 
                 count_num += 1
                 seq = line[i:i + window_length]
                 label = line[i + window_length]
+                print(label)
                 seq = torch.tensor(seq, dtype=torch.float).view(-1, window_length, input_size).to(device)
+                print(seq.shape)
                 #label = torch.tensor(label).view(-1).to(device)
                 output = sequential_model(seq)
+                print(output)
                 predicted = torch.argsort(output, 1)[0][-num_candidates:]
                 print('{} - predict result: {}, true label: {}'.format(count_num, predicted, vec_to_class_type[tuple(label)]))
                 if lineNum in abnormal_label:  ## 若出现异常日志，则接下来的预测跳过异常日志，保证进行预测的日志均为正常日志

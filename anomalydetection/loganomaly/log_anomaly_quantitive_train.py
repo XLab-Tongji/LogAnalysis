@@ -44,11 +44,9 @@ def generate_quantitive_label(logkey_path, window_length,num_of_classes):
         for j in range(i,i+window_length):
             new_input[i][j-i] = input[j]
     new_output = output[window_length-1:]
+    dataset = TensorDataset(torch.tensor(new_input,dtype=torch.float),torch.tensor(new_output,dtype=torch.long))
     print(new_input.shape)
     print(new_output.shape)
-    print(new_input[0])
-    print(new_output[0])
-    dataset = TensorDataset(torch.tensor(new_input,dtype=torch.float),torch.tensor(new_output,dtype=torch.long))
     return dataset
 
 def train_model(window_length, input_size, hidden_size, num_of_layers, num_of_classes, num_epochs, batch_size, root_path, model_output_directory,logkey_path):

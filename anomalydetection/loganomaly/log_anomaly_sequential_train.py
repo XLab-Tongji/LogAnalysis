@@ -34,6 +34,7 @@ def generate_seq_label(file_path, window_length, pattern_vec_file):
                 # line[i] is a list need to read file form a dic{vec:log_key} to get log key
                 output_data.append(vec_to_class_type[line[i + window_length]])
     data_set = TensorDataset(torch.tensor(input_data, dtype=torch.float), torch.tensor(output_data))
+    print(torch.tensor(input_data).shape)
     return data_set
 
 
@@ -85,6 +86,7 @@ class Model(nn.Module):
         self.num_of_layers = num_of_layers
         self.lstm = nn.LSTM(input_size, hidden_size, num_of_layers, batch_first=True)
         self.fc = nn.Linear(hidden_size, out_size)
+
         # self.out = nn.Linear(in_features=in_features, out_features=out_features)
 
     def init_hidden(self, size):

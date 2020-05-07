@@ -113,9 +113,9 @@ train_root_path = '../../Data/FTTreeResult-HDFS/model_train/'
 label_file_name = '../../Data/FTTreeResult-HDFS/deeplog_files/HDFS_abnormal_label.txt'
 model_out_path = train_root_path + 'quantitive_model_out/'
 
-# train_model(window_length, input_size, hidden_size,
-#             num_of_layers, num_of_classes, num_epochs, batch_size, train_root_path,
-#             model_out_path,train_logkey_path)
+train_model(window_length, input_size, hidden_size,
+            num_of_layers, num_of_classes, num_epochs, batch_size, train_root_path,
+            model_out_path,train_logkey_path)
 
 do_predict(input_size, hidden_size, num_of_layers, num_of_classes, window_length,
            model_out_path + 'Adam_batch_size=200;epoch=100.pt', label_file_name, 3, test_logkey_path)
