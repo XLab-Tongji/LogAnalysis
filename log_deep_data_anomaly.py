@@ -10,6 +10,10 @@ from extractfeature import hdfs_ft_preprocessor
 from anomalydetection.self_att_lstm import self_att_lstm_train
 from anomalydetection.self_att_lstm import self_att_lstm_predict
 
+
+log_file='./Data/log/hdfs/HDFS_split'
+log_file_label='./Data/log/hdfs/HDFS_split_anomaly'
+
 sequential_directory = './Data/logdeepdata/'
 train_file_name = 'hdfs_train'
 test_abnormal_name = 'hdfs_test_abnormal'
@@ -39,6 +43,8 @@ if not os.path.exists(sequential_directory):
     os.makedirs(sequential_directory)
 if not os.path.exists(train_root_path):
     os.makedirs(train_root_path)
+
+
 
 
 

@@ -51,7 +51,7 @@ def generate_robust_seq_label(file_path, sequence_length, pattern_vec_file):
     train_file = pd.read_csv(file_path)
     for i in range(len(train_file)):
         num_of_sessions += 1
-        line = [int(id) for id in train_file["Sequence"][i].split(' ')]
+        line = [int(id) for id in train_file["Sequence"][i].split(' ')[:-1]]
         line = line[0:sequence_length]
         if len(line) < sequence_length:
             line.extend(list([0]) * (sequence_length - len(line)))
@@ -60,7 +60,7 @@ def generate_robust_seq_label(file_path, sequence_length, pattern_vec_file):
             if event == 0:
                 semantic_line.append([-1] * 300)
             else:
-                semantic_line.append(class_type_to_vec[str(event - 1)])
+                semantic_line.append(class_type_to_vec[str(event)])
         input_data.append(semantic_line)
         output_data.append(int(train_file["label"][i]))
     data_set = TensorDataset(torch.tensor(input_data, dtype=torch.float), torch.tensor(output_data))
@@ -88,8 +88,8 @@ def do_predict(input_size, hidden_size, num_layers, num_classes, sequence_length
             # first traverse [0, window_size)
             seq = seq.view(-1, sequence_length, input_size).to(device)
             #label = torch.tensor(label).view(-1).to(device)
-            output = sequential_model(seq)[:, 0].clone().detach().numpy()
-            predicted = (output > 0.2).astype(int)
+            output = sequential_model(seq)[:, 0].cpu().clone().detach().numpy()
+            predicted = (output > 0.05).astype(int)
             label = np.array([y for y in label])
             TP += ((predicted == 1) * (label == 1)).sum()
             FP += ((predicted == 1) * (label == 0)).sum()
