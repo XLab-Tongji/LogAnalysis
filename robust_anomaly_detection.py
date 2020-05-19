@@ -80,7 +80,7 @@ def test_model():
 #pattern_extract()
 #extract_feature()
 #train_model()
-#train_model()
+train_model()
 test_model()
 
 # deep log

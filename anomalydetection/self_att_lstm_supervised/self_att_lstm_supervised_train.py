@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+# -*- coding: UTF-8 -*-
 import json
 import torch
 import pandas as pd
@@ -15,7 +16,7 @@ from torch.autograd import Variable
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 class Model(nn.Module):
-    def __init__(self, input_size, hidden_size, num_of_layers, out_size, if_bidirectional, batch_size):
+    def __init__(self, input_size, hidden_size, num_of_layers, out_size, if_bidirectional, batch_size, sequence_len):
         super(Model, self).__init__()
         self.hidden_size = hidden_size
         self.num_of_layers = num_of_layers
@@ -28,23 +29,16 @@ class Model(nn.Module):
         self.batch_size = batch_size
 
         self.att_weight = nn.Parameter(torch.randn(1, 1, self.hidden_size*self.num_of_directions))
-
+        self.att_bias = nn.Parameter(torch.randn(1, 1, sequence_len))
         # self.out = nn.Linear(in_features=in_features, out_features=out_features)
 
-# att BiLSTM paper actually H is different from the paper in paper H = hf + hb
+    # l1 regularization will add later
     def attention_net(self, H):
         # print(H.size()) = [batch, numdirec*hidden, seqlen]
-        M = F.tanh(H)
-        a = F.softmax(torch.matmul(self.att_weight, M), 2)
+        a = F.softmax(torch.matmul(self.att_weight, H) + self.att_bias, 2)
         a = torch.transpose(a, 1, 2)
         return torch.bmm(H, a)
 
-    def robust_attention_net(self, H):
-        # print(H.size()) = [batch, numdirec*hidden, seqlen]
-        M = torch.matmul(self.att_weight, H)
-        a = torch.tanh(M)
-        a = torch.transpose(a, 1, 2)
-        return torch.bmm(H, a)
 
     def init_hidden(self, size):
         # size self.batch_size same
@@ -61,7 +55,7 @@ class Model(nn.Module):
         # out shape [batch, seqlen, numdirec*hidden]
         out = torch.transpose(out, 1, 2)
         # out shape [batch, numdirec*hidden, seqlen]
-        att_out = self.robust_attention_net(out)
+        att_out = self.attention_net(out)
 
         out = self.fc(att_out[:, :, 0])
         # out shape[batch, num_of_class = 1]
@@ -125,7 +119,7 @@ def train_model(sequence_length, input_size, hidden_size, num_of_layers, num_of_
     log_template = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs)
 
     print("Train num_classes: ", num_of_classes)
-    model = Model(input_size, hidden_size, num_of_layers, num_of_classes, True, batch_size).to(device)
+    model = Model(input_size, hidden_size, num_of_layers, num_of_classes, False, batch_size, sequence_length).to(device)
     # create data set
     sequence_data_set = generate_robust_seq_label(data_file, sequence_length, pattern_vec_file)
     # create data_loader
@@ -134,7 +128,7 @@ def train_model(sequence_length, input_size, hidden_size, num_of_layers, num_of_
 
     # Loss and optimizer  classify job
     criterion = nn.BCELoss()
-    optimizer = optim.Adam(model.parameters())
+    optimizer = optim.Adam(model.parameters(), weight_decay=0.001)
 
     # Training
     for epoch in range(num_epochs):

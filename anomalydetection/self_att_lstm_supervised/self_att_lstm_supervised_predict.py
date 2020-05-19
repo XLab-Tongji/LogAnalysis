@@ -9,7 +9,7 @@ import torch.nn as nn
 import time
 import random
 from torch.utils.data import TensorDataset, DataLoader
-from anomalydetection.robust.bi_lstm_att_train import Model
+from anomalydetection.self_att_lstm_supervised.self_att_lstm_supervised_train import Model
 
 # use cuda if available  otherwise use cpu
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -28,13 +28,14 @@ def generate(name, window_length):
 
 
 
-def load_sequential_model(input_size, hidden_size, num_layers, num_classes, model_path):
+def load_sequential_model(input_size, hidden_size, num_layers, num_classes, model_path, batch_size, sequence_length):
 
-    model1 = Model(input_size, hidden_size, num_layers, num_classes, if_bidirectional=True, batch_size=0).to(device)
+    model1 = Model(input_size, hidden_size, num_layers, num_classes, if_bidirectional=False, batch_size=0, sequence_len=sequence_length).to(device)
     model1.load_state_dict(torch.load(model_path, map_location='cpu'))
     model1.eval()
     print('model_path: {}'.format(model_path))
     return model1
+
 
 def filter_small_top_k(predicted, output):
     filter = []
@@ -72,7 +73,7 @@ def generate_robust_seq_label(file_path, sequence_length, pattern_vec_file):
 
 def do_predict(input_size, hidden_size, num_layers, num_classes, sequence_length, model_path, test_file_path, batch_size, pattern_vec_json):
 
-    sequential_model = load_sequential_model(input_size, hidden_size, num_layers, num_classes, model_path)
+    sequential_model = load_sequential_model(input_size, hidden_size, num_layers, num_classes, model_path, batch_size, sequence_length)
 
     start_time = time.time()
     TP = 0

@@ -1,4 +1,6 @@
 # -*- coding: UTF-8 -*-
+
+# -*- coding: UTF-8 -*-
 # -*- coding: UTF-8 -*-
 import torch
 import json
@@ -9,28 +11,27 @@ import torch.nn as nn
 import time
 import random
 from torch.utils.data import TensorDataset, DataLoader
-from anomalydetection.robust.bi_lstm_att_train import Model
+from anomalydetection.att_all_you_need.encoder_self_att_train import Encoder
 
 # use cuda if available  otherwise use cpu
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # len(line) < window_length
 
-def generate(name, window_length):
-    log_keys_sequences = list()
-    with open(name, 'r') as f:
-        for line in f.readlines():
-            line = tuple(map(lambda n: tuple(map(float, n.strip().split())), [x for x in line.strip().split(',') if len(x) > 0]))
-            # for i in range(len(line) - window_size):
-            #     inputs.add(tuple(line[i:i+window_size]))
-            log_keys_sequences.append(tuple(line))
-    return log_keys_sequences
+
+def make_src_mask(src, src_pad_idx):
+    # src = [batch size, src len]
+
+    src_mask = (src != src_pad_idx) #
+
+    # src_mask = [batch size, src len] #
+
+    return src_mask.clone().detach().numpy().tolist()
 
 
+def load_sequential_model(input_size, hidden_size, num_layers, num_classes, model_path, dropout, num_of_heads, pf_dim):
 
-def load_sequential_model(input_size, hidden_size, num_layers, num_classes, model_path):
-
-    model1 = Model(input_size, hidden_size, num_layers, num_classes, if_bidirectional=True, batch_size=0).to(device)
+    model1 = Encoder(input_size, num_classes, hidden_size, num_layers, num_of_heads, pf_dim, dropout, device).to(device)
     model1.load_state_dict(torch.load(model_path, map_location='cpu'))
     model1.eval()
     print('model_path: {}'.format(model_path))
@@ -44,11 +45,9 @@ def filter_small_top_k(predicted, output):
     return filter
 
 
-def generate_robust_seq_label(file_path, sequence_length, pattern_vec_file):
-    with open(pattern_vec_file, 'r') as pattern_file:
-        class_type_to_vec = json.load(pattern_file)
+def generate_robust_seq_label(file_path, sequence_length):
     num_of_sessions = 0
-    input_data, output_data = [], []
+    input_data, output_data, mask_data = [], [], []
     train_file = pd.read_csv(file_path)
     i = 0
     while i < len(train_file):
@@ -57,22 +56,35 @@ def generate_robust_seq_label(file_path, sequence_length, pattern_vec_file):
         line = line[0:sequence_length]
         if len(line) < sequence_length:
             line.extend(list([0]) * (sequence_length - len(line)))
+        input_data.append(line)
+        output_data.append(int(train_file["label"][i]))
+        i += random.randint(5, 7)
+    data_set = TensorDataset(torch.tensor(input_data), torch.tensor(output_data))
+    return data_set
+
+
+def get_batch_semantic_with_mask(seq, pattern_vec_file):
+    with open(pattern_vec_file, 'r') as pattern_file:
+        class_type_to_vec = json.load(pattern_file)
+    print(seq.shape)
+    batch_data = []
+    mask_data = []
+    for s in seq:
         semantic_line = []
-        for event in line:
+        for event in s.numpy().tolist():
             if event == 0:
                 semantic_line.append([-1] * 300)
             else:
                 semantic_line.append(class_type_to_vec[str(event - 1)])
-        input_data.append(semantic_line)
-        output_data.append(int(train_file["label"][i]))
-        i += random.randint(6, 8)
-    data_set = TensorDataset(torch.tensor(input_data, dtype=torch.float), torch.tensor(output_data))
-    return data_set
+        batch_data.append(semantic_line)
+        mask = make_src_mask(s, 0)
+        mask_data.append(mask)
+    return batch_data, mask_data
 
 
-def do_predict(input_size, hidden_size, num_layers, num_classes, sequence_length, model_path, test_file_path, batch_size, pattern_vec_json):
+def do_predict(input_size, hidden_size, num_layers, num_classes, sequence_length, model_path, test_file_path, batch_size, pattern_vec_json, dropout, num_of_heads, pf_dim):
 
-    sequential_model = load_sequential_model(input_size, hidden_size, num_layers, num_classes, model_path)
+    sequential_model = load_sequential_model(input_size, hidden_size, num_layers, num_classes, model_path, dropout, num_of_heads, pf_dim)
 
     start_time = time.time()
     TP = 0
@@ -81,27 +93,27 @@ def do_predict(input_size, hidden_size, num_layers, num_classes, sequence_length
     FN = 0
 
     # create data set
-    sequence_data_set = generate_robust_seq_label(test_file_path, sequence_length, pattern_vec_json)
+    sequence_data_set = generate_robust_seq_label(test_file_path, sequence_length)
     # create data_loader
-    data_loader = DataLoader(dataset=sequence_data_set, batch_size=batch_size, shuffle=True, pin_memory=False)
+    data_loader = DataLoader(dataset=sequence_data_set, batch_size=batch_size, shuffle=False, pin_memory=False)
 
     print('predict start')
     with torch.no_grad():
-        count = 0
         for step, (seq, label) in enumerate(data_loader):
             # first traverse [0, window_size)
+            batch_data, mask_data = get_batch_semantic_with_mask(seq, pattern_vec_json)
+            seq = torch.tensor(batch_data)
+            mask_data = torch.tensor(mask_data)
             seq = seq.view(-1, sequence_length, input_size).to(device)
             #label = torch.tensor(label).view(-1).to(device)
-            output = sequential_model(seq)[:, 0].clone().detach().numpy()
-            predicted = (output > 0.2).astype(int)
+            output = sequential_model(seq, mask_data)[:, 0].clone().detach().numpy()
+            print(output)
+            predicted = (output > 0.5).astype(int)
             label = np.array([y for y in label])
             TP += ((predicted == 1) * (label == 1)).sum()
             FP += ((predicted == 1) * (label == 0)).sum()
             FN += ((predicted == 0) * (label == 1)).sum()
             TN += ((predicted == 0) * (label == 0)).sum()
-            count += 1
-            if count > 100000:
-                break
     ALL = TP + TN + FP + FN
     # Compute precision, recall and F1-measure
     if TP + FP == 0:
