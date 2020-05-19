@@ -14,7 +14,7 @@ from torch.autograd import Variable
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 class Model(nn.Module):
-    def __init__(self, input_size, hidden_size, num_of_layers, out_size, if_bidirectional, sequen_len):
+    def __init__(self, input_size, hidden_size, num_of_layers, out_size, if_bidirectional, sequence_len):
         super(Model, self).__init__()
         self.hidden_size = hidden_size
         self.num_of_layers = num_of_layers
@@ -26,7 +26,7 @@ class Model(nn.Module):
         self.fc = nn.Linear(hidden_size*self.num_of_directions, out_size)
 
         self.att_weight = nn.Parameter(torch.randn(1, 1, self.hidden_size*self.num_of_directions))
-        self.att_bias = nn.Parameter(torch.randn(1, 1, sequen_len))
+        self.att_bias = nn.Parameter(torch.randn(1, 1, sequence_len))
 
         # self.out = nn.Linear(in_features=in_features, out_features=out_features)
 
