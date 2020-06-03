@@ -8,11 +8,14 @@ from anomalydetection.deeplog.Model2.variable_LSTM_train import Model as Model2
 import torch.nn as nn
 import os
 import matplotlib.pyplot as plt
+from collections import Counter
 
 # use cuda if available  otherwise use cpu
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 pattern2value = []
+
+
 
 # 继承枚举类
 class LineNumber(Enum):
@@ -20,16 +23,20 @@ class LineNumber(Enum):
     NUMBERS_LINE = 3
 
 
+
 def generate(name,window_length):
-    log_keys_sequences = list()
+    log_keys_sequences=list()
+    length=0
     with open(name, 'r') as f:
         for line in f.readlines():
             line = list(map(lambda n: n, map(int, line.strip().split())))
             line = line + [-1] * (window_length + 1 - len(line))
             # for i in range(len(line) - window_size):
             #     inputs.add(tuple(line[i:i+window_size]))
+            # log_keys_sequences[tuple(line)] = log_keys_sequences.get(tuple(line), 0) + 1
             log_keys_sequences.append(tuple(line))
-    return log_keys_sequences
+            length+=1
+    return log_keys_sequences,length
 
 
 def value_log_cluster(log_preprocessor_dir):
@@ -46,7 +53,7 @@ def value_log_cluster(log_preprocessor_dir):
 
 def load_model1(model_dir,input_size, hidden_size, num_layers):
     #num_classes = len(pattern2value) + 1
-    num_classes = 63
+    num_classes = 28
     print("Model1 num_classes: ", num_classes)
     model1_dir = model_dir + 'model1/'
     model_path = model1_dir + 'Adam_batch_size=200;epoch=100.pt'
@@ -92,18 +99,19 @@ def draw_evaluation(title, indexs, values, xlabel, ylabel):
 
 
 def do_predict(log_preprocessor_dir,model_dir,window_length,input_size, hidden_size, num_layers,num_candidates,mse_threshold):
-    abnormal_label_file = log_preprocessor_dir + 'HDFS_abnormal_label.txt'
+    # abnormal_label_file = log_preprocessor_dir + 'HDFS_abnormal_label.txt'
 
     #value_log_cluster(log_preprocessor_dir)
     model1 = load_model1(model_dir, input_size, hidden_size, num_layers)
-    #model2 = load_model2(model_dir,input_size, hidden_size, num_layers)
+    
+    model2 = load_model2(model_dir,input_size, hidden_size, num_layers)
 
     # for Model2's prediction, store which log currently predicts for each log_key.
     # When model one predicts normal, model2 makes predictions.
     # At this time, the forward few logs with the same log_key are needed to be predicted
     # so the pattern_index is used to record the log_key to be predicted.
     #pattern_index = [0]*len(pattern2value)
-    pattern_index = [0] * 63
+    #pattern_index = [0] * 63
     start_time = time.time()
     criterion = nn.MSELoss()
     TP = 0
@@ -111,116 +119,170 @@ def do_predict(log_preprocessor_dir,model_dir,window_length,input_size, hidden_s
     TN = 0
     FN = 0
     ALL = 0
-    abnormal_loader = generate(log_preprocessor_dir+ 'logkey/logkey_test',window_length)
-    abnormal_label = []
-    with open(abnormal_label_file) as f:
-        abnormal_label = [int(x) for x in f.readline().strip().split()]
+    test_normal_loader, test_normal_length  = generate(log_preprocessor_dir+ 'logkey/logkey_normal',window_length)
+    test_abnormal_loader, test_abnormal_length=generate(log_preprocessor_dir+'logkey/logkey_abnormal',window_length)
+    
+
     print('predict start')
+    
+    #normal test
     with torch.no_grad():
-        count_num = 0
-        current_file_line = 0
-        for line in abnormal_loader:
-            i = 0
-            # first traverse [0, window_size)
-            for ii in range(window_length):
-                if ii < len(line):
-                    pattern_index[line[ii]] += 1
-            while i < len(line) - window_length:
-                lineNum = current_file_line * 10 + i + window_length + 1
-                count_num += 1
-                seq = line[i:i + window_length]
-                for n in range(len(seq)):
-                    if current_file_line * 10 + i + n + 1 in abnormal_label:
-                        i = i + n + 1
-                        continue
+        for line_num,line in enumerate(test_normal_loader):
+            model1_success=False
+            for i in range(len(line) - window_length-1):
+                seq0 = line[i:i + window_length]
                 label = line[i + window_length]
-                seq = torch.tensor(seq, dtype=torch.float).view(-1, window_length, input_size).to(device)
+               
+
+                seq0 = torch.tensor(seq0, dtype=torch.float).view(
+                    -1,window_length,input_size).to(device)
                 label = torch.tensor(label).view(-1).to(device)
-                output = model1(seq)
-                predicted = torch.argsort(output, 1)[0][-num_candidates:]
-                print('{} - predict result: {}, true label: {}'.format(count_num, predicted, label))
-                now_pattern_index = pattern_index[label]
-                if lineNum in abnormal_label: ## 若出现异常日志，则接下来的预测跳过异常日志，保证进行预测的日志均为正常日志
-                    for j in range(window_length + 1):
-                        if i + window_length + j < len(line) and line[i + window_length + j] < len(pattern_index):
-                            pattern_index[line[i + window_length + j]] += 1
-                        else:
-                            break
-                    i += window_length + 1
-                else:
-                    pattern_index[label] += 1
-                    i += 1
-                ALL += 1
+                output = model1(seq0)
+                predicted = torch.argsort(output,
+                                            1)[0][-num_candidates:]
                 if label not in predicted:
-                    if lineNum in abnormal_label:
+                    FP += 1
+                    model1_success=True
+                    break 
+            # if(model1_success):
+            #     continue
+
+            
+            #如果模型二预测normal   TN+1  否则FP+1
+
+            #现在有63个预测normal value 文件  对一个line  找对应的 value normal下的行 进行预测   
+            
+            # When model one predicts normal, model2 makes predictions.
+            # values：all log's value vector belongs to log_key（whose id is pattern_id）
+            
+
+            seq=[]  #得到63个normal预测文件下的这个window的seq
+            for i in range(26):
+               with open(log_preprocessor_dir+'/logvalue_normal/'+str(i+1),'r')as f:
+                    key_values=f.readlines()
+                    key_values=key_values[line_num].strip('\n')
+                    if(key_values=='-1'):
+                        continue
+                    seq.append(key_values.split(' '))
+            #将字符串转为数字
+            for k1 in range(len(seq)):
+                for k2 in range(len(seq[k1])):
+                    seq[k1][k2]=seq[k1][k2].strip('\n')
+                    seq[k1][k2]=seq[k1][k2].split(',')
+                    for k3 in range(len(seq[k1][k2])):
+                        if(seq[k1][k2][k3]!=''):
+                            seq[k1][k2][k3]=float(seq[k1][k2][k3])
+            
+            #补全
+            for i in range(len(seq)):
+                if(len(seq[i])<window_length+1):
+                    for j in range(window_length+1- len(seq[i])):
+                        seq[i].append([0.0]*10) 
+            #预测
+            for i in range(len(seq)):
+                for j in range(len(seq[i]) - window_length):
+                    seq2 =seq[i][j:j + window_length]
+                    label2= seq[i][j + window_length]
+                
+                    seq2 = torch.tensor(seq2, dtype=torch.float).view(
+                        -1,window_length,input_size).to(device)
+                    labe2 = torch.tensor(label).view(-1).to(device)
+                    output = model2[i](seq2)
+                    mse = criterion(output[0], label2.to(device))
+                    if mse > mse_threshold:
+                        FP+=1
+                        break
+
+    
+    #abnormal test
+    with torch.no_grad():
+            for line in test_abnormal_loader:
+                model1_success=False
+                for i in range(len(line) - window_length):
+                    seq0 = line[i:i + window_length]
+                    label = line[i + window_length]
+
+                    seq0 = torch.tensor(seq0, dtype=torch.float).view(
+                        -1, window_length, input_size).to(device)
+                   
+                    label = torch.tensor(label).view(-1).to(device)
+                    output = model1(seq0)
+                    predicted = torch.argsort(output,
+                                              1)[0][-num_candidates:]
+                    if label not in predicted:
                         TP += 1
-                    else:
-                        FP += 1
-                else:
-                    if lineNum in abnormal_label:
-                        FN += 1
-                    else:
-                        TN += 1
-                '''else:
-                    # When model one predicts normal, model2 makes predictions.
-                    # values：all log's value vector belongs to log_key（whose id is pattern_id）
-                    values = pattern2value[label]
-                    vi = now_pattern_index
-                    if vi >= window_length and vi < len(values):
-                        # Model2 testing
-                        seq2 = values[vi - window_length:vi]
-                        label2 = values[vi]
-                        seq2 = torch.tensor(seq2, dtype=torch.float).view(-1, window_length, len(seq2[0])).to(device)
-                        label2 = torch.tensor(label2).view(-1).to(device)
-                        mse = 0
-                        if label < len(model2) and model2[label] != None:
-                            output = model2[label](seq2)
-                            # Calculate the MSE of the prediction result and the original result.
-                            # If the MSE is within the confidence interval of the Gaussian distribution, the log is a normal log
-                            mse = criterion(output[0], label2.to(device))
+                        model1_success=True
+                        break
+                # if(model1_success):
+                #     continue
 
-                        if mse < mse_threshold:
-                            print(mse, mse_threshold)
-                            if lineNum in abnormal_label:
-                                FP += 1
-                            else:
-                                TP += 1
-                        else:
-                            if lineNum in abnormal_label:
-                                TN += 1
-                            else:
-                                FN += 1
-                    else:
-                        if lineNum in abnormal_label:
-                            FP += 1
-                        else:
-                            TP += 1
-                    '''
-            current_file_line += 1
+            seq=[]  #得到63个normal预测文件下的这个window的seq
+            for i in range(26):
+               with open(log_preprocessor_dir+'/logvalue_normal/'+str(i+1),'r')as f:
+                    key_values=f.readlines()
+                    key_values=key_values[line_num].strip('\n')
+                    if(key_values=='-1'):
+                        continue
+                    seq.append(key_values.split(' '))
+            #将字符串转为数字
+            for k1 in range(len(seq)):
+                for k2 in range(len(seq[k1])):
+                    seq[k1][k2]=seq[k1][k2].strip('\n')
+                    seq[k1][k2]=seq[k1][k2].split(',')
+                    for k3 in range(len(seq[k1][k2])):
+                        if(seq[k1][k2][k3]!=''):
+                            seq[k1][k2][k3]=float(seq[k1][k2][k3])
+            
+            #补全
+            for i in range(len(seq)):
+                if(len(seq[i])<window_length+1):
+                    for j in range(window_length+1- len(seq[i])):
+                        seq[i].append([0.0]*10) 
+            #预测
+            for i in range(len(seq)):
+                for j in range(len(seq[i]) - window_length):
+                    seq2 =seq[i][j:j + window_length]
+                    label2= seq[i][j + window_length]
+                
+                    seq2 = torch.tensor(seq2, dtype=torch.float).view(
+                        -1,window_length,input_size).to(device)
+                    labe2 = torch.tensor(label).view(-1).to(device)
+                    output = model2[i](seq2)
+                    mse = criterion(output[0], label2.to(device))
+                    if mse > mse_threshold:
+                        TP+=1
+                        break
+
+                        
+
+            #现在有63个预测normal value 文件  对一个line  找对应的 value normal下的行 进行预测   
+
+
     # Compute precision, recall and F1-measure
-    if TP + FP == 0:
-        P = 0
-    else:
-        P = 100 * TP / (TP + FP)
-
-    if TP + FN == 0:
-        R = 0
-    else:
-        R = 100 * TP / (TP + FN)
-
-    if P + R == 0:
-        F1 = 0
-    else:
-        F1 = 2 * P * R / (P + R)
-
-    Acc = (TP + TN) * 100 / ALL
-
+    FN = test_abnormal_length - TP
+    TN=test_normal_length-FP
+    
     print('FP: {}, FN: {}, TP: {}, TN: {}'.format(FP, FN, TP, TN))
-    print('Acc: {:.3f}, Precision: {:.3f}%, Recall: {:.3f}%, F1-measure: {:.3f}%'.format(Acc, P, R, F1))
+    # Acc = (TP + TN) * 100 /(TP+TN+FP+FN)
+    # P = 100 * TP / (TP + FP)
+    # R = 100 * TP / (TP + FN)
+    # F1 = 2 * P * R / (P + R)
     print('Finished Predicting')
     elapsed_time = time.time() - start_time
     print('elapsed_time: {}'.format(elapsed_time))
 
-    draw_evaluation("Evaluations", ['Acc', 'Precision', 'Recall', 'F1-measure'],[Acc, P, R, F1], 'evaluations', '%')
+
+    print('FP: {}, FN: {}, TP: {}, TN: {}'.format(FP, FN, TP, TN))
+    # print('Acc: {:.3f}, Precision: {:.3f}%, Recall: {:.3f}%, F1-measure: {:.3f}%'.format(Acc, P, R, F1))
+    print('Finished Predicting')
+    elapsed_time = time.time() - start_time
+    print('elapsed_time: {}'.format(elapsed_time))
+
+    #draw_evaluation("Evaluations", ['Acc', 'Precision', 'Recall', 'F1-measure'],[Acc, P, R, F1], 'evaluations', '%')
+
+
+
+
+
 
 
