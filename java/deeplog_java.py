@@ -9,8 +9,8 @@ from anomalydetection.deeplog import log_predict
 base_dir = path+'/java/'
 # log_detect
 log_detect_dir = base_dir+'/detect_log/'
-log_detect = sys.argv[1]
-log_detect_abnormal_label = sys.argv[2]
+log_detect = "HDFS_detect.log"
+# log_detect = sys.argv[1]
 # FT-tree
 train_fttree_out_dir = path+'Data/FTTreeResult-HDFS/clusters/'
 detect_fttree_out_dir = log_detect_dir +'detect_clusters/'
@@ -75,15 +75,23 @@ def generate_log_key_and_value():
     #print(train_key_pattern)
 
     detect_key_to_train_key = {}
+    detect_key_to_template = {}
+    for i in range(0,len(train_key_pattern)):
+        detect_key_to_template[i+1] = train_key_pattern[i]
     for i in range(0,len(detect_key_pattern)):
         if detect_key_pattern[i] in train_key_pattern:
             index = train_key_pattern.index(detect_key_pattern[i])
             detect_key_to_train_key[i+1]=index+1
+            detect_key_to_template[i+1]=detect_key_pattern[i]
         else:
             detect_key_to_train_key[i + 1]=train_clusters_num +1
+            detect_key_to_template[train_clusters_num +1]=detect_key_pattern[i]
             train_clusters_num += 1
     #(detect_key_to_train_key)
 
+    with open(log_detect_dir + 'clusters/key_pattern.txt', 'w') as file:
+        for i in range(1,len(detect_key_to_template)+1):
+            file.write(detect_key_to_template[i]+'\n')
 
     new_logkey = []
     with open(log_detect_dir+'detect_logkey.txt','w') as file:
