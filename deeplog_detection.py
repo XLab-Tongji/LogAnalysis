@@ -71,7 +71,7 @@ def train_model2():
 # 测试
 def test_model():
     model1_name = 'Adam_batch_size=' + str(model1_batch_size) + ';epoch=' + str(model1_num_epochs+1) + '.pt'
-    log_predict.do_predict(log_preprocessor_dir,model_dir,model1_name,model2_num_epochs,window_length, input_size, hidden_size, num_of_layers, num_candidates, mse_threshold, use_model2)
+    log_predict.do_predict(log_preprocessor_dir,log_fttree_out_dir,model_dir,model1_name,model2_num_epochs,window_length, input_size, hidden_size, num_of_layers, num_candidates, mse_threshold, use_model2)
 
 
 #pattern_extract()

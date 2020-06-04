@@ -37,10 +37,10 @@ def generate(name,window_length):
     return log_keys_sequences,length
 
 
-def get_value_length(log_preprocessor_dir):
+def get_value_length(log_preprocessor_dir,log_fttree_out_dir):
+    value_length_of_key = [0]*(len(os.listdir(log_fttree_out_dir)) + 1)
     log_value_folder = log_preprocessor_dir + 'logvalue_train/'
     file_names = os.listdir(log_value_folder)
-    value_length_of_key.append(0)
     for i in range(len(file_names)):
         with open(log_value_folder + str(i+1), 'r') as f:
             x = f.readlines()
@@ -49,7 +49,7 @@ def get_value_length(log_preprocessor_dir):
             else:
                 line = x[0].strip('\n')
                 key_values = line.split(' ')
-                value_length_of_key.append(len(key_values[0].split(',')))
+                value_length_of_key[i+1] = len(key_values[0].split(','))
 
 
 def load_model1(model_dir,model_name,input_size, hidden_size, num_layers):
@@ -99,10 +99,10 @@ def draw_evaluation(title, indexs, values, xlabel, ylabel):
     plt.show()
 
 
-def do_predict(log_preprocessor_dir,model_dir,model1_name,model2_num_epochs,window_length,input_size, hidden_size, num_layers,num_candidates,mse_threshold,use_model2):
+def do_predict(log_preprocessor_dir,log_fttree_out_dir,model_dir,model1_name,model2_num_epochs,window_length,input_size, hidden_size, num_layers,num_candidates,mse_threshold,use_model2):
     # abnormal_label_file = log_preprocessor_dir + 'HDFS_abnormal_label.txt'
 
-    get_value_length(log_preprocessor_dir)
+    get_value_length(log_preprocessor_dir,log_fttree_out_dir)
 
     model1 = load_model1(model_dir, model1_name, input_size, hidden_size, num_layers)
     
