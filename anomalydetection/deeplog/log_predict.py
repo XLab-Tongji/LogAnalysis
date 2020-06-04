@@ -147,8 +147,8 @@ def do_predict(log_preprocessor_dir,log_fttree_out_dir,model_dir,model1_name,mod
                     FP += 1
                     model1_success=True
                     break 
-            # if(model1_success):
-            #     continue
+            if(model1_success):
+                continue
 
             
             #如果模型二预测normal   TN+1  否则FP+1
@@ -227,7 +227,7 @@ def do_predict(log_preprocessor_dir,log_fttree_out_dir,model_dir,model1_name,mod
         if use_model2:
             seq=[]  #得到63个normal预测文件下的这个window的seq
             for i in range(26):
-                with open(log_preprocessor_dir+'/logvalue_normal/'+str(i+1),'r')as f:
+                with open(log_preprocessor_dir+'/logvalue_abnormal/'+str(i+1),'r')as f:
                     key_values=f.readlines()
                     key_values=key_values[line_num].strip('\n')
                     if(key_values=='-1'):
@@ -272,10 +272,10 @@ def do_predict(log_preprocessor_dir,log_fttree_out_dir,model_dir,model1_name,mod
     TN=test_normal_length-FP
     
     print('FP: {}, FN: {}, TP: {}, TN: {}'.format(FP, FN, TP, TN))
-    # Acc = (TP + TN) * 100 /(TP+TN+FP+FN)
-    # P = 100 * TP / (TP + FP)
-    # R = 100 * TP / (TP + FN)
-    # F1 = 2 * P * R / (P + R)
+    Acc = (TP + TN) * 100 /(TP+TN+FP+FN)
+    P = 100 * TP / (TP + FP)
+    R = 100 * TP / (TP + FN)
+    F1 = 2 * P * R / (P + R)
     print('Finished Predicting')
     elapsed_time = time.time() - start_time
     print('elapsed_time: {}'.format(elapsed_time))

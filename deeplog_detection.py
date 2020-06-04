@@ -29,7 +29,7 @@ learning_rate = 0.01
 num_candidates = 3
 mse_threshold = 0.1
 # 是否使用模型二
-use_model2 = True
+use_model2 = False
 
 if not os.path.exists(log_result):
     os.makedirs(log_result)

@@ -77,11 +77,6 @@ def generate_seq_label(file_path,num_of_layers,window_length):
         # if len(x) < 2*num_of_layers:
         #     flag = 1
 
-    # for i in range(len(vectors) - window_length):
-    #     inputs.append(vectors[i: i + window_length])
-    #     outputs.append(vectors[i + window_length])
-    # print(inputs)
-    # print(inputs[0])
     data_set = TensorDataset(torch.tensor(inputs, dtype=torch.float), torch.tensor(outputs))
 
     if len(vectors) > 0 and flag==0:

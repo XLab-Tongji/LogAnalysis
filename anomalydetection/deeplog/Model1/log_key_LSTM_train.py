@@ -33,6 +33,8 @@ def generate_seq_label(file_path,window_length):
         for line in file.readlines():
             num_of_sessions += 1
             line = list(map(lambda n: n, map(int, line.strip().split())))
+            if(len(line)<window_length+1):
+                continue
             line = line + [-1] * (window_length + 1 - len(line))
             for i in range(len(line) - window_length):
                 input_data.append(line[i:i + window_length])
