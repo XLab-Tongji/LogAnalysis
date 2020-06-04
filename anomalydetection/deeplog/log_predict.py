@@ -12,10 +12,8 @@ from collections import Counter
 
 # use cuda if available  otherwise use cpu
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-pattern2value = []
-
-
+# 记录每个 key 对应的 value 的长度
+value_length_of_key = []
 
 # 继承枚举类
 class LineNumber(Enum):
@@ -39,24 +37,27 @@ def generate(name,window_length):
     return log_keys_sequences,length
 
 
-def value_log_cluster(log_preprocessor_dir):
-    log_value_folder_cluster = log_preprocessor_dir + 'logvalue_test/'
-    file_names = os.listdir(log_value_folder_cluster)
-    pattern2value.append([])
+def get_value_length(log_preprocessor_dir):
+    log_value_folder = log_preprocessor_dir + 'logvalue_train/'
+    file_names = os.listdir(log_value_folder)
+    value_length_of_key.append(0)
     for i in range(len(file_names)):
-        pattern2value.append([])
-        with open(log_value_folder_cluster + str(i+1) + ".txt", 'r') as in_text:
-            for line in in_text.readlines():
-                line = list(map(lambda n: n, map(float, line.strip().split())))
-                pattern2value[i+1].append(line)
+        with open(log_value_folder + str(i+1), 'r') as f:
+            x = f.readlines()
+            if len(x) == 0 or x[0].strip('\n') == '-1':
+                value_length_of_key.append(0)
+            else:
+                line = x[0].strip('\n')
+                key_values = line.split(' ')
+                value_length_of_key.append(len(key_values[0].split(',')))
 
 
-def load_model1(model_dir,input_size, hidden_size, num_layers):
-    #num_classes = len(pattern2value) + 1
-    num_classes = 28
+def load_model1(model_dir,model_name,input_size, hidden_size, num_layers):
+    num_classes = len(value_length_of_key) + 1
+    # num_classes = 28
     print("Model1 num_classes: ", num_classes)
     model1_dir = model_dir + 'model1/'
-    model_path = model1_dir + 'Adam_batch_size=200;epoch=100.pt'
+    model_path = model1_dir + model_name
     model1 = Model1(input_size, hidden_size, num_layers, num_classes).to(device)
     model1.load_state_dict(torch.load(model_path, map_location='cpu'))
     model1.eval()
@@ -64,16 +65,16 @@ def load_model1(model_dir,input_size, hidden_size, num_layers):
     return model1
 
 
-def load_model2(model_dir,input_size, hidden_size, num_layers):
+def load_model2(model_dir,epoch,input_size, hidden_size, num_layers):
     model2_dir = model_dir+ 'model2/'
     model2 = []
-    for i in range(len(pattern2value)):
-        if len(pattern2value[i]) == 0:
+    for i in range(len(value_length_of_key)):
+        if value_length_of_key[i] == 0:
             model2.append(None)
             continue
-        input_size = len(pattern2value[i][0])
+        input_size = value_length_of_key[i]
         out_size = input_size
-        model_name = str(i+1) + '_epoch=50.pt'
+        model_name = str(i+1) + '_epoch=' + str(epoch+1)+ '.pt'
         model_path = model2_dir + str(i+1) + '/' + model_name
         if not os.path.exists(model_path):
             model2.append(None)
@@ -98,13 +99,14 @@ def draw_evaluation(title, indexs, values, xlabel, ylabel):
     plt.show()
 
 
-def do_predict(log_preprocessor_dir,model_dir,window_length,input_size, hidden_size, num_layers,num_candidates,mse_threshold):
+def do_predict(log_preprocessor_dir,model_dir,model1_name,model2_num_epochs,window_length,input_size, hidden_size, num_layers,num_candidates,mse_threshold,use_model2):
     # abnormal_label_file = log_preprocessor_dir + 'HDFS_abnormal_label.txt'
 
-    #value_log_cluster(log_preprocessor_dir)
-    model1 = load_model1(model_dir, input_size, hidden_size, num_layers)
+    get_value_length(log_preprocessor_dir)
+
+    model1 = load_model1(model_dir, model1_name, input_size, hidden_size, num_layers)
     
-    model2 = load_model2(model_dir,input_size, hidden_size, num_layers)
+    model2 = load_model2(model_dir,model2_num_epochs,input_size, hidden_size, num_layers)
 
     # for Model2's prediction, store which log currently predicts for each log_key.
     # When model one predicts normal, model2 makes predictions.
@@ -144,8 +146,8 @@ def do_predict(log_preprocessor_dir,model_dir,window_length,input_size, hidden_s
                     FP += 1
                     model1_success=True
                     break 
-            # if(model1_success):
-            #     continue
+            if(model1_success):
+                continue
 
             
             #如果模型二预测normal   TN+1  否则FP+1
@@ -155,70 +157,74 @@ def do_predict(log_preprocessor_dir,model_dir,window_length,input_size, hidden_s
             # When model one predicts normal, model2 makes predictions.
             # values：all log's value vector belongs to log_key（whose id is pattern_id）
             
+            # 是否使用模型二
+            if use_model2:
 
-            seq=[]  #得到63个normal预测文件下的这个window的seq
-            for i in range(26):
-               with open(log_preprocessor_dir+'/logvalue_normal/'+str(i+1),'r')as f:
-                    key_values=f.readlines()
-                    key_values=key_values[line_num].strip('\n')
-                    if(key_values=='-1'):
-                        continue
-                    seq.append(key_values.split(' '))
-            #将字符串转为数字
-            for k1 in range(len(seq)):
-                for k2 in range(len(seq[k1])):
-                    seq[k1][k2]=seq[k1][k2].strip('\n')
-                    seq[k1][k2]=seq[k1][k2].split(',')
-                    for k3 in range(len(seq[k1][k2])):
-                        if(seq[k1][k2][k3]!=''):
-                            seq[k1][k2][k3]=float(seq[k1][k2][k3])
-            
-            #补全
-            for i in range(len(seq)):
-                if(len(seq[i])<window_length+1):
-                    for j in range(window_length+1- len(seq[i])):
-                        seq[i].append([0.0]*10) 
-            #预测
-            for i in range(len(seq)):
-                for j in range(len(seq[i]) - window_length):
-                    seq2 =seq[i][j:j + window_length]
-                    label2= seq[i][j + window_length]
+                seq=[]  #得到63个normal预测文件下的这个window的seq
+                for i in range(26):
+                    with open(log_preprocessor_dir+'/logvalue_normal/'+str(i+1),'r')as f:
+                        key_values=f.readlines()
+                        key_values=key_values[line_num].strip('\n')
+                        if(key_values=='-1'):
+                            continue
+                        seq.append(key_values.split(' '))
+                #将字符串转为数字
+                for k1 in range(len(seq)):
+                    for k2 in range(len(seq[k1])):
+                        seq[k1][k2]=seq[k1][k2].strip('\n')
+                        seq[k1][k2]=seq[k1][k2].split(',')
+                        for k3 in range(len(seq[k1][k2])):
+                            if(seq[k1][k2][k3]!=''):
+                                seq[k1][k2][k3]=float(seq[k1][k2][k3])
                 
-                    seq2 = torch.tensor(seq2, dtype=torch.float).view(
-                        -1,window_length,input_size).to(device)
-                    labe2 = torch.tensor(label).view(-1).to(device)
-                    output = model2[i](seq2)
-                    mse = criterion(output[0], label2.to(device))
-                    if mse > mse_threshold:
-                        FP+=1
-                        break
+                #补全
+                for i in range(len(seq)):
+                    if(len(seq[i])<window_length+1):
+                        for j in range(window_length+1- len(seq[i])):
+                            seq[i].append([0.0]*10) 
+                #预测
+                for i in range(len(seq)):
+                    for j in range(len(seq[i]) - window_length):
+                        seq2 =seq[i][j:j + window_length]
+                        label2= seq[i][j + window_length]
+                    
+                        seq2 = torch.tensor(seq2, dtype=torch.float).view(
+                            -1,window_length,input_size).to(device)
+                        labe2 = torch.tensor(label).view(-1).to(device)
+                        output = model2[i](seq2)
+                        mse = criterion(output[0], label2.to(device))
+                        if mse > mse_threshold:
+                            FP+=1
+                            break
 
     
     #abnormal test
     with torch.no_grad():
-            for line in test_abnormal_loader:
-                model1_success=False
-                for i in range(len(line) - window_length):
-                    seq0 = line[i:i + window_length]
-                    label = line[i + window_length]
+        for line in test_abnormal_loader:
+            model1_success=False
+            for i in range(len(line) - window_length):
+                seq0 = line[i:i + window_length]
+                label = line[i + window_length]
 
-                    seq0 = torch.tensor(seq0, dtype=torch.float).view(
-                        -1, window_length, input_size).to(device)
-                   
-                    label = torch.tensor(label).view(-1).to(device)
-                    output = model1(seq0)
-                    predicted = torch.argsort(output,
-                                              1)[0][-num_candidates:]
-                    if label not in predicted:
-                        TP += 1
-                        model1_success=True
-                        break
-                # if(model1_success):
-                #     continue
+                seq0 = torch.tensor(seq0, dtype=torch.float).view(
+                    -1, window_length, input_size).to(device)
+                
+                label = torch.tensor(label).view(-1).to(device)
+                output = model1(seq0)
+                predicted = torch.argsort(output,
+                                            1)[0][-num_candidates:]
+                if label not in predicted:
+                    TP += 1
+                    model1_success=True
+                    break
+            if(model1_success):
+                continue
 
+        # 是否使用模型二
+        if use_model2:
             seq=[]  #得到63个normal预测文件下的这个window的seq
             for i in range(26):
-               with open(log_preprocessor_dir+'/logvalue_normal/'+str(i+1),'r')as f:
+                with open(log_preprocessor_dir+'/logvalue_normal/'+str(i+1),'r')as f:
                     key_values=f.readlines()
                     key_values=key_values[line_num].strip('\n')
                     if(key_values=='-1'):
@@ -253,9 +259,7 @@ def do_predict(log_preprocessor_dir,model_dir,window_length,input_size, hidden_s
                         TP+=1
                         break
 
-                        
-
-            #现在有63个预测normal value 文件  对一个line  找对应的 value normal下的行 进行预测   
+        #现在有63个预测normal value 文件  对一个line  找对应的 value normal下的行 进行预测   
 
 
     # Compute precision, recall and F1-measure

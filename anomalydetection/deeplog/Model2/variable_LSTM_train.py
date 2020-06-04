@@ -55,9 +55,9 @@ def generate_seq_label(file_path,num_of_layers,window_length):
                 key_value=key_value.split(',')
                 #将字符串转为数字
                 for k1 in range(len(key_value)):
-                            if(key_value[k1]!=''):
-                                key_value[k1]=float(key_value[k1])  
-                vectors.append(key_value)          
+                    if(key_value[k1]!=''):
+                        key_value[k1]=float(key_value[k1])  
+                vectors.append(key_value)
             # line = tuple(map(lambda n: n, map(float, line.strip().split())))
             
             

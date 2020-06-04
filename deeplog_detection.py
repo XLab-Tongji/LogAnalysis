@@ -28,6 +28,8 @@ model2_batch_size = 20
 learning_rate = 0.01
 num_candidates = 3
 mse_threshold = 0.1
+# 是否使用模型二
+use_model2 = True
 
 if not os.path.exists(log_result):
     os.makedirs(log_result)
@@ -55,6 +57,11 @@ def generate_log_value():
     hdfs_fs_deeplog_preprocessor.generate_log_value(log_file_dir,log_file_name,log_file_abnormal_label,log_preprocessor_dir,log_fttree_out_dir)
 
 # 训练
+def train_model():
+    train_model1()
+    if use_model2:
+        train_model2()
+
 def train_model1():
     log_key_LSTM_train.train_model1(model_dir,log_preprocessor_dir,log_fttree_out_dir,model1_num_epochs,model1_batch_size,window_length,input_size,hidden_size,num_of_layers)
 
@@ -63,14 +70,13 @@ def train_model2():
 
 # 测试
 def test_model():
-    log_predict.do_predict(log_preprocessor_dir,model_dir,window_length, input_size, hidden_size, num_of_layers, num_candidates, mse_threshold)
+    model1_name = 'Adam_batch_size=' + str(model1_batch_size) + ';epoch=' + str(model1_num_epochs+1) + '.pt'
+    log_predict.do_predict(log_preprocessor_dir,model_dir,model1_name,model2_num_epochs,window_length, input_size, hidden_size, num_of_layers, num_candidates, mse_threshold, use_model2)
 
 
 #pattern_extract()
 #log_split()
 #generate_log_key()
- #generate_log_value()
-train_model1()
-train_model2()
-# train_model1()
+#generate_log_value()
+train_model()
 test_model()

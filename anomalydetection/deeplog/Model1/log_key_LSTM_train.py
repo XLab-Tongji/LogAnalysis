@@ -48,7 +48,8 @@ def train_model1(model_dir,log_preprocessor_dir,log_fttree_out_dir,num_epochs,ba
     log_template = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs)
     train_file_name = log_preprocessor_dir+'logkey/logkey_train'
     data_file = train_file_name
-    num_classes = len(os.listdir(log_fttree_out_dir)) + 2
+    # 加 1 是因为 key 是从 1 开始算的
+    num_classes = len(os.listdir(log_fttree_out_dir)) + 1
     print("Train num_classes: ", num_classes)
     model = Model(input_size, hidden_size, num_of_layers, num_classes).to(device)
     
