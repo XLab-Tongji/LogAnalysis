@@ -39,26 +39,51 @@ def generate_seq_label(file_path,num_of_layers,window_length):
     num_sessions = 0
     inputs = []
     outputs = []
-    vectors = []
     flag = 0
     with open(file_path, 'r') as f:
         x = f.readlines()
         for line in x:
+            line=line.strip('\n')
+            vectors = []
+            if(line=='-1'):
+                l=1
+                break
             num_sessions += 1
-            line = tuple(map(lambda n: n, map(float, line.strip().split())))
-            vectors.append(line)
+
+            key_values=line.split(' ')
+            for key_value in key_values:
+                key_value=key_value.split(',')
+                #将字符串转为数字
+                for k1 in range(len(key_value)):
+                    if(key_value[k1]!=''):
+                        key_value[k1]=float(key_value[k1])  
+                vectors.append(key_value)
+            # line = tuple(map(lambda n: n, map(float, line.strip().split())))
+            
+            
+            #补全
+            if(len(vectors)<window_length+1):
+                for i in range(window_length-len(vectors)+1):
+                    vectors.append([0.0]*10)
+            for i in range(len(vectors) - window_length):
+                    inputs.append(vectors[i: i + window_length])
+                    outputs.append(vectors[i + window_length])
+
             # For each log key's log parameter value vector，the length of these vector is same，the meaning of value at each position is same
             # eg: [log_vector1, log_vector2, log_vector3] --> log_vector4
             # so each element of inputs is a sequence，and each element of that sequence is a sequence too
             # nn's output is the prediction of parameter value vector
-        if len(x) < 2*num_of_layers:
-            flag = 1
-    for i in range(len(vectors) - window_length):
-        inputs.append(vectors[i: i + window_length])
-        outputs.append(vectors[i + window_length])
+        
+        # if len(x) < 2*num_of_layers:
+        #     flag = 1
+
+    # for i in range(len(vectors) - window_length):
+    #     inputs.append(vectors[i: i + window_length])
+    #     outputs.append(vectors[i + window_length])
     # print(inputs)
     # print(inputs[0])
     data_set = TensorDataset(torch.tensor(inputs, dtype=torch.float), torch.tensor(outputs))
+
     if len(vectors) > 0 and flag==0:
         return data_set, len(vectors[0])
     else:
@@ -72,7 +97,7 @@ def train_model2(model_dir,log_preprocessor_dir,num_epochs,batch_size,window_len
     file_names = os.listdir(log_value_folder)
     for i in range(len(file_names)):
         print(i)
-        file_name = str(i+1) + ".txt"
+        file_name = str(i+1)
         train_data_set_name = log_value_folder + file_name
         validation_data_set_name = train_data_set_name
 
