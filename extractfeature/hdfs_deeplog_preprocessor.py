@@ -157,14 +157,17 @@ class hdfs_deeplog_preprocessor:
             print(total_length)
             print(stage_to_length)
             exit(3)
+        block_index_list = [i for i in range(total_length)]
+        random.shuffle(block_index_list)
         table = [-1 for i in range(total_length)]
+
+        used_block_count = 0
         for stage in range(len(stage_to_length)):
-            stage_length_count = 0
-            while stage_length_count < stage_to_length[stage]:
-                table_index = random.randint(0,total_length-1)
-                if table[table_index] == -1:
-                    table[table_index] = stage
-                    stage_length_count += 1
+            block_index_start = used_block_count
+            block_index_end = used_block_count + stage_to_length[stage]
+            for block_index in block_index_list[block_index_start:block_index_end]:
+                table[block_index] = stage
+            used_block_count = block_index_end
         return table
 
     def output(self,stage,output_normal):
