@@ -8,8 +8,6 @@ from torch.utils.data import TensorDataset, DataLoader
 
 import pandas as pd
 
-import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
 
 import numpy as np
 
@@ -65,7 +63,7 @@ class Encoder(nn.Module):
 
     def forward(self, src, src_mask):
         # src = [batch size, src len, input_dim] #
-        # src_mask = [batch size,1, 1, src len]
+        # src_mask = [batch size,1, 1, src len] #
 
 
         batch_size = src.shape[0]
@@ -176,7 +174,7 @@ class MultiHeadAttentionLayer(nn.Module):
         # energy = [batch size, n heads, query len, key len]
 
         if mask is not None:
-            mask = mask.view(batch_size, 1, 1, -1)
+            mask = mask.view(batch_size, 1, 1, -1).to(device)
             energy = energy.masked_fill(mask == 0, -1e10)
 
         attention = torch.softmax(energy, dim=-1)
@@ -244,7 +242,6 @@ def generate_robust_seq_label(file_path, sequence_length, pattern_vec_file):
 def get_batch_semantic_with_mask(seq, pattern_vec_file):
     with open(pattern_vec_file, 'r') as pattern_file:
         class_type_to_vec = json.load(pattern_file)
-    print(seq.shape)
     batch_data = []
     mask_data = []
     for s in seq:
@@ -253,11 +250,12 @@ def get_batch_semantic_with_mask(seq, pattern_vec_file):
             if event == 0:
                 semantic_line.append([-1] * 300)
             else:
-                semantic_line.append(class_type_to_vec[str(event - 1)])
+                semantic_line.append(class_type_to_vec[str(event)])
         batch_data.append(semantic_line)
         mask = make_src_mask(s, 0)
         mask_data.append(mask)
     return batch_data, mask_data
+
 
 def train_model(sequence_length, input_size, hidden_size, num_of_layers, num_of_classes, num_epochs, batch_size, root_path, model_output_directory, data_file, pattern_vec_file, dropout, num_of_heads, pf_dim):
     print("Train num_classes: ", num_of_classes)

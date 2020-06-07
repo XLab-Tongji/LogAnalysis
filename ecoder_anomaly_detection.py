@@ -11,26 +11,31 @@ from anomalydetection.att_all_you_need import encoder_self_att_train
 from anomalydetection.att_all_you_need import encoder_self_att_predict
 
 # parameters for early prepare
+logparser_structed_file = './Data/logparser_result/Drain/HDFS.log_structured.csv'
+logparser_event_file = './Data/logparser_result/Drain/HDFS.log_templates.csv'
+anomaly_label_file = './Data/log/hdfs/anomaly_label.csv'
+sequential_directory = './Data/DrainResult-HDFS/sequential_files/'
+train_file_name = 'robust_train_file'
+test_file_name = 'robust_test_file'
+valid_file_name = 'robust_valid_file'
+wordvec_file_path = './Data/pretrainedwordvec/crawl-300d-2M.vec(0.1M)'
+pattern_vec_out_path = './Data/DrainResult-HDFS/pattern_vec'
+variable_symbol = '<*> '
 
-temp_directory = './Data/logdeepdata/'
-train_file_name = 'robust_log_train.csv'
-test_file_name = 'robust_log_test.csv'
-valid_file_name = 'robust_log_valid.csv'
-
-# log anomaly sequential model parameters some parameter maybe changed to train similar models
+# my encoder
 sequence_length = 50
 input_size = 300
 hidden_size = 256
 num_of_layers = 4
 # 1 using sigmoid, 2 using softmax
 num_of_classes = 1
-num_epochs = 20
+num_epochs = 100
 batch_size = 1000
 # for robust attention bi
-train_root_path = './Data/FTTreeResult-HDFS/att_all_you_need/'
+train_root_path = './Data/DrainResult-HDFS/att_all_you_need/'
 model_out_path = train_root_path + 'model_out/'
-train_file = temp_directory + train_file_name
-pattern_vec_json = './Data/logdeepdata/event2semantic_vec.json'
+train_file = sequential_directory + train_file_name
+pattern_vec_json = pattern_vec_out_path
 dropout = 0.5
 num_of_heads = 8
 pf_dim = 512
@@ -49,7 +54,7 @@ def train_model():
 
 def test_model():
     # do something
-    encoder_self_att_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, sequence_length, model_out_path + 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs) + '.pt', temp_directory + test_file_name, batch_size, pattern_vec_json, dropout, num_of_heads, pf_dim)
+    encoder_self_att_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, sequence_length, model_out_path + 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs) + '.pt', sequential_directory + valid_file_name, batch_size, pattern_vec_json, dropout, num_of_heads, pf_dim)
 
 #pattern_extract()
 #extract_feature()

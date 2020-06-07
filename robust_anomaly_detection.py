@@ -10,8 +10,8 @@ from anomalydetection.robust import bi_lstm_att_predict
 from logparsing.converter import eventid2number
 
 # parameters for early prepare
-logparser_structed_file = './Data/logparser_result/Drain/HDFS_2k.log_structured.csv'
-logparser_event_file = './Data/logparser_result/Drain/HDFS_2k.log_templates.csv'
+logparser_structed_file = './Data/logparser_result/Drain/HDFS.log_structured.csv'
+logparser_event_file = './Data/logparser_result/Drain/HDFS.log_templates.csv'
 anomaly_label_file = './Data/log/hdfs/anomaly_label.csv'
 sequential_directory = './Data/DrainResult-HDFS/sequential_files/'
 train_file_name = 'robust_train_file'
@@ -38,13 +38,13 @@ hidden_size = 128
 num_of_layers = 2
 # 1 using sigmoid, 2 using softmax
 num_of_classes = 1
-num_epochs = 20
+num_epochs = 200
 batch_size = 1000
 # for robust attention bi
-train_root_path = './Data/FTTreeResult-HDFS/robust_att_bi_model_train/'
+train_root_path = './Data/DrainResult-HDFS/robust_att_bi_model_train/'
 model_out_path = train_root_path + 'model_out/'
 train_file = sequential_directory + train_file_name
-pattern_vec_json = './Data/logdeepdata/event2semantic_vec.json'
+pattern_vec_json = pattern_vec_out_path
 
 
 # predict parameters
@@ -76,6 +76,7 @@ def extract_feature_test():
 def extract_feature():
     hdfs_robust_preprocessor.generate_train_and_test_file(logparser_structed_file, logparser_event_file, anomaly_label_file, sequential_directory, train_file_name, valid_file_name, test_file_name, wordvec_file_path, pattern_vec_out_path, variable_symbol)
 
+
 def train_model():
     bi_lstm_att_train.train_model(sequence_length, input_size, hidden_size, num_of_layers, num_of_classes, num_epochs, batch_size, train_root_path, model_out_path, train_file, pattern_vec_json)
 
@@ -87,10 +88,9 @@ def test_model():
 
 #eventid2number.add_numberid(logparser_event_file)
 #pattern_extract()
-extract_feature()
+#extract_feature()
 #train_model()
-#train_model()
-#test_model()
+test_model()
 
 # deep log
 # log_preprocessor.execute_process()

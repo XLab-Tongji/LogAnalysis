@@ -44,11 +44,9 @@ def filter_small_top_k(predicted, output):
     return filter
 
 
-def generate_robust_seq_label(file_path, sequence_length, pattern_vec_file):
-    with open(pattern_vec_file, 'r') as pattern_file:
-        class_type_to_vec = json.load(pattern_file)
+def generate_robust_seq_label(file_path, sequence_length):
     num_of_sessions = 0
-    input_data, output_data = [], []
+    input_data, output_data, mask_data = [], [], []
     train_file = pd.read_csv(file_path)
     i = 0
     while i < len(train_file):
@@ -57,17 +55,26 @@ def generate_robust_seq_label(file_path, sequence_length, pattern_vec_file):
         line = line[0:sequence_length]
         if len(line) < sequence_length:
             line.extend(list([0]) * (sequence_length - len(line)))
+        input_data.append(line)
+        output_data.append(int(train_file["label"][i]))
+        i += 1
+    data_set = TensorDataset(torch.tensor(input_data), torch.tensor(output_data))
+    return data_set
+
+
+def get_batch_semantic(seq, pattern_vec_file):
+    with open(pattern_vec_file, 'r') as pattern_file:
+        class_type_to_vec = json.load(pattern_file)
+    batch_data = []
+    for s in seq:
         semantic_line = []
-        for event in line:
+        for event in s.numpy().tolist():
             if event == 0:
                 semantic_line.append([-1] * 300)
             else:
-                semantic_line.append(class_type_to_vec[str(event - 1)])
-        input_data.append(semantic_line)
-        output_data.append(int(train_file["label"][i]))
-        i += random.randint(6, 8)
-    data_set = TensorDataset(torch.tensor(input_data, dtype=torch.float), torch.tensor(output_data))
-    return data_set
+                semantic_line.append(class_type_to_vec[str(event)])
+        batch_data.append(semantic_line)
+    return batch_data
 
 
 def do_predict(input_size, hidden_size, num_layers, num_classes, sequence_length, model_path, test_file_path, batch_size, pattern_vec_json):
@@ -81,7 +88,7 @@ def do_predict(input_size, hidden_size, num_layers, num_classes, sequence_length
     FN = 0
 
     # create data set
-    sequence_data_set = generate_robust_seq_label(test_file_path, sequence_length, pattern_vec_json)
+    sequence_data_set = generate_robust_seq_label(test_file_path, sequence_length)
     # create data_loader
     data_loader = DataLoader(dataset=sequence_data_set, batch_size=batch_size, shuffle=True, pin_memory=False)
 
@@ -89,10 +96,10 @@ def do_predict(input_size, hidden_size, num_layers, num_classes, sequence_length
     with torch.no_grad():
         count = 0
         for step, (seq, label) in enumerate(data_loader):
-            # first traverse [0, window_size)
+            batch_data = get_batch_semantic(seq, pattern_vec_json)
+            seq = torch.tensor(batch_data)
             seq = seq.view(-1, sequence_length, input_size).to(device)
-            #label = torch.tensor(label).view(-1).to(device)
-            output = sequential_model(seq)[:, 0].clone().detach().numpy()
+            output = sequential_model(seq)[:, 0].cpu().clone().detach().numpy()
             predicted = (output > 0.2).astype(int)
             label = np.array([y for y in label])
             TP += ((predicted == 1) * (label == 1)).sum()

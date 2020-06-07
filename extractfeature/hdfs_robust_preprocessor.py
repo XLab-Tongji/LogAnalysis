@@ -4,6 +4,7 @@ import io
 import re
 import random
 import math
+import json
 import pandas as pd
 import numpy as np
 block_id_regex = r'blk_(|-)[0-9]+'
@@ -29,24 +30,25 @@ def get_log_template_dic(logparser_event_file):
     return dic
 
 
-
 # log parser_file should be structed.csv
 def generate_train_and_test_file(logparser_structed_file, logparser_event_file, anomaly_label_file, out_dic, train_out_file_name, validation_out_file_name, test_out_file_name, wordvec_path, pattern_vec_out_path, variable_symbol):
     anomaly_block_set = get_anomaly_block_id_set(anomaly_label_file)
     log_template_dic = get_log_template_dic(logparser_event_file)
     session_dic = {}
     logparser_result = pd.read_csv(logparser_structed_file, header=0)
-    normal_block_ids = []
-    abnormal_block_ids = []
+    normal_block_ids = set()
+    abnormal_block_ids = set()
     for _, row in logparser_result.iterrows():
         key = row['EventTemplate']
         content = row['Content']
         block_id = re.search(block_id_regex, content).group()
         session_dic.setdefault(block_id, []).append(log_template_dic[row['EventId']])
         if block_id in anomaly_block_set:
-            abnormal_block_ids.append(block_id)
+            abnormal_block_ids.add(block_id)
         else:
-            normal_block_ids.append(block_id)
+            normal_block_ids.add(block_id)
+    abnormal_block_ids = list(abnormal_block_ids)
+    normal_block_ids = list(normal_block_ids)
     random.shuffle(abnormal_block_ids)
     random.shuffle(normal_block_ids)
     with open(out_dic + train_out_file_name, 'w+') as train_file_obj, open(out_dic + test_out_file_name,
@@ -120,6 +122,7 @@ def preprocess_pattern(log_pattern):
     final_list.append(special_list)
     return [x for x in re.split(pattern, final_list.__str__()) if len(x) > 0]
 
+
 def pattern_to_vec(logparser_event_file, wordvec_path, pattern_vec_out_path, variable_symbol):
     data = load_vectors(wordvec_path)
     pattern_to_words = {}
@@ -154,12 +157,10 @@ def pattern_to_vec(logparser_event_file, wordvec_path, pattern_vec_out_path, var
                     #print(data[word])
                     pattern_vector = pattern_vector + weight * IDF[word] * np.array(data[word])
         pattern_to_vectors[key] = pattern_vector / word_used
+    numberid2vec = {}
+    for _, row in df.iterrows():
+        numberid2vec[row['numberID']] = pattern_to_vectors[row['EventTemplate'].replace(variable_symbol, '').strip()].tolist()
+    json_str = json.dumps(numberid2vec)
     with open(pattern_vec_out_path, 'w+') as file_obj:
-        for key in pattern_to_vectors.keys():
-            file_obj.write(key)
-            file_obj.write('[:]')
-            for f in pattern_to_vectors[key]:
-                file_obj.write(str(f))
-                file_obj.write(' ')
-            file_obj.write('\n')
+        file_obj.write(json_str)
     return pattern_to_vectors

@@ -112,7 +112,7 @@ def generate_robust_seq_label(file_path, sequence_length, pattern_vec_file):
             if event == 0:
                 semantic_line.append([-1] * 300)
             else:
-                semantic_line.append(class_type_to_vec[str(event - 1)])
+                semantic_line.append(class_type_to_vec[str(event)])
         input_data.append(semantic_line)
         output_data.append(int(train_file["label"][i]))
     data_set = TensorDataset(torch.tensor(input_data, dtype=torch.float), torch.tensor(output_data))
