@@ -71,8 +71,18 @@ def generate_log_key(log_file_dir,log_file_abnormal_label,log_preprocessor_dir,l
 
 # 提取并处理log_value
 def generate_log_value(log_file_dir,log_file_name,log_file_abnormal_label,log_preprocessor_dir,log_fttree_out_dir):
-    log = log_file_dir+log_file_name
+    N_CLUSTER = 21
+    WORD2VEC_FILE = 'word2vec'
+    STRING_VECTOR_FILE = 'string_vector'
+
+    log_list = []
+    word_vector = {}
+
+    # log = log_file_dir+log_file_name
+    word2vec = log_file_dir+WORD2VEC_FILE
+    string_vector = log_file_dir+STRING_VECTOR_FILE
     in_abnormal = log_file_dir+log_file_abnormal_label
+
     log_value_dir = ['logvalue_train/', 'logvalue_test/']
     log_value_train_directory = log_preprocessor_dir+log_value_dir[0]
     log_value_test_directory = log_preprocessor_dir +log_value_dir[1]
@@ -83,53 +93,58 @@ def generate_log_value(log_file_dir,log_file_name,log_file_abnormal_label,log_pr
     if not os.path.exists(log_value_test_directory):
         os.makedirs(log_value_test_directory)
 
-    log_list = []
-    with open(log, 'r') as file:
+    with open(string_vector, 'r') as file:
         content_list = file.readlines()
         log_list = [x.strip() for x in content_list]
+
+    with open(word2vec, 'r') as r:
+        for line in r.readlines():
+            list_line = line.split(' ')
+            value = list(map(float, list_line[1:]))
+            key = list_line[0]
+            word_vector[key] = value
 
     abnormal = get_abnormal(in_abnormal)
     clusters = get_logkey(log_fttree_out_dir)[0]
 
     num = [0, 170000, 199999]
 
-    for i in range(0, 2):
-        for j in range(1, 62):
+    for i in range(len(log_value_dir)):
+        for j in range(N_CLUSTER):
             print("process:", i, j)
-            para1 = []
-            para2 = []
-            para3 = []
-            out_path = log_preprocessor_dir + log_value_dir[i] + str(j) + ".txt"
-            for t in clusters[j - 1]:
+            out_path = log_preprocessor_dir + log_value_dir[i] + str(j+1) + ".txt"
+            write_list = []
+            for t in clusters[j]:
                 s = int(t)
-                if (i != 1 and s not in abnormal and s >= num[i] and s < num[i + 1]) or (
-                        i == 1 and s >= num[i] and s < num[i + 1]):
-                    templog = []
-                    for word in log_list[s].split(' '):
-                        templog.append(word)
-                    para1.append(int(templog[0]))
-                    para2.append(int(templog[1]))
-                    para3.append(int(templog[2]))
+                if (i != 1 and s not in abnormal and num[i] <= s < num[i + 1]) or (
+                        i == 1 and num[i] <= s < num[i + 1]):
+                    output = calc_sentence_vector(log_list[s],word_vector)
+                    write_list.append(output)
                 elif s >= num[i + 1]:
-                    break;
-            if len(para1) > 0:
-                para1 = preprocessing.scale(para1)
-            if len(para2) > 0:
-                para2 = preprocessing.scale(para2)
-            if len(para3) > 0:
-                para3 = preprocessing.scale(para3)
+                    break
 
             with open(out_path, mode='w', encoding='utf-8') as f:
-                for w in range(0, len(para1)):
-                    print(para1[w], file=f, end='')
-                    print(' ', file=f, end='')
-                    print(para2[w], file=f, end='')
-                    print(' ', file=f, end='')
-                    print(para3[w], file=f, end='')
-                    print(' ', file=f, end='')
-                    print(' ', file=f)
+                f.write('\n'.join(write_list))
 
+def calc_sentence_vector(sentence,word_vector):
+    VECTOR_DIMENSION = 10
 
+    words = sentence.split(' ')
+    old_vector = [0.0 for i in range(VECTOR_DIMENSION)]
+    for word in words:
+        # print(word)
+        if word not in word_vector.keys():
+            another_vector = [0.0 for i in range(VECTOR_DIMENSION)]
+        else:
+            another_vector = word_vector[word]
+        new_vector = []
+        for i,j in zip(old_vector,another_vector):
+            new_vector.append(i+j)
+        old_vector = new_vector
 
-
-
+    word_count = len(words)
+    for idx,value in enumerate(old_vector):
+        old_vector[idx] = value/word_count
+    vector_str = list(map(str, old_vector))
+    output = ','.join(vector_str)
+    return output

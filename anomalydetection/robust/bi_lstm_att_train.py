@@ -1,5 +1,7 @@
 # -*- coding: UTF-8 -*-
+import json
 import torch
+import pandas as pd
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
@@ -17,25 +19,32 @@ class Model(nn.Module):
         super(Model, self).__init__()
         self.hidden_size = hidden_size
         self.num_of_layers = num_of_layers
-        self.lstm = nn.LSTM(input_size, hidden_size, num_of_layers, batch_first=True, bidirectional=if_bidirectional)
-        self.fc = nn.Linear(hidden_size*2, out_size)
-        self.batch_size = batch_size
+        self.lstm = nn.LSTM(input_size, hidden_size, num_of_layers, batch_first=True, bidirectional=if_bidirectional, dropout=0.5)
         if if_bidirectional:
             self.num_of_directions = 2
         else:
             self.num_of_directions = 1
+        self.fc = nn.Linear(hidden_size*self.num_of_directions, out_size)
+        self.batch_size = batch_size
 
         self.att_weight = nn.Parameter(torch.randn(1, 1, self.hidden_size*self.num_of_directions))
 
         # self.out = nn.Linear(in_features=in_features, out_features=out_features)
 
+# att BiLSTM paper actually H is different from the paper in paper H = hf + hb
     def attention_net(self, H):
-        # print(lstm_output.size()) = (squence_length, batch_size, hidden_size*layer_size)
+        # print(H.size()) = [batch, numdirec*hidden, seqlen]
         M = F.tanh(H)
         a = F.softmax(torch.matmul(self.att_weight, M), 2)
         a = torch.transpose(a, 1, 2)
         return torch.bmm(H, a)
 
+    def robust_attention_net(self, H):
+        # print(H.size()) = [batch, numdirec*hidden, seqlen]
+        M = torch.matmul(self.att_weight, H)
+        a = torch.tanh(M)
+        a = torch.transpose(a, 1, 2)
+        return torch.bmm(H, a)
 
     def init_hidden(self, size):
         # size self.batch_size same
@@ -52,12 +61,12 @@ class Model(nn.Module):
         # out shape [batch, seqlen, numdirec*hidden]
         out = torch.transpose(out, 1, 2)
         # out shape [batch, numdirec*hidden, seqlen]
-        att_out = self.attention_net(out)
+        att_out = self.robust_attention_net(out)
 
         out = self.fc(att_out[:, :, 0])
-        # print('out[:, -1, :]:')
-        # print(out)
-        return out
+        # out shape[batch, num_of_class = 1]
+        # add sigmoid
+        return torch.sigmoid(out)
 
 
 def generate_seq_label(file_path, window_length, pattern_vec_file):
@@ -75,8 +84,9 @@ def generate_seq_label(file_path, window_length, pattern_vec_file):
         for line in file.readlines():
             num_of_sessions += 1
             line = tuple(map(lambda n: tuple(map(float, n.strip().split())), [x for x in line.strip().split(',') if len(x) > 0]))
-            if len(line) < 10:
-                print(line)
+            if len(line) < window_length + 1:
+                # print(line)
+                continue
             for i in range(len(line) - window_length):
                 input_data.append(line[i:i + window_length])
                 # line[i] is a list need to read file form a dic{vec:log_key} to get log key
@@ -85,7 +95,31 @@ def generate_seq_label(file_path, window_length, pattern_vec_file):
     return data_set
 
 
-def train_model(window_length, input_size, hidden_size, num_of_layers, num_of_classes, num_epochs, batch_size, root_path, model_output_directory, data_file, pattern_vec_file):
+def generate_robust_seq_label(file_path, sequence_length, pattern_vec_file):
+    with open(pattern_vec_file, 'r') as pattern_file:
+        class_type_to_vec = json.load(pattern_file)
+    num_of_sessions = 0
+    input_data, output_data = [], []
+    train_file = pd.read_csv(file_path)
+    for i in range(len(train_file)):
+        num_of_sessions += 1
+        line = [int(id) for id in train_file["Sequence"][i].split(' ')]
+        line = line[0:sequence_length]
+        if len(line) < sequence_length:
+            line.extend(list([0]) * (sequence_length - len(line)))
+        semantic_line = []
+        for event in line:
+            if event == 0:
+                semantic_line.append([-1] * 300)
+            else:
+                semantic_line.append(class_type_to_vec[str(event)])
+        input_data.append(semantic_line)
+        output_data.append(int(train_file["label"][i]))
+    data_set = TensorDataset(torch.tensor(input_data, dtype=torch.float), torch.tensor(output_data))
+    return data_set
+
+
+def train_model(sequence_length, input_size, hidden_size, num_of_layers, num_of_classes, num_epochs, batch_size, root_path, model_output_directory, data_file, pattern_vec_file):
     # log setting
     log_directory = root_path + 'log_out/'
     log_template = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs)
@@ -93,23 +127,23 @@ def train_model(window_length, input_size, hidden_size, num_of_layers, num_of_cl
     print("Train num_classes: ", num_of_classes)
     model = Model(input_size, hidden_size, num_of_layers, num_of_classes, True, batch_size).to(device)
     # create data set
-    sequence_data_set = generate_seq_label(data_file, window_length, pattern_vec_file)
+    sequence_data_set = generate_robust_seq_label(data_file, sequence_length, pattern_vec_file)
     # create data_loader
     data_loader = DataLoader(dataset=sequence_data_set, batch_size=batch_size, shuffle=True, pin_memory=False)
     writer = SummaryWriter(logdir=log_directory + log_template)
 
     # Loss and optimizer  classify job
-    criterion = nn.CrossEntropyLoss()
+    criterion = nn.BCELoss()
     optimizer = optim.Adam(model.parameters())
 
     # Training
     for epoch in range(num_epochs):
         train_loss = 0
         for step, (seq, label) in enumerate(data_loader):
-            seq = seq.clone().detach().view(-1, window_length, input_size).to(device)
+            seq = seq.clone().detach().view(-1, sequence_length, input_size).to(device)
             output = model(seq)
 
-            loss = criterion(output, label.to(device))
+            loss = criterion(output.squeeze(-1), label.float().to(device))
 
             # Backward and optimize
             optimizer.zero_grad()
@@ -117,7 +151,7 @@ def train_model(window_length, input_size, hidden_size, num_of_layers, num_of_cl
             train_loss += loss.item()
             optimizer.step()
         print('Epoch [{}/{}], training_loss: {:.4f}'.format(epoch + 1, num_epochs, train_loss / len(data_loader.dataset)))
-        if (epoch + 1) % 100 == 0:
+        if (epoch + 1) % num_epochs == 0:
             if not os.path.isdir(model_output_directory):
                 os.makedirs(model_output_directory)
             e_log = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(epoch+1)

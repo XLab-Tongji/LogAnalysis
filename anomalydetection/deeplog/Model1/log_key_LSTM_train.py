@@ -32,25 +32,33 @@ def generate_seq_label(file_path,window_length):
     with open(file_path, 'r') as file:
         for line in file.readlines():
             num_of_sessions += 1
-            line = tuple(map(lambda n: n, map(int, line.strip().split())))
+            line = list(map(lambda n: n, map(int, line.strip().split())))
+            if(len(line)<window_length+1):
+                continue
+            line = line + [-1] * (window_length + 1 - len(line))
             for i in range(len(line) - window_length):
                 input_data.append(line[i:i + window_length])
                 output_data.append(line[i + window_length])
     data_set = TensorDataset(torch.tensor(input_data, dtype=torch.float), torch.tensor(output_data))
     return data_set
 
+    
 
 def train_model1(model_dir,log_preprocessor_dir,log_fttree_out_dir,num_epochs,batch_size,window_length,input_size,hidden_size,num_of_layers):
     model_output_directory = model_dir + 'model1'
     log_directory = model_dir + 'log1'
     log_template = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs)
-    train_file_name = log_preprocessor_dir+'logkey/logkey_train'
+    train_file_name = log_preprocessor_dir+'/train/logkey/normal'
     data_file = train_file_name
-    num_classes = len(os.listdir(log_fttree_out_dir)) + 2
+    # 加 1 是因为 key 是从 1 开始算的
+    num_classes = len(os.listdir(log_fttree_out_dir)) + 1
     print("Train num_classes: ", num_classes)
     model = Model(input_size, hidden_size, num_of_layers, num_classes).to(device)
+    
     sequence_data_set = generate_seq_label(data_file,window_length)
+    
     data_loader = DataLoader(sequence_data_set, batch_size=batch_size, shuffle=True, pin_memory=True)
+    
     writer = SummaryWriter(logdir = log_directory + '/' + log_template)
 
     # Loss and optimizer
@@ -88,3 +96,5 @@ def train_model1(model_dir,log_preprocessor_dir,log_fttree_out_dir,num_epochs,ba
             torch.save(model.state_dict(), model_output_directory + '/' + e_log + '.pt')
     writer.close()
     print('Training finished')
+
+

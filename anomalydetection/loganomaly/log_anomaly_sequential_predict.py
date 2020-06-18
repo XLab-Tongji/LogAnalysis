@@ -83,7 +83,7 @@ def do_predict(input_size, hidden_size, num_layers, num_classes, window_length, 
                 predicted = torch.argsort(output, 1)[0][-num_candidates:]
                 predicted = filter_small_top_k(predicted, output)
                 #print(output)
-                print('{} - predict result: {}, true label: {}'.format(count_num, predicted, vec_to_class_type[tuple(label)]))
+                #print('{} - predict result: {}, true label: {}'.format(count_num, predicted, vec_to_class_type[tuple(label)]))
                 if lineNum in abnormal_label:  ## 若出现异常日志，则接下来的预测跳过异常日志，保证进行预测的日志均为正常日志
                     i += window_length + 1
                     skip_count += 1

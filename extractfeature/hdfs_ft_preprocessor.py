@@ -124,7 +124,7 @@ def preprocessor_hdfs_ft(cluster_directory, anomaly_file_path, wordvec_path, out
                 for f in log_cluster[i]:
                     train_file_obj.write(str(f))
                     train_file_obj.write(' ')
-                if count % 10 == 0:
+                if count % 200 == 0:
                     train_file_obj.write('\n')
                 else:
                     train_file_obj.write(', ')
@@ -138,8 +138,60 @@ def preprocessor_hdfs_ft(cluster_directory, anomaly_file_path, wordvec_path, out
                 for f in log_cluster[i]:
                     test_file_obj.write(str(f))
                     test_file_obj.write(' ')
-                if count % 10 == 0:
+                if count % 200 == 0:
                     test_file_obj.write('\n')
                 else:
                     test_file_obj.write(', ')
                 count = count + 1
+
+
+def preprocessor_hdfs_ft_split_abnormal(cluster_directory, anomaly_file_path, wordvec_path, out_dic, train_out_file_name,
+                         test_out_file_name, label_out_file_name, pattern_vec_out_path, degree, num_of_lines):
+    anomaly_log_lines = set()
+    with open(anomaly_file_path, 'r') as anomaly_file:
+        line = anomaly_file.readline()
+        lines_str = line.split(' ')
+        anomaly_log_lines.update([int(x) for x in lines_str if len(x) > 0])
+
+    pattern_vec = pattern_to_vec(cluster_directory, wordvec_path, pattern_vec_out_path)
+
+    log_cluster = {}
+    file_names = os.listdir(cluster_directory)
+    for file_name in file_names:
+        with open(cluster_directory + file_name, 'r') as cluster:
+            lines = cluster.readlines()
+            line_numbers = [int(x) for x in lines[1].split(' ') if len(x) > 0]
+            for number in line_numbers:
+                if not (number in anomaly_log_lines and number < int(degree * num_of_lines)):
+                    log_cluster[number] = pattern_vec[lines[0].strip()]
+
+    with open(out_dic + train_out_file_name, 'w+') as train_file_obj, open(out_dic + test_out_file_name,
+                                                                           'w+') as test_file_obj, open(
+            out_dic + label_out_file_name, 'w+') as label_file_obj:
+        count = 1
+        last_i = 0
+        for i in sorted(log_cluster):
+            if i < int(degree * num_of_lines):
+                if i - last_i > 1:
+                    train_file_obj.write('\n')
+                else:
+                    train_file_obj.write(', ')
+                for f in log_cluster[i]:
+                    train_file_obj.write(str(f))
+                    train_file_obj.write(' ')
+                count = count + 1
+            else:
+                if i == int(degree * num_of_lines):
+                    count = 1
+                if i in anomaly_log_lines:
+                    label_file_obj.write(str(count))
+                    label_file_obj.write(' ')
+                for f in log_cluster[i]:
+                    test_file_obj.write(str(f))
+                    test_file_obj.write(' ')
+                if count % 200 == 0:
+                    test_file_obj.write('\n')
+                else:
+                    test_file_obj.write(', ')
+                count = count + 1
+            last_i = i

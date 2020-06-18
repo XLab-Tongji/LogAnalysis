@@ -19,18 +19,18 @@ train_file_name = 'train_file'
 test_file_name = 'test_file'
 label_file_name = 'label_file'
 pattern_vec_out_path = './Data/FTTreeResult-HDFS/pattern_vec'
-split_degree = 0.2
+split_degree = 0.8
 # log file line used  which is also used in ./Data/log/file_split
 log_line_num = 200000
 
 # log anomaly sequential model parameters some parameter maybe changed to train similar models
-window_length = 4
+window_length = 20
 input_size = 300
-hidden_size = 30
+hidden_size = 128
 num_of_layers = 2
-num_of_classes = 61
-num_epochs = 200
-batch_size = 200
+num_of_classes = 26
+num_epochs = 10
+batch_size = 1000
 # for log anomaly
 train_root_path = './Data/FTTreeResult-HDFS/model_train/'
 model_out_path = train_root_path + 'model_out/'
@@ -41,7 +41,7 @@ data_file = sequential_directory + train_file_name
 pattern_vec_file = pattern_vec_out_path
 
 # predict parameters
-
+num_of_candidates = 10
 # log anomaly sequential model parameters
 
 if not os.path.exists(log_fttree_out_directory):
@@ -69,17 +69,17 @@ def extract_feature_test():
 
 
 def train_model():
-    #log_anomaly_sequential_train.train_model(window_length, input_size, hidden_size, num_of_layers, num_of_classes, num_epochs, batch_size, train_root_path, model_out_path, data_file, pattern_vec_file)
-    bi_lstm_att_train.train_model(window_length, input_size, hidden_size, num_of_layers, num_of_classes, num_epochs, batch_size, train_root_path, model_out_path, data_file, pattern_vec_file)
+    log_anomaly_sequential_train.train_model(window_length, input_size, hidden_size, num_of_layers, num_of_classes, num_epochs, batch_size, train_root_path, model_out_path, data_file, pattern_vec_file)
+    #bi_lstm_att_train.train_model(window_length, input_size, hidden_size, num_of_layers, num_of_classes, num_epochs, batch_size, train_root_path, model_out_path, data_file, pattern_vec_file)
 
 
 def test_model():
     # do something
-    log_anomaly_sequential_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, window_length, model_out_path + 'Adam_batch_size=200;epoch=200.pt', sequential_directory + label_file_name, sequential_directory + test_file_name, 3, pattern_vec_file)
-    #bi_lstm_att_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, window_length, model_out_path + 'Adam_batch_size=200;epoch=200.pt', sequential_directory + label_file_name, sequential_directory + test_file_name, 3, pattern_vec_file)
+    log_anomaly_sequential_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, window_length, model_out_path + 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs) + '.pt', sequential_directory + label_file_name, sequential_directory + test_file_name, 10, pattern_vec_file)
+    #bi_lstm_att_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, window_length, model_out_path + 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs) + '.pt', sequential_directory + label_file_name, sequential_directory + train_file_name, num_of_candidates, pattern_vec_file)
 
-pattern_extract()
-extract_feature()
+#pattern_extract()
+#extract_feature()
 train_model()
 test_model()
 

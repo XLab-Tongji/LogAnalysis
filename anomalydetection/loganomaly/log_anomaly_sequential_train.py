@@ -40,7 +40,7 @@ def generate_seq_label(file_path, window_length, pattern_vec_file):
 
 def train_model(window_length, input_size, hidden_size, num_of_layers, num_of_classes, num_epochs, batch_size, root_path, model_output_directory, data_file, pattern_vec_file):
     # log setting
-    log_directory = root_path + 'sequence_log_out/'
+    log_directory = root_path + 'log_out/'
     log_template = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs)
 
     print("Train num_classes: ", num_of_classes)
