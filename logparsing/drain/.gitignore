@@ -1,0 +1,9 @@
+**/__pycache__/*
+MANIFEST
+dist/*
+venv/*
+.idea/*
+drain3.egg-info/*
+snapshot.txt
+examples/snapshot.txt
+*.bin
