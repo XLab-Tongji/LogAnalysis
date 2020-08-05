@@ -103,7 +103,7 @@ def generate_robust_seq_label(file_path, sequence_length, pattern_vec_file):
     train_file = pd.read_csv(file_path)
     for i in range(len(train_file)):
         num_of_sessions += 1
-        line = [int(id) for id in train_file["Sequence"][i].split(' ')]
+        line = [int(id) for id in train_file["Sequence"][i].strip().split(' ')]
         line = line[0:sequence_length]
         if len(line) < sequence_length:
             line.extend(list([0]) * (sequence_length - len(line)))

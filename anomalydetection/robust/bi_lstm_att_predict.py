@@ -51,7 +51,7 @@ def generate_robust_seq_label(file_path, sequence_length):
     i = 0
     while i < len(train_file):
         num_of_sessions += 1
-        line = [int(id) for id in train_file["Sequence"][i].split(' ')]
+        line = [int(id) for id in train_file["Sequence"][i].strip().split(' ')]
         line = line[0:sequence_length]
         if len(line) < sequence_length:
             line.extend(list([0]) * (sequence_length - len(line)))
