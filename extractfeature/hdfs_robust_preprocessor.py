@@ -54,28 +54,34 @@ def generate_train_and_test_file(logparser_structed_file, logparser_event_file, 
     with open(out_dic + train_out_file_name, 'w+') as train_file_obj, open(out_dic + test_out_file_name,
                                                                            'w+') as test_file_obj, open(
             out_dic + validation_out_file_name, 'w+') as validation_file_obj:
-        train_file_obj.write('Sequence,label\n')
-        test_file_obj.write('Sequence,label\n')
-        validation_file_obj.write('Sequence,label\n')
+        train_file_obj.write('BlockId,Sequence,label\n')
+        test_file_obj.write('BlockId,Sequence,label\n')
+        validation_file_obj.write('BlockId,Sequence,label\n')
         for i in range(len(normal_block_ids)):
             if i < 6000:
+                train_file_obj.write(str(normal_block_ids[i]) + ', ')
                 train_file_obj.write(' '.join([str(num_id) for num_id in session_dic[normal_block_ids[i]]]))
                 train_file_obj.write(', 0\n')
             elif i < 6000 + 50000:
+                validation_file_obj.write(str(normal_block_ids[i]) + ', ')
                 validation_file_obj.write(' '.join([str(num_id) for num_id in session_dic[normal_block_ids[i]]]))
                 validation_file_obj.write(', 0\n')
             else:
+                test_file_obj.write(str(normal_block_ids[i]) + ', ')
                 test_file_obj.write(' '.join([str(num_id) for num_id in session_dic[normal_block_ids[i]]]))
                 test_file_obj.write(', 0\n')
 
         for i in range(len(abnormal_block_ids)):
             if i < 6000:
+                train_file_obj.write(str(abnormal_block_ids[i]) + ', ')
                 train_file_obj.write(' '.join([str(num_id) for num_id in session_dic[abnormal_block_ids[i]]]))
                 train_file_obj.write(', 1\n')
             elif i < 6000 + 1000:
+                validation_file_obj.write(str(abnormal_block_ids[i]) + ', ')
                 validation_file_obj.write(' '.join([str(num_id) for num_id in session_dic[abnormal_block_ids[i]]]))
                 validation_file_obj.write(', 1\n')
             else:
+                test_file_obj.write(str(abnormal_block_ids[i]) + ', ')
                 test_file_obj.write(' '.join([str(num_id) for num_id in session_dic[abnormal_block_ids[i]]]))
                 test_file_obj.write(', 1\n')
 

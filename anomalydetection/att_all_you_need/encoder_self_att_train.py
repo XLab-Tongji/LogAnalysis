@@ -23,9 +23,9 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 def make_src_mask(src, src_pad_idx):
     # src = [batch size, src len]
 
-    src_mask = (src != src_pad_idx) #
+    src_mask = (src != src_pad_idx).unsqueeze(1).unsqueeze(2)
 
-    # src_mask = [batch size, src len] #
+    # src_mask = [batch size, 1, 1, src len]
 
     return src_mask.clone().detach().numpy().tolist()
 
@@ -63,7 +63,7 @@ class Encoder(nn.Module):
 
     def forward(self, src, src_mask):
         # src = [batch size, src len, input_dim] #
-        # src_mask = [batch size,1, 1, src len] #
+        # src_mask = [batch size, 1, 1, src len] # original comment is wrong but code is right
 
 
         batch_size = src.shape[0]
@@ -105,7 +105,7 @@ class EncoderLayer(nn.Module):
 
     def forward(self, src, src_mask):
         # src = [batch size, src len, hid dim]
-        # src_mask = [batch size, src len]
+        # src_mask = [batch size, 1, 1, src len]
 
         # self attention
         _src, _ = self.self_attention(src, src, src, src_mask)
@@ -174,7 +174,6 @@ class MultiHeadAttentionLayer(nn.Module):
         # energy = [batch size, n heads, query len, key len]
 
         if mask is not None:
-            mask = mask.view(batch_size, 1, 1, -1).to(device)
             energy = energy.masked_fill(mask == 0, -1e10)
 
         attention = torch.softmax(energy, dim=-1)

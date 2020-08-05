@@ -38,7 +38,7 @@ hidden_size = 128
 num_of_layers = 2
 # 1 using sigmoid, 2 using softmax
 num_of_classes = 1
-num_epochs = 200
+num_epochs = 50
 batch_size = 1000
 # for robust attention bi
 train_root_path = './Data/DrainResult-HDFS/robust_att_bi_model_train/'
