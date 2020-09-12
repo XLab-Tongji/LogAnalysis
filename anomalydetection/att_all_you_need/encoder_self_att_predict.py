@@ -12,21 +12,13 @@ import time
 import random
 from torch.utils.data import TensorDataset, DataLoader
 from anomalydetection.att_all_you_need.encoder_self_att_train import Encoder
-
+from anomalydetection.att_all_you_need.encoder_self_att_train import make_src_mask
+from anomalydetection.att_all_you_need.encoder_self_att_train import get_batch_semantic_with_mask
 # use cuda if available  otherwise use cpu
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # len(line) < window_length
 
-
-def make_src_mask(src, src_pad_idx):
-    # src = [batch size, src len]
-
-    src_mask = (src != src_pad_idx) #
-
-    # src_mask = [batch size, src len] #
-
-    return src_mask.clone().detach().numpy().tolist()
 
 
 def load_sequential_model(input_size, hidden_size, num_layers, num_classes, model_path, dropout, num_of_heads, pf_dim):
@@ -36,6 +28,7 @@ def load_sequential_model(input_size, hidden_size, num_layers, num_classes, mode
     model1.eval()
     print('model_path: {}'.format(model_path))
     return model1
+
 
 def filter_small_top_k(predicted, output):
     filter = []
@@ -52,7 +45,7 @@ def generate_robust_seq_label(file_path, sequence_length):
     i = 0
     while i < len(train_file):
         num_of_sessions += 1
-        line = [int(id) for id in train_file["Sequence"][i].split(' ')]
+        line = [int(id) for id in train_file["Sequence"][i].strip().split(' ')]
         line = line[0:sequence_length]
         if len(line) < sequence_length:
             line.extend(list([0]) * (sequence_length - len(line)))
@@ -61,25 +54,6 @@ def generate_robust_seq_label(file_path, sequence_length):
         i += 1
     data_set = TensorDataset(torch.tensor(input_data), torch.tensor(output_data))
     return data_set
-
-
-def get_batch_semantic_with_mask(seq, pattern_vec_file):
-    with open(pattern_vec_file, 'r') as pattern_file:
-        class_type_to_vec = json.load(pattern_file)
-    print(seq.shape)
-    batch_data = []
-    mask_data = []
-    for s in seq:
-        semantic_line = []
-        for event in s.numpy().tolist():
-            if event == 0:
-                semantic_line.append([-1] * 300)
-            else:
-                semantic_line.append(class_type_to_vec[str(event)])
-        batch_data.append(semantic_line)
-        mask = make_src_mask(s, 0)
-        mask_data.append(mask)
-    return batch_data, mask_data
 
 
 def do_predict(input_size, hidden_size, num_layers, num_classes, sequence_length, model_path, test_file_path, batch_size, pattern_vec_json, dropout, num_of_heads, pf_dim):
