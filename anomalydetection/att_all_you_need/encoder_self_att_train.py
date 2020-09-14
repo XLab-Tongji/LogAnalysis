@@ -20,14 +20,15 @@ import os
 # use cuda if available  otherwise use cpu
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+
 def make_src_mask(src, src_pad_idx):
-    # src = [batch size, src len]
+    # src = [batch, src len]
 
-    src_mask = (src != src_pad_idx).unsqueeze(1).unsqueeze(2)
+    src_mask = (src != src_pad_idx).unsqueeze(1).unsqueeze(2).to(device)
+    # print(src_mask.shape, "make")
+    # src_mask = [batch, 1, 1, src len]
 
-    # src_mask = [batch size, 1, 1, src len]
-
-    return src_mask.clone().detach().numpy().tolist()
+    return src_mask
 
 
 class Encoder(nn.Module):
@@ -170,10 +171,12 @@ class MultiHeadAttentionLayer(nn.Module):
         # V = [batch size, n heads, value len, head dim]
 
         energy = torch.matmul(Q, K.permute(0, 1, 3, 2)) / self.scale
+        # energy = torch.matmul(Q, K.permute(0, 1, 3, 2))
 
         # energy = [batch size, n heads, query len, key len]
 
         if mask is not None:
+            # print(mask.shape)
             energy = energy.masked_fill(mask == 0, -1e10)
 
         attention = torch.softmax(energy, dim=-1)
@@ -222,13 +225,13 @@ class PositionwiseFeedforwardLayer(nn.Module):
         return x
 
 
-def generate_robust_seq_label(file_path, sequence_length, pattern_vec_file):
+def generate_robust_seq_label(file_path, sequence_length):
     num_of_sessions = 0
     input_data, output_data, mask_data = [], [], []
     train_file = pd.read_csv(file_path)
     for i in range(len(train_file)):
         num_of_sessions += 1
-        line = [int(id) for id in train_file["Sequence"][i].split(' ')]
+        line = [int(id) for id in train_file["Sequence"][i].strip().split(' ')]
         line = line[0:sequence_length]
         if len(line) < sequence_length:
             line.extend(list([0]) * (sequence_length - len(line)))
@@ -241,9 +244,10 @@ def generate_robust_seq_label(file_path, sequence_length, pattern_vec_file):
 def get_batch_semantic_with_mask(seq, pattern_vec_file):
     with open(pattern_vec_file, 'r') as pattern_file:
         class_type_to_vec = json.load(pattern_file)
+    # print(seq)
     batch_data = []
-    mask_data = []
     for s in seq:
+        # print(s)
         semantic_line = []
         for event in s.numpy().tolist():
             if event == 0:
@@ -251,16 +255,18 @@ def get_batch_semantic_with_mask(seq, pattern_vec_file):
             else:
                 semantic_line.append(class_type_to_vec[str(event)])
         batch_data.append(semantic_line)
-        mask = make_src_mask(s, 0)
-        mask_data.append(mask)
+    mask_data = make_src_mask(seq, 0)
     return batch_data, mask_data
 
 
 def train_model(sequence_length, input_size, hidden_size, num_of_layers, num_of_classes, num_epochs, batch_size, root_path, model_output_directory, data_file, pattern_vec_file, dropout, num_of_heads, pf_dim):
     print("Train num_classes: ", num_of_classes)
+    with open(pattern_vec_file, 'r') as pattern_file:
+        class_type_to_vec = json.load(pattern_file)
+    print(class_type_to_vec)
     model = Encoder(input_size, num_of_classes, hidden_size, num_of_layers, num_of_heads, pf_dim, dropout, device).to(device)
     # create data set
-    sequence_data_set = generate_robust_seq_label(data_file, sequence_length, pattern_vec_file)
+    sequence_data_set = generate_robust_seq_label(data_file, sequence_length)
     # create data_loader
     data_loader = DataLoader(dataset=sequence_data_set, batch_size=batch_size, shuffle=True, pin_memory=False)
 
@@ -273,11 +279,12 @@ def train_model(sequence_length, input_size, hidden_size, num_of_layers, num_of_
         train_loss = 0
         for step, (seq, label) in enumerate(data_loader):
             batch_data, mask_data = get_batch_semantic_with_mask(seq, pattern_vec_file)
+            # print(mask_data.shape)
             seq = torch.tensor(batch_data)
             #print(seq.shape)
             seq = seq.clone().detach().view(-1, sequence_length, input_size).to(device)
             #print(seq.shape)
-            output = model(seq, torch.tensor(mask_data))
+            output = model(seq, mask_data)
 
             loss = criterion(output.squeeze(-1), label.float().to(device))
 
