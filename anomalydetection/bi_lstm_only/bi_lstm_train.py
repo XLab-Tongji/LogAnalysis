@@ -90,7 +90,7 @@ def train_model(window_length, input_size, hidden_size, num_of_layers, num_of_cl
 
     # Loss and optimizer  classify job
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters())
+    optimizer = optim.SGD(model.parameters(), weight_decay=0.0001, momentum=0.9, lr=0.1)
 
     # Training
     for epoch in range(num_epochs):

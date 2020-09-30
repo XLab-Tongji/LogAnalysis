@@ -16,10 +16,12 @@ logparser_structed_file = './Data/logparser_result/Drain/HDFS.log_structured.csv
 logparser_event_file = './Data/logparser_result/Drain/HDFS.log_templates.csv'
 anomaly_label_file = './Data/log/hdfs/anomaly_label.csv'
 train_root_path = './Data/DrainResult-HDFS/att_all_you_need/'
+
 sequential_directory = train_root_path + 'sequential_files/'
-train_file_name = 'robust_train_file'
-test_file_name = 'robust_test_file'
-valid_file_name = 'robust_valid_file'
+train_file_name = 'encoder_train_file'
+test_file_name = 'encoder_test_file'
+valid_file_name = 'encoder_valid_file'
+
 wordvec_file_path = './Data/pretrainedwordvec/crawl-300d-2M.vec(0.1M)'
 pattern_vec_out_path = train_root_path + 'pattern_vec(l-ti)'
 variable_symbol = '<*>'
@@ -31,8 +33,8 @@ hidden_size = 256
 num_of_layers = 4
 # 1 using sigmoid, 2 using softmax
 num_of_classes = 1
-num_epochs = 101
-batch_size = 1000
+num_epochs = 100
+batch_size = 1024
 
 
 model_out_path = train_root_path + 'model_out/'
@@ -69,15 +71,14 @@ def train_model():
 
 def test_model():
     # do something
-    encoder_self_att_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, sequence_length, model_out_path + 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs) + '.pt', sequential_directory + test_file_name, batch_size, pattern_vec_json, dropout, num_of_heads, pf_dim)
+    encoder_self_att_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, sequence_length, model_out_path + 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs) + ';sequence=' + str(sequence_length) + '.pt', sequential_directory + test_file_name, batch_size, pattern_vec_json, dropout, num_of_heads, pf_dim)
 
 
 print(pattern_vec_out_path)
 
-set_seed(2)
+set_seed(4) #4 98.094%
 #pattern_extract()
 #extract_feature()
-#train_model()
 #train_model()
 test_model()
 

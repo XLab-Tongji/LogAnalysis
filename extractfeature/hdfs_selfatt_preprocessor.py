@@ -49,6 +49,8 @@ def generate_train_and_test_file(logparser_structed_file, logparser_event_file, 
             normal_block_ids.add(block_id)
     abnormal_block_ids = list(abnormal_block_ids)
     normal_block_ids = list(normal_block_ids)
+    abnormal_block_ids.sort()
+    normal_block_ids.sort()
     random.shuffle(abnormal_block_ids)
     random.shuffle(normal_block_ids)
     with open(out_dic + train_out_file_name, 'w+') as train_file_obj, open(out_dic + test_out_file_name,
