@@ -8,38 +8,50 @@ from anomalydetection.loganomaly import log_anomaly_sequential_predict
 from anomalydetection.robust import bi_lstm_att_train
 from anomalydetection.robust import bi_lstm_att_predict
 from logparsing.converter import eventid2number
+import numpy as np
+import random
+import torch
+
 
 # parameters for early prepare
 logparser_structed_file = './Data/logparser_result/Drain/HDFS.log_structured.csv'
 logparser_event_file = './Data/logparser_result/Drain/HDFS.log_templates.csv'
 anomaly_label_file = './Data/log/hdfs/anomaly_label.csv'
-sequential_directory = './Data/DrainResult-HDFS/sequential_files/'
+
+# use attention all you need train and test file to get result of same data
+sequential_directory = './Data/DrainResult-HDFS/att_all_you_need/sequential_files/'
+train_file_name = 'encoder_train_file'
+test_file_name = 'encoder_test_file'
+valid_file_name = 'encoder_valid_file'
+
+'''
+sequential_directory = './Data/DrainResult-HDFS/robust_att_bi_model_train/sequential_files/'
 train_file_name = 'robust_train_file'
 test_file_name = 'robust_test_file'
 valid_file_name = 'robust_valid_file'
+'''
+
 wordvec_file_path = './Data/pretrainedwordvec/crawl-300d-2M.vec(0.1M)'
-pattern_vec_out_path = './Data/DrainResult-HDFS/pattern_vec'
+pattern_vec_out_path = './Data/DrainResult-HDFS/robust_att_bi_model_train/pattern_vec'
 variable_symbol = '<*> '
-'''log_file_dir = './Data/log/hdfs/'
-log_file_name = 'HDFS_split'
-log_fttree_out_directory = './Data/FTTreeResult-HDFS/clusters/'
-# anomaly file name used which is also used in ./Data/log/file_split
-anomaly_line_file = './Data/log/hdfs/HDFs_split_anomaly'
-sequential_directory = './Data/FTTreeResult-HDFS/sequential_files/'
-
-pattern_vec_out_path = './Data/FTTreeResult-HDFS/pattern_vec'''
 
 
+def set_seed(seed):
+    np.random.seed(seed)
+    random.seed(seed)
+    torch.manual_seed(seed) # cpu
+    torch.cuda.manual_seed_all(seed)  # gpu
+    torch.backends.cudnn.deterministic = True
 
 # log anomaly sequential model parameters some parameter maybe changed to train similar models
 sequence_length = 50
 input_size = 300
 hidden_size = 128
-num_of_layers = 2
+num_of_layers = 3
 # 1 using sigmoid, 2 using softmax
 num_of_classes = 1
-num_epochs = 200
-batch_size = 1000
+num_epochs = 20
+batch_size = 512
 # for robust attention bi
 train_root_path = './Data/DrainResult-HDFS/robust_att_bi_model_train/'
 model_out_path = train_root_path + 'model_out/'
@@ -80,16 +92,16 @@ def extract_feature():
 def train_model():
     bi_lstm_att_train.train_model(sequence_length, input_size, hidden_size, num_of_layers, num_of_classes, num_epochs, batch_size, train_root_path, model_out_path, train_file, pattern_vec_json)
 
-
+#+ ';sequence=' + str(sequence_length)
 def test_model():
     # do something
-    bi_lstm_att_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, sequence_length, model_out_path + 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs) + '.pt', sequential_directory + test_file_name, batch_size, pattern_vec_json)
+    bi_lstm_att_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, sequence_length, model_out_path + 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs) + ';sequence=' + str(sequence_length) + '.pt', sequential_directory + valid_file_name, batch_size, pattern_vec_json)
 
-
+set_seed(13) #19 13 9 10
 #eventid2number.add_numberid(logparser_event_file)
 #pattern_extract()
 #extract_feature()
-#train_model()
+train_model()
 test_model()
 
 # deep log

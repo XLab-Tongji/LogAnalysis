@@ -19,7 +19,7 @@ class Model(nn.Module):
         super(Model, self).__init__()
         self.hidden_size = hidden_size
         self.num_of_layers = num_of_layers
-        self.lstm = nn.LSTM(input_size, hidden_size, num_of_layers, batch_first=True, bidirectional=if_bidirectional, dropout=0.5)
+        self.lstm = nn.LSTM(input_size, hidden_size, num_of_layers, batch_first=True, bidirectional=if_bidirectional)
         if if_bidirectional:
             self.num_of_directions = 2
         else:
@@ -154,7 +154,7 @@ def train_model(sequence_length, input_size, hidden_size, num_of_layers, num_of_
         if (epoch + 1) % num_epochs == 0:
             if not os.path.isdir(model_output_directory):
                 os.makedirs(model_output_directory)
-            e_log = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(epoch+1)
+            e_log = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(epoch+1) + ';sequence=' + str(sequence_length)
             torch.save(model.state_dict(), model_output_directory + '/' + e_log + '.pt')
     writer.close()
     print('Training finished')

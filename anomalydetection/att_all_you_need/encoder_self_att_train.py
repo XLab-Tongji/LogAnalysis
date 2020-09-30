@@ -226,11 +226,9 @@ class PositionwiseFeedforwardLayer(nn.Module):
 
 
 def generate_robust_seq_label(file_path, sequence_length):
-    num_of_sessions = 0
     input_data, output_data, mask_data = [], [], []
     train_file = pd.read_csv(file_path)
     for i in range(len(train_file)):
-        num_of_sessions += 1
         line = [int(id) for id in train_file["Sequence"][i].strip().split(' ')]
         line = line[0:sequence_length]
         if len(line) < sequence_length:
@@ -297,6 +295,6 @@ def train_model(sequence_length, input_size, hidden_size, num_of_layers, num_of_
         if (epoch + 1) % num_epochs == 0:
             if not os.path.isdir(model_output_directory):
                 os.makedirs(model_output_directory)
-            e_log = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(epoch+1)
+            e_log = 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(epoch+1) + ';sequence=' + str(sequence_length)
             torch.save(model.state_dict(), model_output_directory + '/' + e_log + '.pt')
     print('Training finished')
