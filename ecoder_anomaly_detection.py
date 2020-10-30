@@ -79,7 +79,7 @@ print(pattern_vec_out_path)
 set_seed(4) #4 98.094%
 #pattern_extract()
 #extract_feature()
-#train_model()
+train_model()
 test_model()
 
 # deep log

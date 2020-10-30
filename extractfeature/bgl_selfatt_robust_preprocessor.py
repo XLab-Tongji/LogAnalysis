@@ -67,13 +67,11 @@ def generate_train_and_test_file(logparser_structed_file, logparser_event_file, 
                 test_file_obj.write(' '.join([str(num_id) for num_id in sequences_abnormal[i]]))
                 test_file_obj.write(', 1\n')
 
-    pattern_to_vec_robust(logparser_event_file, wordvec_path, pattern_vec_out_path, variable_symbol)
-
 
 def build_pretrained_embeddings(pretrained_file, embedding_dim, id2word, word2id):
     print('embedding matrix loading...')
     vocab_size = len(id2word)
-    nn_embeddings = torch.nn.Embedding(vocab_size, embedding_dim, padding_idx=0)
+    nn_embeddings = torch.nn.Embedding(vocab_size, embedding_dim)
     wv_file_path = pretrained_file
     count = 0
     pretrain_id_list = []
@@ -179,6 +177,7 @@ def pattern_to_vec_tf_idf_from_log(logparser_event_file, wordvec_path, pattern_v
     for key in pattern_to_words.keys():
         words_set.update(pattern_to_words[key])
     words_list = list(words_set)
+    words_list.sort()
     word2id = {}
     id2word = {}
     for i in range(len(words_list)):
@@ -234,6 +233,7 @@ def pattern_to_vec_robust(logparser_event_file, wordvec_path, pattern_vec_out_pa
     for key in pattern_to_words.keys():
         words_set.update(pattern_to_words[key])
     words_list = list(words_set)
+    words_list.sort()
     word2id = {}
     id2word = {}
     for i in range(len(words_list)):

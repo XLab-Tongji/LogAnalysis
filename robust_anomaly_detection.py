@@ -50,7 +50,7 @@ hidden_size = 128
 num_of_layers = 3
 # 1 using sigmoid, 2 using softmax
 num_of_classes = 1
-num_epochs = 20
+num_epochs = 100
 batch_size = 512
 # for robust attention bi
 train_root_path = './Data/DrainResult-HDFS/robust_att_bi_model_train/'
@@ -95,9 +95,9 @@ def train_model():
 #+ ';sequence=' + str(sequence_length)
 def test_model():
     # do something
-    bi_lstm_att_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, sequence_length, model_out_path + 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs) + ';sequence=' + str(sequence_length) + '.pt', sequential_directory + valid_file_name, batch_size, pattern_vec_json)
+    bi_lstm_att_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, sequence_length, model_out_path + 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs) + ';sequence=' + str(sequence_length) + '.pt', sequential_directory + test_file_name, batch_size, pattern_vec_json)
 
-set_seed(13) #19 13 9 10
+set_seed(9) #19 13 9 10
 #eventid2number.add_numberid(logparser_event_file)
 #pattern_extract()
 #extract_feature()
