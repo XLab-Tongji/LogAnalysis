@@ -21,9 +21,9 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 
-def load_sequential_model(input_size, hidden_size, num_layers, num_classes, model_path, dropout, num_of_heads, pf_dim):
+def load_sequential_model(input_size, hidden_size, num_layers, num_classes, model_path, dropout, num_of_heads, pf_dim, sequence_length):
 
-    model1 = Encoder(input_size, num_classes, hidden_size, num_layers, num_of_heads, pf_dim, dropout, device).to(device)
+    model1 = Encoder(input_size, num_classes, hidden_size, num_layers, num_of_heads, pf_dim, dropout, device, sequence_length).to(device)
     model1.load_state_dict(torch.load(model_path, map_location='cpu'))
     model1.eval()
     print('model_path: {}'.format(model_path))
@@ -58,7 +58,7 @@ def generate_robust_seq_label(file_path, sequence_length):
 
 def do_predict(input_size, hidden_size, num_layers, num_classes, sequence_length, model_path, test_file_path, batch_size, pattern_vec_json, dropout, num_of_heads, pf_dim):
 
-    sequential_model = load_sequential_model(input_size, hidden_size, num_layers, num_classes, model_path, dropout, num_of_heads, pf_dim)
+    sequential_model = load_sequential_model(input_size, hidden_size, num_layers, num_classes, model_path, dropout, num_of_heads, pf_dim, sequence_length)
 
     start_time = time.time()
     TP = 0

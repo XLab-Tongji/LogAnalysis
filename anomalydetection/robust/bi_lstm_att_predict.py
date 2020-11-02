@@ -100,7 +100,7 @@ def do_predict(input_size, hidden_size, num_layers, num_classes, sequence_length
             seq = torch.tensor(batch_data)
             seq = seq.view(-1, sequence_length, input_size).to(device)
             output = sequential_model(seq)[:, 0].cpu().clone().detach().numpy()
-            predicted = (output > 0.2).astype(int)
+            predicted = (output > 0.5).astype(int)
             label = np.array([y for y in label])
             TP += ((predicted == 1) * (label == 1)).sum()
             FP += ((predicted == 1) * (label == 0)).sum()

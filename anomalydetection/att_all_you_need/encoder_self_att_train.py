@@ -262,7 +262,7 @@ def train_model(sequence_length, input_size, hidden_size, num_of_layers, num_of_
     with open(pattern_vec_file, 'r') as pattern_file:
         class_type_to_vec = json.load(pattern_file)
     print(class_type_to_vec)
-    model = Encoder(input_size, num_of_classes, hidden_size, num_of_layers, num_of_heads, pf_dim, dropout, device).to(device)
+    model = Encoder(input_size, num_of_classes, hidden_size, num_of_layers, num_of_heads, pf_dim, dropout, device, max_length=sequence_length).to(device)
     # create data set
     sequence_data_set = generate_robust_seq_label(data_file, sequence_length)
     # create data_loader

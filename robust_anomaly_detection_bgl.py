@@ -14,14 +14,22 @@ import torch
 
 
 # parameters for early prepare
-window_length = 100
+window_length = 150
 step_length = 6
 logparser_structed_file = './Data/logparser_result/Drain/BGL.log_structured.csv'
 logparser_event_file = './Data/logparser_result/Drain/BGL.log_templates.csv'
+
+sequential_directory = './Data/DrainResult-BGL/att_all_you_need/sequential_files/'
+train_file_name = 'encoder_train_file_bgl' + '_window'+str(window_length)+'_step'+str(step_length)
+test_file_name = 'encoder_test_file_bgl' + '_window' + str(window_length)+'_step'+str(step_length)
+valid_file_name = 'encoder_valid_file_bgl' + '_window' + str(window_length)+'_step'+str(step_length)
+'''
 sequential_directory = './Data/DrainResult-BGL/robust/sequential_files/'
 train_file_name = 'robust_train_file_bgl' + '_window'+str(window_length)+'_step'+str(step_length)
 test_file_name = 'robust_test_file_bgl' + '_window' + str(window_length)+'_step'+str(step_length)
 valid_file_name = 'robust_valid_file_bgl' + '_window' + str(window_length)+'_step'+str(step_length)
+'''
+
 wordvec_file_path = './Data/pretrainedwordvec/crawl-300d-2M.vec'
 pattern_vec_out_path = './Data/DrainResult-BGL/robust/pattern_vec'
 variable_symbol = '<*> '
@@ -71,14 +79,19 @@ def train_model():
     bi_lstm_att_train.train_model(sequence_length, input_size, hidden_size, num_of_layers, num_of_classes, num_epochs, batch_size, train_root_path, model_out_path, train_file, pattern_vec_json)
 
 
+def pattern_to_vec():
+    bgl_selfatt_robust_preprocessor.pattern_to_vec_robust(logparser_event_file, wordvec_file_path, pattern_vec_out_path, variable_symbol)
+
+
 def test_model():
     # do something
     bi_lstm_att_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, sequence_length, model_out_path + 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs) + ';sequence=' + str(sequence_length) + '.pt', sequential_directory + test_file_name, batch_size, pattern_vec_json)
 
-set_seed(18)
+set_seed(2)
 #eventid2number.add_numberid(logparser_event_file)
 #extract_feature()
-#train_model()
+#pattern_to_vec()
+train_model()
 test_model()
 
 
