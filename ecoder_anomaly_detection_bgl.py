@@ -14,7 +14,7 @@ import torch
 
 
 # parameters for early prepare
-window_length = 150
+window_length = 100
 step_length = 6
 logparser_structed_file = './Data/logparser_result/Drain/BGL.log_structured.csv'
 logparser_event_file = './Data/logparser_result/Drain/BGL.log_templates.csv'
