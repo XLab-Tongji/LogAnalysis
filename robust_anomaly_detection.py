@@ -97,7 +97,7 @@ def test_model():
     # do something
     bi_lstm_att_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, sequence_length, model_out_path + 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs) + ';sequence=' + str(sequence_length) + '.pt', sequential_directory + test_file_name, batch_size, pattern_vec_json)
 
-set_seed(9) #19 13 9 10
+set_seed(5) #19 13 9 10 0(93.538# )
 #eventid2number.add_numberid(logparser_event_file)
 #pattern_extract()
 #extract_feature()

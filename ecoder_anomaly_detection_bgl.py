@@ -14,7 +14,7 @@ import torch
 
 
 # parameters for early prepare
-window_length = 100
+window_length = 450
 step_length = 6
 logparser_structed_file = './Data/logparser_result/Drain/BGL.log_structured.csv'
 logparser_event_file = './Data/logparser_result/Drain/BGL.log_templates.csv'
@@ -40,12 +40,12 @@ variable_symbol = '<*> '
 # my encoder
 sequence_length = window_length
 input_size = 300
-hidden_size = 256
+hidden_size = 32
 num_of_layers = 2
 # 1 using sigmoid, 2 using softmax
 num_of_classes = 1
 num_epochs = 10
-batch_size = 512
+batch_size = 64
 
 
 model_out_path = train_root_path + 'model_out/'
@@ -102,7 +102,7 @@ print(pattern_vec_out_path)
 
 set_seed(2)
 
-#extract_feature()
-#pattern_to_vec()
+extract_feature()
+pattern_to_vec()
 train_model()
 test_model()
