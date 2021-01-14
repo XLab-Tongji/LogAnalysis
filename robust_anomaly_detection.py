@@ -31,7 +31,7 @@ test_file_name = 'robust_test_file'
 valid_file_name = 'robust_valid_file'
 '''
 
-wordvec_file_path = './Data/pretrainedwordvec/crawl-300d-2M.vec(0.1M)'
+wordvec_file_path = './Data/pretrainedwordvec/crawl-300d-2M.vec'
 pattern_vec_out_path = './Data/DrainResult-HDFS/robust_att_bi_model_train/pattern_vec'
 variable_symbol = '<*> '
 
@@ -92,15 +92,22 @@ def extract_feature():
 def train_model():
     bi_lstm_att_train.train_model(sequence_length, input_size, hidden_size, num_of_layers, num_of_classes, num_epochs, batch_size, train_root_path, model_out_path, train_file, pattern_vec_json)
 
+
 #+ ';sequence=' + str(sequence_length)
 def test_model():
     # do something
     bi_lstm_att_predict.do_predict(input_size, hidden_size, num_of_layers, num_of_classes, sequence_length, model_out_path + 'Adam_batch_size=' + str(batch_size) + ';epoch=' + str(num_epochs) + ';sequence=' + str(sequence_length) + '.pt', sequential_directory + test_file_name, batch_size, pattern_vec_json)
 
-set_seed(5) #19 13 9 10 0(93.538# )
+
+def pattern_to_vec():
+    hdfs_robust_preprocessor.pattern_to_vec(logparser_event_file, wordvec_file_path, pattern_vec_out_path, variable_symbol)
+
+
+set_seed(20) #19 13 9 10 0(93.538# ) 7（93.694）11（95.747）
+# 全单词版本修改后 11（94.481 ） 0（93.994）1（94.090）2（82.515）3（93.849）4（93.844）12 13一般 15（95.003） 16（94.594）17（94.262）18（94.341）19（93.442）20（90.493）
 #eventid2number.add_numberid(logparser_event_file)
-#pattern_extract()
 #extract_feature()
+pattern_to_vec()
 train_model()
 test_model()
 
