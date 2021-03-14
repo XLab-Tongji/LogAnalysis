@@ -7,6 +7,9 @@ import math
 import json
 import pandas as pd
 import numpy as np
+import torch
+import unicodedata
+
 block_id_regex = r'blk_(|-)[0-9]+'
 special_patterns = {'dfs.FSNamesystem:': ['dfs', 'FS', 'Name', 'system'], 'dfs.FSDataset:': ['dfs', 'FS', 'dataset']}
 
@@ -87,16 +90,32 @@ def generate_train_and_test_file(logparser_structed_file, logparser_event_file, 
                 test_file_obj.write(' '.join([str(num_id) for num_id in session_dic[abnormal_block_ids[i]]]))
                 test_file_obj.write(', 1\n')
 
-    pattern_to_vec_tf_idf_from_log(logparser_event_file, wordvec_path, pattern_vec_out_path, variable_symbol)
 
 
-def load_vectors(fname):
-    fin = io.open(fname, 'r', encoding='utf-8', newline='\n', errors='ignore')
-    data = {}
-    for line in fin:
-        tokens = line.rstrip().split(' ')
-        data[tokens[0]] = list(map(float, tokens[1:]))
-    return data
+def build_pretrained_embeddings(pretrained_file, embedding_dim, id2word, word2id):
+    print('embedding matrix loading...')
+    vocab_size = len(id2word)
+    nn_embeddings = torch.nn.Embedding(vocab_size, embedding_dim)
+    wv_file_path = pretrained_file
+    count = 0
+    pretrain_id_list = []
+    with open(wv_file_path, encoding="utf8") as f:
+        for line in f:
+            elems = line.rstrip().split(' ')
+            token = unicodedata.normalize('NFD', elems[0])
+            if token in word2id:
+                count += 1
+                word_id = word2id[token]
+                nn_embeddings.weight[word_id] = torch.Tensor([float(v) for v in elems[1:]])
+                pretrain_id_list.append(word_id)
+    embeddings = nn_embeddings.weight.data
+    print('embedding matrix loaded.')
+    print("#" * 40)
+    print("total words in dataset: ", vocab_size)
+    print("words in embedding matrix: ", count)
+    print("Proportion: ", count / vocab_size * 100, "%")
+    print("#" * 40)
+    return embeddings, pretrain_id_list
 
 
 def get_lower_case_name(text):
@@ -162,7 +181,6 @@ def pattern_to_vec_average(logparser_event_file, wordvec_path, pattern_vec_out_p
 
 
 def pattern_to_vec_tf_idf_from_log(logparser_event_file, wordvec_path, pattern_vec_out_path, variable_symbol):
-    data = load_vectors(wordvec_path)
     pattern_to_words = {}
     pattern_to_vectors = {}
     pattern_to_occurrences = {}
@@ -175,19 +193,28 @@ def pattern_to_vec_tf_idf_from_log(logparser_event_file, wordvec_path, pattern_v
         pattern_to_words[row['EventTemplate'].replace(variable_symbol, '').strip()] = wd_list
         pattern_to_occurrences[row['EventTemplate'].replace(variable_symbol, '').strip()] = row['Occurrences']
     print(pattern_to_words)
+    words_set = set()
+    for key in pattern_to_words.keys():
+        words_set.update(pattern_to_words[key])
+    words_list = list(words_set)
+    words_list.sort()
+    word2id = {}
+    id2word = {}
+    for i in range(len(words_list)):
+        word2id[words_list[i]] = i
+        id2word[i] = words_list[i]
+    word_embedding, pretrain_id_list = build_pretrained_embeddings(wordvec_path, 300, id2word, word2id)
     IDF = {}
     for key in pattern_to_words.keys():
         wd_list = pattern_to_words[key]
         pattern_vector = np.array([0.0 for _ in range(300)])
         word_used = 0
         for word in wd_list:
-            if not word in data.keys():
-                print('out of 0.1m words', ' ', word)
-            else:
+            if word2id[word] in pretrain_id_list:
                 word_used = word_used + 1
                 weight = wd_list.count(word) / 1.0 / len(pattern_to_words[key])
                 if word in IDF.keys():
-                    pattern_vector = pattern_vector + weight * IDF[word] * np.array(data[word])
+                    pattern_vector = pattern_vector + weight * IDF[word] * np.array(word_embedding[word2id[word]])
                 else:
                     pattern_occur_num = 0
                     for k in pattern_to_words.keys():
@@ -196,7 +223,71 @@ def pattern_to_vec_tf_idf_from_log(logparser_event_file, wordvec_path, pattern_v
                     IDF[word] = math.log10(log_num / 1.0 / pattern_occur_num)
                     # print('tf', weight, 'idf', IDF[word], word)
                     # print(data[word])
-                    pattern_vector = pattern_vector + weight * IDF[word] * np.array(data[word])
+                    pattern_vector = pattern_vector + weight * IDF[word] * np.array(word_embedding[word2id[word]])
+            else:
+                pattern_vector = pattern_vector + np.array(word_embedding[word2id[word]])
+                word_used = word_used + 1
+        pattern_to_vectors[key] = pattern_vector / word_used
+    numberid2vec = {}
+    for _, row in df.iterrows():
+        numberid2vec[row['numberID']] = pattern_to_vectors[
+            row['EventTemplate'].replace(variable_symbol, '').strip()].tolist()
+    json_str = json.dumps(numberid2vec)
+    with open(pattern_vec_out_path, 'w+') as file_obj:
+        file_obj.write(json_str)
+    return pattern_to_vectors
+
+
+def pattern_to_vec_tf_idf_advanced_from_log(logparser_event_file, wordvec_path, pattern_vec_out_path, variable_symbol):
+    pattern_to_words = {}
+    pattern_to_vectors = {}
+    pattern_to_occurrences = {}
+    datafile = open(logparser_event_file, 'r', encoding='UTF-8')
+    df = pd.read_csv(datafile)
+    # pattern_num = len(df)
+    log_num = 11175629
+    for _, row in df.iterrows():
+        wd_list = preprocess_pattern(row['EventTemplate'].replace(variable_symbol, '').strip())
+        pattern_to_words[row['EventTemplate'].replace(variable_symbol, '').strip()] = wd_list
+        pattern_to_occurrences[row['EventTemplate'].replace(variable_symbol, '').strip()] = row['Occurrences']
+    print(pattern_to_words)
+    words_set = set()
+    max_length_pattern = 0
+    for key in pattern_to_words.keys():
+        words_set.update(pattern_to_words[key])
+        if len(pattern_to_words[key]) > max_length_pattern:
+            max_length_pattern = len(pattern_to_words[key])
+    words_list = list(words_set)
+    words_list.sort()
+    word2id = {}
+    id2word = {}
+    for i in range(len(words_list)):
+        word2id[words_list[i]] = i
+        id2word[i] = words_list[i]
+    word_embedding, pretrain_id_list = build_pretrained_embeddings(wordvec_path, 300, id2word, word2id)
+    IDF = {}
+    for key in pattern_to_words.keys():
+        wd_list = pattern_to_words[key]
+        pattern_vector = np.array([0.0 for _ in range(300)])
+        word_used = 0
+        for word in wd_list:
+            if word2id[word] in pretrain_id_list:
+                word_used = word_used + 1
+                TF = math.log10(wd_list.count(word) / 1.0 / len(pattern_to_words[key]) * max_length_pattern)
+                if word in IDF.keys():
+                    pattern_vector = pattern_vector + TF * IDF[word] * np.array(word_embedding[word2id[word]])
+                else:
+                    pattern_occur_num = 0
+                    for k in pattern_to_words.keys():
+                        if word in pattern_to_words[k]:
+                            pattern_occur_num = pattern_occur_num + pattern_to_occurrences[key]
+                    IDF[word] = math.log10(log_num / 1.0 / pattern_occur_num)
+                    # print('tf', weight, 'idf', IDF[word], word)
+                    # print(data[word])
+                    pattern_vector = pattern_vector + TF * IDF[word] * np.array(word_embedding[word2id[word]])
+            else:
+                pattern_vector = pattern_vector + np.array(word_embedding[word2id[word]])
+                word_used = word_used + 1
         pattern_to_vectors[key] = pattern_vector / word_used
     numberid2vec = {}
     for _, row in df.iterrows():

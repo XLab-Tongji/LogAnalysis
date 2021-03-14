@@ -22,8 +22,9 @@ train_file_name = 'encoder_train_file'
 test_file_name = 'encoder_test_file'
 valid_file_name = 'encoder_valid_file'
 
-wordvec_file_path = './Data/pretrainedwordvec/crawl-300d-2M.vec(0.1M)'
-pattern_vec_out_path = train_root_path + 'pattern_vec(l-ti)'
+wordvec_file_path = './Data/pretrainedwordvec/crawl-300d-2M.vec'
+pattern_vec_out_path = train_root_path + 'pattern_vec(l-ti-advance)'
+#pattern_vec_out_path = train_root_path + 'pattern_vec(l-ti)'
 variable_symbol = '<*>'
 
 # my encoder
@@ -68,6 +69,8 @@ def extract_feature():
 def train_model():
     encoder_self_att_train.train_model(sequence_length, input_size, hidden_size, num_of_layers, num_of_classes, num_epochs, batch_size, train_root_path, model_out_path, train_file, pattern_vec_json, dropout, num_of_heads, pf_dim)
 
+def pattern_to_vec():
+    hdfs_selfatt_preprocessor.pattern_to_vec_tf_idf_from_log(logparser_event_file, wordvec_file_path, pattern_vec_out_path, variable_symbol)
 
 def test_model():
     # do something
@@ -76,9 +79,10 @@ def test_model():
 
 print(pattern_vec_out_path)
 
-set_seed(4) #4 98.094%
-#pattern_extract()
-#extract_feature()
+set_seed(1) #4 （98.094% 12.3修改之前的版本 也就是0.1m直接读的版本 没有用徐博的代码的那个版本）
+            #1  98.639% 修改后版本 全
+extract_feature()
+pattern_to_vec()
 train_model()
 test_model()
 
